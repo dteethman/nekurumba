@@ -7,7 +7,7 @@ class UDLoadableTimer {
     private var timer = Timer()
     private var isActive: Bool = false
     
-    fileprivate func launchTimer() {
+    private func launchTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] (timer) in
             currentTime.value += 1
             
@@ -16,6 +16,36 @@ class UDLoadableTimer {
                 if currentTime.value > interval { currentTime.value = interval }
             }
         })
+    }
+    
+    private func resetTimer() {
+        currentTime.value = 0
+        timer.invalidate()
+    }
+    
+    func start() {
+        isActive = true
+        resetTimer()
+        launchTimer()
+    }
+    
+    func pause() {
+        isActive = false
+        timer.invalidate()
+    }
+    
+    func resume() {
+        if currentTime.value < interval {
+            pause()
+            isActive = true
+            launchTimer()
+        }
+    }
+    
+    func stop() {
+        isActive = false
+        resetTimer()
+        timer.invalidate()
     }
     
     func saveToDefaults() {
@@ -63,36 +93,6 @@ class UDLoadableTimer {
             }
         }
         
-    }
-    
-    private func resetTimer() {
-        currentTime.value = 0
-        timer.invalidate()
-    }
-    
-    func start() {
-        isActive = true
-        resetTimer()
-        launchTimer()
-    }
-    
-    func pause() {
-        isActive = false
-        timer.invalidate()
-    }
-    
-    func resume() {
-        if currentTime.value < interval {
-            pause()
-            isActive = true
-            launchTimer()
-        }
-    }
-    
-    func stop() {
-        isActive = false
-        resetTimer()
-        timer.invalidate()
     }
     
 }
