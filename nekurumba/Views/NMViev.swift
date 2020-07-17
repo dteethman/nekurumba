@@ -189,6 +189,8 @@ class NMViev: UIView {
     private func layoutForConvex() {
         backgroundViewMask?.layer.masksToBounds = false
         
+        self.backgroundColor = .clear
+        
         topShadowLayer?.fillColor = UIColor.clear.cgColor
         topShadowLayer?.shadowColor = UIColor.white.cgColor
         topShadowLayer?.shadowOffset = CGSize(width: -6, height: -6)
@@ -214,6 +216,8 @@ class NMViev: UIView {
     
     private func layoutForConcave() {
         backgroundViewMask?.layer.masksToBounds = true
+        
+        self.backgroundColor = .clear
         
         topShadowLayer?.fillColor = UIColor.clear.cgColor
         topShadowLayer?.shadowColor = UIColor.black.cgColor
