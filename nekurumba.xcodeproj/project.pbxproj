@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,11 @@
 		42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8224C1CD6000D74068 /* HomeViewController.swift */; };
 		42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8324C1CD6000D74068 /* StatsViewController.swift */; };
 		42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8724C1CDE500D74068 /* NMViev.swift */; };
+		42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */; };
+		42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */; };
+		42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 42FA7D9024C2093E00D74068 /* AEConicalGradient */; };
+		42FA7D9324C2141100D74068 /* UsrDefSecTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */; };
+		42FA7D9524C2141700D74068 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9424C2141700D74068 /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +55,10 @@
 		42FA7D8224C1CD6000D74068 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		42FA7D8324C1CD6000D74068 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		42FA7D8724C1CDE500D74068 /* NMViev.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMViev.swift; sourceTree = "<group>"; };
+		42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMProgressViewWithButton.swift; sourceTree = "<group>"; };
+		42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsrDefSecTimer.swift; sourceTree = "<group>"; };
+		42FA7D9424C2141700D74068 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +131,8 @@
 		42FA7D7424C1CBE800D74068 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				42FA7D9424C2141700D74068 /* Box.swift */,
+				42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
 			);
 			path = Models;
@@ -129,6 +141,8 @@
 		42FA7D7524C1CBFA00D74068 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */,
+				42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */,
 				42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */,
 				42FA7D8724C1CDE500D74068 /* NMViev.swift */,
 			);
@@ -162,6 +176,9 @@
 			dependencies = (
 			);
 			name = nekurumba;
+			packageProductDependencies = (
+				42FA7D9024C2093E00D74068 /* AEConicalGradient */,
+			);
 			productName = nekurumba;
 			productReference = 42C5E73624C171100010F5FC /* nekurumba.app */;
 			productType = "com.apple.product-type.application";
@@ -189,6 +206,9 @@
 				Base,
 			);
 			mainGroup = 42C5E72D24C171100010F5FC;
+			packageReferences = (
+				42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */,
+			);
 			productRefGroup = 42C5E73724C171100010F5FC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -215,11 +235,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */,
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
 				42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */,
 				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
+				42FA7D9324C2141100D74068 /* UsrDefSecTimer.swift in Sources */,
 				42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */,
 				42FA7D8024C1CCDC00D74068 /* Colors.swift in Sources */,
+				42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */,
 				42C5E77E24C1794B0010F5FC /* E_UIViewController.swift in Sources */,
 				42C5E77C24C1794B0010F5FC /* E_UIImageView.swift in Sources */,
 				42FA7D7E24C1CC7D00D74068 /* TabItem.swift in Sources */,
@@ -227,6 +250,7 @@
 				42C5E73A24C171110010F5FC /* AppDelegate.swift in Sources */,
 				42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */,
 				42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */,
+				42FA7D9524C2141700D74068 /* Box.swift in Sources */,
 				42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */,
 				42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */,
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
@@ -427,6 +451,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tadija/AEConicalGradient.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		42FA7D9024C2093E00D74068 /* AEConicalGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */;
+			productName = AEConicalGradient;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		42C5E74224C171110010F5FC /* nekurumba.xcdatamodeld */ = {

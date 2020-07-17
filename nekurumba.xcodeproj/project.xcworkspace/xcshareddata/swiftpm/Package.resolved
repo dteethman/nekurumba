@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AEConicalGradient",
+        "repositoryURL": "https://github.com/tadija/AEConicalGradient.git",
+        "state": {
+          "branch": null,
+          "revision": "c6d5dec4772028c588ab88d8be4953ba89ceccbb",
+          "version": "2.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
