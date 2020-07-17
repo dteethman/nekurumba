@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = ViewController()
+            window?.rootViewController = TabBarController()
             window?.makeKeyAndVisible()
         }
         return true
