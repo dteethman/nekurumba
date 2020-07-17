@@ -29,7 +29,7 @@
 		42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */; };
 		42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */; };
 		42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 42FA7D9024C2093E00D74068 /* AEConicalGradient */; };
-		42FA7D9324C2141100D74068 /* UsrDefSecTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */; };
+		42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */; };
 		42FA7D9524C2141700D74068 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9424C2141700D74068 /* Box.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +57,7 @@
 		42FA7D8724C1CDE500D74068 /* NMViev.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMViev.swift; sourceTree = "<group>"; };
 		42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMProgressViewWithButton.swift; sourceTree = "<group>"; };
 		42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsrDefSecTimer.swift; sourceTree = "<group>"; };
+		42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLoadableTimer.swift; sourceTree = "<group>"; };
 		42FA7D9424C2141700D74068 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				42FA7D9424C2141700D74068 /* Box.swift */,
-				42FA7D9224C2141100D74068 /* UsrDefSecTimer.swift */,
+				42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
 			);
 			path = Models;
@@ -239,7 +239,7 @@
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
 				42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */,
 				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
-				42FA7D9324C2141100D74068 /* UsrDefSecTimer.swift in Sources */,
+				42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */,
 				42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */,
 				42FA7D8024C1CCDC00D74068 /* Colors.swift in Sources */,
 				42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */,
