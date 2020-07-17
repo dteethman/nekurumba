@@ -13,6 +13,11 @@
 		42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E74224C171110010F5FC /* nekurumba.xcdatamodeld */; };
 		42C5E74624C171110010F5FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C5E74524C171110010F5FC /* Assets.xcassets */; };
 		42C5E74924C171110010F5FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C5E74724C171110010F5FC /* LaunchScreen.storyboard */; };
+		42C5E77C24C1794B0010F5FC /* E_UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77724C1794A0010F5FC /* E_UIImageView.swift */; };
+		42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77824C1794A0010F5FC /* E_UIImage.swift */; };
+		42C5E77E24C1794B0010F5FC /* E_UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77924C1794A0010F5FC /* E_UIViewController.swift */; };
+		42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77A24C1794A0010F5FC /* E_UIView.swift */; };
+		42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77B24C1794B0010F5FC /* E_UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		42C5E74524C171110010F5FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42C5E74824C171110010F5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42C5E74A24C171110010F5FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42C5E77724C1794A0010F5FC /* E_UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIImageView.swift; sourceTree = "<group>"; };
+		42C5E77824C1794A0010F5FC /* E_UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIImage.swift; sourceTree = "<group>"; };
+		42C5E77924C1794A0010F5FC /* E_UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIViewController.swift; sourceTree = "<group>"; };
+		42C5E77A24C1794A0010F5FC /* E_UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIView.swift; sourceTree = "<group>"; };
+		42C5E77B24C1794B0010F5FC /* E_UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 		42C5E73824C171110010F5FC /* nekurumba */ = {
 			isa = PBXGroup;
 			children = (
+				42C5E77624C179360010F5FC /* Extensions */,
 				42C5E73924C171110010F5FC /* AppDelegate.swift */,
 				42C5E73B24C171110010F5FC /* SceneDelegate.swift */,
 				42C5E73D24C171110010F5FC /* ViewController.swift */,
@@ -65,6 +76,18 @@
 				42C5E74224C171110010F5FC /* nekurumba.xcdatamodeld */,
 			);
 			path = nekurumba;
+			sourceTree = "<group>";
+		};
+		42C5E77624C179360010F5FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				42C5E77B24C1794B0010F5FC /* E_UIColor.swift */,
+				42C5E77824C1794A0010F5FC /* E_UIImage.swift */,
+				42C5E77724C1794A0010F5FC /* E_UIImageView.swift */,
+				42C5E77A24C1794A0010F5FC /* E_UIView.swift */,
+				42C5E77924C1794A0010F5FC /* E_UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +160,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
+				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
 				42C5E73E24C171110010F5FC /* ViewController.swift in Sources */,
+				42C5E77E24C1794B0010F5FC /* E_UIViewController.swift in Sources */,
+				42C5E77C24C1794B0010F5FC /* E_UIImageView.swift in Sources */,
 				42C5E73A24C171110010F5FC /* AppDelegate.swift in Sources */,
+				42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */,
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
+				42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +309,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5UEXU9F7T3;
 				INFOPLIST_FILE = nekurumba/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -289,7 +317,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fullnabor.nekurumba;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -301,7 +329,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5UEXU9F7T3;
 				INFOPLIST_FILE = nekurumba/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,7 +337,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fullnabor.nekurumba;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
