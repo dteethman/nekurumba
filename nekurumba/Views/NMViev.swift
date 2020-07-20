@@ -20,6 +20,20 @@ class NMViev: UIView {
     public var isConvex: Bool = true {
         didSet {
             isConvex ? layoutForConvex() : layoutForConcave()
+            
+            if isConvex && foregroundView != nil {
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
+                    self.foregroundView?.alpha = 1
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                })
+            } else if foregroundView != nil {
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
+                    self.foregroundView?.alpha = 0
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                })
+            }
         }
     }
     
@@ -60,6 +74,7 @@ class NMViev: UIView {
         self.addSubview(foregroundView)
         
         isConvex ? layoutForConvex() : layoutForConcave()
+        foregroundView.alpha = isConvex ? 1 : 0
     }
     
     private func addShadowPaths(rect: CGRect) {
@@ -205,13 +220,7 @@ class NMViev: UIView {
         
         backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
         foregroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
-                self.foregroundView?.alpha = 1
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            })
-        }
+            
     }
     
     private func layoutForConcave() {
@@ -233,13 +242,7 @@ class NMViev: UIView {
         
         backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
         foregroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
-                self.foregroundView?.alpha = 0
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            })
-        }
+            
         
     }
     
