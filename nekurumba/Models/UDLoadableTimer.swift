@@ -9,11 +9,11 @@ class UDLoadableTimer {
     
     private func launchTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] (timer) in
-            currentTime.value += 1
+            self.currentTime.value += 1
             
-            if currentTime.value >= interval {
-                pause()
-                if currentTime.value > interval { currentTime.value = interval }
+            if self.currentTime.value >= self.interval {
+                self.pause()
+                if self.currentTime.value > self.interval { self.currentTime.value = self.interval }
             }
         })
     }

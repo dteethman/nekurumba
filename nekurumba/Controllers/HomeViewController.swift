@@ -35,14 +35,14 @@ class HomeViewController: UIViewController {
         smokeTimer.currentTime.value = 2
         smokeTimer.defaultsKey = "firstTimer"
         smokeTimer.currentTime.bind { [unowned self] in
-            timerView.progressBar.progress = CGFloat(1 - ($0 / smokeTimer.interval))
-            let remainingTime = smokeTimer.interval - $0
-            if $0 >= smokeTimer.interval {
-                timerView.changeButtonTitle("🚬", font: UIFont.systemFont(ofSize: 60))
-                timerView.activateButton()
+            self.timerView.progressBar.progress = CGFloat(1 - ($0 / self.smokeTimer.interval))
+            let remainingTime = self.smokeTimer.interval - $0
+            if $0 >= self.smokeTimer.interval {
+                self.timerView.changeButtonTitle("🚬", font: UIFont.systemFont(ofSize: 60))
+                self.timerView.activateButton()
             } else {
-                timerView.changeButtonTitle(remainingTime.timeString, font: UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold))
-                timerView.deactivateButton()
+                self.timerView.changeButtonTitle(remainingTime.timeString, font: UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold))
+                self.timerView.deactivateButton()
             }
         }
         
