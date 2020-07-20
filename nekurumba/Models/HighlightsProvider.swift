@@ -140,7 +140,7 @@ class HighlightsProvider {
             resStr += multipleEnd
         }
         
-        if number % 100 == 11 || number % 100 == 11 {
+        if number % 100 >= 11 &&  number % 100 <= 14 {
             resStr = root + multipleEnd
         }
         
