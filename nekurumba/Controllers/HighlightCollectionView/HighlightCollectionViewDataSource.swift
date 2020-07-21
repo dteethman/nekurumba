@@ -19,5 +19,9 @@ class HighlightCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     
 }
