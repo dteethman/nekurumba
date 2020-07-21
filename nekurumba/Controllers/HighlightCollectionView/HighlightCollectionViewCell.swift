@@ -29,6 +29,7 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .clear
         bgView.translatesAutoresizingMaskIntoConstraints = false
         bgView.bgColors = bgColors
         bgView.cornerRadius = 10
