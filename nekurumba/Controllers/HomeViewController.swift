@@ -71,6 +71,7 @@ class HomeViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         let timerViewHeight = min(screenWidth - 60, screenHeight - 340)
+        let highlightHeight: CGFloat = screenHeight < 800 ? 110 : 220
         self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
         
         let safeGuide = view.safeAreaLayoutGuide
@@ -108,6 +109,9 @@ class HomeViewController: UIViewController {
         highlightCollectionViewLayout = UICollectionViewFlowLayout()
         highlightCollectionViewLayout.scrollDirection = .horizontal
         highlightCollectionViewLayout.minimumLineSpacing = 0
+        highlightCollectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        highlightCollectionViewLayout.minimumInteritemSpacing = 0
+        highlightCollectionViewLayout.sectionInsetReference = .fromContentInset
         
         highlightCollectionView = UICollectionView(frame: .zero,
                                                    collectionViewLayout: highlightCollectionViewLayout)
@@ -143,10 +147,10 @@ class HomeViewController: UIViewController {
             highlightsLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 20),
             highlightsLabel.heightAnchor.constraint(equalToConstant: 34),
             
-            highlightCollectionView.topAnchor.constraint(equalTo: highlightsLabel.bottomAnchor, constant: 12),
+            highlightCollectionView.topAnchor.constraint(equalTo: highlightsLabel.bottomAnchor, constant: -5),
             highlightCollectionView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 10),
             highlightCollectionView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 10),
-            highlightCollectionView.heightAnchor.constraint(equalToConstant: 110),
+            highlightCollectionView.heightAnchor.constraint(equalToConstant: highlightHeight),
         ])
     }
     
@@ -162,8 +166,6 @@ class HomeViewController: UIViewController {
         yesterdayData = statsManager.dataForDay(year: calendar.component(.year, from: today.dayBefore),
                                                 month: calendar.component(.month, from: today.dayBefore),
                                                 day: calendar.component(.day, from: today.dayBefore))
-        
-        print(todayData)
         
         var highlights: [HighlightData] = []
         
@@ -183,17 +185,14 @@ class HomeViewController: UIViewController {
     }
     
     @objc func viewWillResignActive() {
-        print("viewWillResignActive")
         smokeTimer.saveToDefaults()
     }
     
     @objc func viewWillEnterForeground() {
-        print("viewWillEnterForeground")
         smokeTimer.loadFromDefaults()
     }
     
     @objc func viewWillTerminate() {
-        print("viewWillTerminate")
         smokeTimer.saveToDefaults()
     }
     
