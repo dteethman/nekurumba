@@ -12,22 +12,28 @@ class HighlightsProvider {
             let todayCount = todayData!.count
             let yesterdayCount = yesterdayData!.count
             
-            let mark = todayCount < yesterdayCount ? true : false
+            var mark = todayCount < yesterdayCount ? true : false
             let difference = abs(todayCount - yesterdayCount)
             
-            let smokedStr = getNounByNumber(root: "выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ", number: todayCount)
-            let cigStr = getNounByNumber(root: "сигарет", singleEnd: "а ", dualEnd: "ы ", multipleEnd: " ", number: todayCount)
-            
+            var smokedStr = "Сегодня " + getNounByNumber(root: "выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ", number: todayCount)
+            var cigStr = "\(todayCount) " + getNounByNumber(root: "сигарет", singleEnd: "а ", dualEnd: "ы ", multipleEnd: " ", number: todayCount)
             
             let textColor = isDarkMode ? UIColor.white : UIColor.black
-            let firstAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: textColor]
-            let firstStr = NSMutableAttributedString(string:  "Сегодня \(smokedStr)", attributes: firstAtr)
-            let secondAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: UIColor.systemPink]
+            
+            if todayCount == 0 {
+                smokedStr = "Сегодня не выкурено "
+                cigStr = "ни одной сигареты"
+                mark = true
+            }
+            
+            let blackAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: textColor]
+            let blackStr = NSMutableAttributedString(string:  smokedStr, attributes: blackAtr)
+            let coloredAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: UIColor.systemPink]
 
-            let secondStr = NSMutableAttributedString(string: "\(todayCount) \(cigStr)", attributes: secondAtr)
+            let coloredStr = NSMutableAttributedString(string: cigStr, attributes: coloredAtr)
             let titleStr = NSMutableAttributedString()
-            titleStr.append(firstStr)
-            titleStr.append(secondStr)
+            titleStr.append(blackStr)
+            titleStr.append(coloredStr)
             
             var textStr = "Это "
             if mark {
@@ -37,6 +43,14 @@ class HighlightsProvider {
                     textStr.append("на \(difference) больше, чем вчера")
                 } else {
                     textStr.append("столько же, сколько и вчера")
+                }
+            }
+            
+            if todayCount == 0 {
+                if difference == 0 {
+                    textStr = "И вчера тоже!"
+                } else {
+                    textStr = "А вчера — \(yesterdayCount)!"
                 }
             }
             
@@ -60,7 +74,6 @@ class HighlightsProvider {
             var avgInterval: Int = 0
             for i in 0 ..< todayData!.count - 1 {
                 let interval = ((todayData![i + 1].hour) * 60 + (todayData![i + 1].minute)) - ((todayData![i].hour) * 60 + (todayData![i].minute))
-                print(interval)
                 intervals.append(Int(interval))
                 avgInterval += Int(interval)
             }
@@ -120,8 +133,6 @@ class HighlightsProvider {
                     textStr.append("Как и запланированный интервал")
                 }
             }
-            
-            print(avgInterval, diffTimeStr)
             
             return HighlightData(title: titleStr, text: textStr, mark: mark)
         } else {
