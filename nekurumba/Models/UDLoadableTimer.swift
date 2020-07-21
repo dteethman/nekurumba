@@ -75,18 +75,15 @@ class UDLoadableTimer {
             if isActive {
                 let deltaTime = Double(Int(curentDate - resignDate))
                 if currentTime.value + deltaTime >= interval {
-                    print("loaded \(resignDate), interval < delta, delta: \(deltaTime)")
                     currentTime.value = interval
                     pause()
                     saveToDefaults()
                 } else {
-                    print("loaded \(resignDate), interval > delta, delta: \(deltaTime)")
                     currentTime.value += deltaTime
                     resume()
                     saveToDefaults()
                 }
             } else {
-                print("loaded inactie")
                 currentTime.value = interval
                 pause()
                 saveToDefaults()

@@ -127,7 +127,6 @@ class NMProgressViewWithButton: UIView {
     
     @objc private func touchDownRepeatAction(_ sender: UIButton!) {
         buttonTouchDownRepeat?()
-        print("buttonTouchDownRepeat")
     }
     
     @objc private func touchDragInsideAction(_ sender: UIButton!) {
