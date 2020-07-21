@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		42560BBF24C32AF600A17AD9 /* StatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560BBE24C32AF600A17AD9 /* StatsProvider.swift */; };
+		425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */; };
+		425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274C24C679C200AE8C7B /* SegmentItem.swift */; };
 		42B885B124C4DDC3007924A6 /* HighlightsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */; };
 		42B885BD24C4E080007924A6 /* HighlightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */; };
 		42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */; };
@@ -42,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		42560BBE24C32AF600A17AD9 /* StatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsProvider.swift; sourceTree = "<group>"; };
+		425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMSegmentedControl.swift; sourceTree = "<group>"; };
+		425C274C24C679C200AE8C7B /* SegmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItem.swift; sourceTree = "<group>"; };
 		42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsProvider.swift; sourceTree = "<group>"; };
 		42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewCell.swift; sourceTree = "<group>"; };
 		42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 				42FA7D9424C2141700D74068 /* Box.swift */,
 				42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
+				425C274C24C679C200AE8C7B /* SegmentItem.swift */,
 				42560BBE24C32AF600A17AD9 /* StatsProvider.swift */,
 				42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */,
 			);
@@ -169,6 +174,7 @@
 		42FA7D7524C1CBFA00D74068 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
 				42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */,
 				42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */,
 				42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */,
@@ -182,8 +188,8 @@
 			children = (
 				42FA7D8224C1CD6000D74068 /* HomeViewController.swift */,
 				42B885B924C4E06B007924A6 /* HighlightCollectionView */,
-				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D8324C1CD6000D74068 /* StatsViewController.swift */,
+				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D7924C1CC6300D74068 /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -264,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */,
 				42FA7D9924C2398D00D74068 /* CoreDataManager.swift in Sources */,
 				42B885B124C4DDC3007924A6 /* HighlightsProvider.swift in Sources */,
 				42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */,
@@ -289,6 +296,7 @@
 				42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */,
 				42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */,
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
+				425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */,
 				42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */,
 				42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */,
 				42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */,
