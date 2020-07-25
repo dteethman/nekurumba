@@ -9,6 +9,15 @@
           "revision": "c6d5dec4772028c588ab88d8be4953ba89ceccbb",
           "version": "2.1.1"
         }
+      },
+      {
+        "package": "Charts",
+        "repositoryURL": "https://github.com/danielgindi/Charts.git",
+        "state": {
+          "branch": null,
+          "revision": "7ac4a05e83d279bac305a472af9128c2a0eca3d7",
+          "version": "3.5.0"
+        }
       }
     ]
   },

@@ -10,6 +10,12 @@
 		42560BBF24C32AF600A17AD9 /* StatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560BBE24C32AF600A17AD9 /* StatsProvider.swift */; };
 		425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */; };
 		425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274C24C679C200AE8C7B /* SegmentItem.swift */; };
+		426E55D724C9D661004F9BD9 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 426E55D624C9D661004F9BD9 /* Charts */; settings = {ATTRIBUTES = (Required, ); }; };
+		42A6536324CB104A00681D8F /* StatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536224CB104A00681D8F /* StatData.swift */; };
+		42A6536624CB199F00681D8F /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536524CB199F00681D8F /* StatsTableViewCell.swift */; };
+		42A6536824CB19B900681D8F /* NMLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536724CB19B900681D8F /* NMLineChartView.swift */; };
+		42A6536A24CB1A6C00681D8F /* StatsTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536924CB1A6C00681D8F /* StatsTableViewDelegate.swift */; };
+		42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536B24CB1A8800681D8F /* StatsTableViewDataSource.swift */; };
 		42B885B124C4DDC3007924A6 /* HighlightsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */; };
 		42B885BD24C4E080007924A6 /* HighlightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */; };
 		42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */; };
@@ -46,6 +52,11 @@
 		42560BBE24C32AF600A17AD9 /* StatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsProvider.swift; sourceTree = "<group>"; };
 		425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMSegmentedControl.swift; sourceTree = "<group>"; };
 		425C274C24C679C200AE8C7B /* SegmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItem.swift; sourceTree = "<group>"; };
+		42A6536224CB104A00681D8F /* StatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatData.swift; sourceTree = "<group>"; };
+		42A6536524CB199F00681D8F /* StatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
+		42A6536724CB19B900681D8F /* NMLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMLineChartView.swift; sourceTree = "<group>"; };
+		42A6536924CB1A6C00681D8F /* StatsTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewDelegate.swift; sourceTree = "<group>"; };
+		42A6536B24CB1A8800681D8F /* StatsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewDataSource.swift; sourceTree = "<group>"; };
 		42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsProvider.swift; sourceTree = "<group>"; };
 		42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewCell.swift; sourceTree = "<group>"; };
 		42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -85,12 +96,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */,
+				426E55D724C9D661004F9BD9 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42A6536424CB196D00681D8F /* StatsTableView */ = {
+			isa = PBXGroup;
+			children = (
+				42A6536524CB199F00681D8F /* StatsTableViewCell.swift */,
+				42A6536924CB1A6C00681D8F /* StatsTableViewDelegate.swift */,
+				42A6536B24CB1A8800681D8F /* StatsTableViewDataSource.swift */,
+			);
+			path = StatsTableView;
+			sourceTree = "<group>";
+		};
 		42B885B924C4E06B007924A6 /* HighlightCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,12 +183,13 @@
 			isa = PBXGroup;
 			children = (
 				42FA7D9824C2398D00D74068 /* CoreDataManager.swift */,
+				42560BBE24C32AF600A17AD9 /* StatsProvider.swift */,
+				42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */,
 				42FA7D9424C2141700D74068 /* Box.swift */,
 				42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
 				425C274C24C679C200AE8C7B /* SegmentItem.swift */,
-				42560BBE24C32AF600A17AD9 /* StatsProvider.swift */,
-				42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */,
+				42A6536224CB104A00681D8F /* StatData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -174,11 +197,12 @@
 		42FA7D7524C1CBFA00D74068 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42FA7D8724C1CDE500D74068 /* NMViev.swift */,
+				42A6536724CB19B900681D8F /* NMLineChartView.swift */,
 				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
 				42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */,
 				42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */,
 				42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */,
-				42FA7D8724C1CDE500D74068 /* NMViev.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +213,7 @@
 				42FA7D8224C1CD6000D74068 /* HomeViewController.swift */,
 				42B885B924C4E06B007924A6 /* HighlightCollectionView */,
 				42FA7D8324C1CD6000D74068 /* StatsViewController.swift */,
+				42A6536424CB196D00681D8F /* StatsTableView */,
 				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D7924C1CC6300D74068 /* TabBarController.swift */,
 			);
@@ -213,6 +238,7 @@
 			name = nekurumba;
 			packageProductDependencies = (
 				42FA7D9024C2093E00D74068 /* AEConicalGradient */,
+				426E55D624C9D661004F9BD9 /* Charts */,
 			);
 			productName = nekurumba;
 			productReference = 42C5E73624C171100010F5FC /* nekurumba.app */;
@@ -243,6 +269,7 @@
 			mainGroup = 42C5E72D24C171100010F5FC;
 			packageReferences = (
 				42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */,
+				426E55D524C9D661004F9BD9 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 42C5E73724C171100010F5FC /* Products */;
 			projectDirPath = "";
@@ -270,10 +297,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42A6536324CB104A00681D8F /* StatData.swift in Sources */,
 				425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */,
+				42A6536A24CB1A6C00681D8F /* StatsTableViewDelegate.swift in Sources */,
 				42FA7D9924C2398D00D74068 /* CoreDataManager.swift in Sources */,
 				42B885B124C4DDC3007924A6 /* HighlightsProvider.swift in Sources */,
 				42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */,
+				42A6536624CB199F00681D8F /* StatsTableViewCell.swift in Sources */,
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
 				42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */,
 				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
@@ -292,12 +322,14 @@
 				42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */,
 				42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */,
 				42FA7D9524C2141700D74068 /* Box.swift in Sources */,
+				42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */,
 				42B885C124C4EB91007924A6 /* E_Date.swift in Sources */,
 				42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */,
 				42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */,
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
 				425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */,
 				42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */,
+				42A6536824CB19B900681D8F /* NMLineChartView.swift in Sources */,
 				42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */,
 				42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */,
 			);
@@ -497,6 +529,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		426E55D524C9D661004F9BD9 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.5.0;
+			};
+		};
 		42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tadija/AEConicalGradient.git";
@@ -508,6 +548,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		426E55D624C9D661004F9BD9 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 426E55D524C9D661004F9BD9 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		42FA7D9024C2093E00D74068 /* AEConicalGradient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 42FA7D8F24C2093E00D74068 /* XCRemoteSwiftPackageReference "AEConicalGradient" */;
