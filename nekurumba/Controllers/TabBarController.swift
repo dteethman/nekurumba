@@ -4,6 +4,7 @@ class TabBarController: UITabBarController {
     
     var customTabBar: TabNavigationView!
     var tabBarHeight: CGFloat = 67.0
+    var controllers = [UIViewController]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class TabBarController: UITabBarController {
         let frame = CGRect(x: tabBar.frame.origin.x + 20, y: tabBar.frame.origin.y, width: tabBar.frame.width - 40, height: tabBar.frame.height)
         
         let safeGuide = view.safeAreaLayoutGuide
-        var controllers = [UIViewController]()
+        
         
         // hide the tab bar
         tabBar.isHidden = true
@@ -65,6 +66,9 @@ class TabBarController: UITabBarController {
     
     func changeTab(tab: Int) {
         self.selectedIndex = tab
+        if tab == 1 {
+            (controllers[tab] as! StatsViewController).updateData()
+        }
     }
     
 }
