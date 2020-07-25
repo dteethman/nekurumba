@@ -120,7 +120,6 @@ class NMLineChartView: UIView {
         chartView.xAxis.axisLineColor = .clear
         chartView.xAxis.avoidFirstLastClippingEnabled = true
         chartView.xAxis.granularity = granularity
-        print(chartView.xAxis.granularity)
         if xAxisLabels != nil {
             chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xAxisLabels!)
             chartView.xAxis.setLabelCount(xAxisLabels!.count, force: false)
