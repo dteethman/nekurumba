@@ -20,8 +20,36 @@ class CoreDataManager {
     let persistentContainer = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     lazy var context = persistentContainer?.viewContext
     
-    func loadData() -> [SmokeTracker]? {
+    func loadAllData() -> [SmokeTracker]? {
         let fetchRequest: NSFetchRequest<SmokeTracker> = SmokeTracker.fetchRequest()
+        
+        if let objects = try? context!.fetch(fetchRequest) as [SmokeTracker] {
+            return objects
+        } else {
+            return nil
+        }
+    }
+    
+    func loadForDate(year: Int, month: Int, day: Int) -> [SmokeTracker]? {
+        let fetchRequest: NSFetchRequest<SmokeTracker> = SmokeTracker.fetchRequest()
+        
+        let yearPredicate = NSPredicate(format: "year == %d", Int32(year))
+        let monthPredicate = NSPredicate(format: "month == %d", Int32(month))
+        let dayPredicate = NSPredicate(format: "day == %d", Int32(day))
+        
+        let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [dayPredicate, monthPredicate, yearPredicate])
+        
+        let sortDescriptors = [
+            NSSortDescriptor(key: "year", ascending: true),
+            NSSortDescriptor(key: "month", ascending: true),
+            NSSortDescriptor(key: "day", ascending: true),
+            NSSortDescriptor(key: "hour", ascending: true),
+            NSSortDescriptor(key: "minute", ascending: true),
+            
+        ]
+        
+        fetchRequest.predicate = andPredicate
+        fetchRequest.sortDescriptors = sortDescriptors
         
         if let objects = try? context!.fetch(fetchRequest) as [SmokeTracker] {
             return objects
@@ -50,5 +78,15 @@ class CoreDataManager {
         tracker.setValue(minute, forKey: "minute")
         
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    }
+    
+    func printSmokeData(_ data: [SmokeTracker]?) {
+        if data != nil {
+            for d in data! {
+                print(d.year, d.month, d.day, d.hour, d.minute)
+            }
+        } else {
+            print("data id nil")
+        }
     }
 }
