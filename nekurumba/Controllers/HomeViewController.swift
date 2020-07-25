@@ -159,11 +159,11 @@ class HomeViewController: UIViewController {
         let today = Date()
         let calendar = Calendar.current
         
-        todayData = statsManager.dataForDay(year: calendar.component(.year, from: today),
+        todayData = coreDataManager.loadForDate(year: calendar.component(.year, from: today),
                                             month: calendar.component(.month, from: today),
                                             day: calendar.component(.day, from: today))
         
-        yesterdayData = statsManager.dataForDay(year: calendar.component(.year, from: today.dayBefore),
+        yesterdayData = coreDataManager.loadForDate(year: calendar.component(.year, from: today.dayBefore),
                                                 month: calendar.component(.month, from: today.dayBefore),
                                                 day: calendar.component(.day, from: today.dayBefore))
         
