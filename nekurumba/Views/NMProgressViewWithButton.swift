@@ -52,7 +52,6 @@ class NMProgressViewWithButton: UIView {
         self.addSubview(timerBackgroundView)
         
         buttonBackgroundView = NMViev()
-        buttonBackgroundView.cornerRadius = 110
         buttonBackgroundView.isConvex = true
         buttonBackgroundView.bgColors = bgColors
         buttonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,11 +112,22 @@ class NMProgressViewWithButton: UIView {
     }
     
     public func activateButton() {
-        button.isEnabled = true
+        if !(button.isEnabled) {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [self] in
+                button.backgroundColor = .clear
+            }, completion: nil)
+            button.isEnabled = true
+        }
+        
     }
     
     public func deactivateButton() {
-        button.isEnabled = false
+        if button.isEnabled {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: { [self] in
+                button.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.2)
+            }, completion: nil)
+            button.isEnabled = false
+        }
     }
     
     @objc private func touchDownAction(_ sender: UIButton!) {
