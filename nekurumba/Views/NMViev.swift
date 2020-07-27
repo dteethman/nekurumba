@@ -43,6 +43,11 @@ class NMViev: UIView {
     private var backgroundView: UIView!
     private var foregroundView: UIView!
     
+    private var topShadowOffset = (convex: CGSize(width: -6, height: -6), concave: CGSize(width: 0, height: 0))
+    private var bottomShadowOffset = (convex: CGSize(width: 6, height: 6), concave: CGSize(width: 0, height: 0))
+    private var topShadowColor = (convex: UIColor.white.cgColor, concave: UIColor.black.cgColor)
+    private var bottomShadowColor = (convex: UIColor.black.cgColor, concave: UIColor.white.cgColor)
+    private var shadowRadius: CGFloat = 6
     
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else {
@@ -207,15 +212,15 @@ class NMViev: UIView {
         self.backgroundColor = .clear
         
         topShadowLayer?.fillColor = UIColor.clear.cgColor
-        topShadowLayer?.shadowColor = UIColor.white.cgColor
-        topShadowLayer?.shadowOffset = CGSize(width: -6, height: -6)
-        topShadowLayer?.shadowRadius = 10
+        topShadowLayer?.shadowColor = topShadowColor.convex
+        topShadowLayer?.shadowOffset = topShadowOffset.convex
+        topShadowLayer?.shadowRadius = shadowRadius
         topShadowLayer?.shadowOpacity = isDarkMode() ? 0.1 : 0.8
 
         bottomShadowLayer?.fillColor = UIColor.clear.cgColor
-        bottomShadowLayer?.shadowColor = UIColor.black.cgColor
-        bottomShadowLayer?.shadowOffset = CGSize(width: 6, height: 6)
-        bottomShadowLayer?.shadowRadius = 10
+        bottomShadowLayer?.shadowColor = bottomShadowColor.convex
+        bottomShadowLayer?.shadowOffset = bottomShadowOffset.convex
+        bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.5 : 0.2
         
         backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
@@ -229,15 +234,15 @@ class NMViev: UIView {
         self.backgroundColor = .clear
         
         topShadowLayer?.fillColor = UIColor.clear.cgColor
-        topShadowLayer?.shadowColor = UIColor.black.cgColor
-        topShadowLayer?.shadowOffset = CGSize(width: 0, height: 0)
-        topShadowLayer?.shadowRadius = 10
+        topShadowLayer?.shadowColor = topShadowColor.concave
+        topShadowLayer?.shadowOffset = topShadowOffset.concave
+        topShadowLayer?.shadowRadius = shadowRadius
         topShadowLayer?.shadowOpacity = isDarkMode() ? 0.5 : 0.2
         
         bottomShadowLayer?.fillColor = UIColor.clear.cgColor
-        bottomShadowLayer?.shadowColor = UIColor.white.cgColor
-        bottomShadowLayer?.shadowOffset = CGSize(width: 0, height: 0)
-        bottomShadowLayer?.shadowRadius = 10
+        bottomShadowLayer?.shadowColor = bottomShadowColor.concave
+        bottomShadowLayer?.shadowOffset = bottomShadowOffset.concave
+        bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.1 : 0.8
         
         backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
