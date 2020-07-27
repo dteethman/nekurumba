@@ -43,6 +43,7 @@ class StatsProvider {
         if let tracks = dataManager.loadForDate(year: year, month: month, day: day) {
             var statsDataEntry: [ChartDataEntry] = []
             var labels: [String] = []
+            var isMoreThanHundred = false
             
             if tracks.count <= 2 {
                 return nil
@@ -53,7 +54,14 @@ class StatsProvider {
                 let dataEntry = ChartDataEntry(x: Double(i), y: Double(interval))
                 statsDataEntry.append(dataEntry)
                 labels.append("\(i + 1)")
+                if interval > 100 {
+                    isMoreThanHundred = true
+                }
             
+            }
+            
+            if isMoreThanHundred {
+                statsDataEntry = statsDataEntry.map(minutesToHours(_:))
             }
             
             return StatData(statsDataEntry: statsDataEntry, labelText: "Длина перерыва", xAxisLabels: labels, granularity: 1)
@@ -140,9 +148,9 @@ class StatsProvider {
             let fromDate = userCalendar.date(from: dateComponents)
             
             var curDate = fromDate?.addingTimeInterval(-6 * 24 * 60 * 60)
-            
             var statsDataEntry: [ChartDataEntry] = []
             var labels: [String] = []
+            var isMoreThanHundred = false
             
             statsDataEntry.append(ChartDataEntry(x: 0, y: 0))
             labels.append("")
@@ -162,6 +170,11 @@ class StatsProvider {
                                 avgInterval += interval
                             }
                             avgInterval /= tracks.count
+                            
+                            if avgInterval > 100 {
+                                isMoreThanHundred = true
+                            }
+                            
                             let dataEntry = ChartDataEntry(x: Double(i + 1), y: Double(avgInterval))
                             statsDataEntry.append(dataEntry)
                         }
@@ -196,6 +209,11 @@ class StatsProvider {
             }
             statsDataEntry.append(ChartDataEntry(x: 8, y: 0))
             labels.append("")
+            
+            if isMoreThanHundred {
+                statsDataEntry = statsDataEntry.map(minutesToHours(_:))
+            }
+            
             return StatData(statsDataEntry: statsDataEntry, labelText: "Средняя длина перерыва", xAxisLabels: labels, granularity: 1)
         } else {
             return nil
@@ -264,6 +282,7 @@ class StatsProvider {
             
             var statsDataEntry: [ChartDataEntry] = []
             var labels: [String] = []
+            var isMoreThanHundred = false
             
             for i in 0 ... 30 {
                 if let date = curDate {
@@ -280,6 +299,11 @@ class StatsProvider {
                                 avgInterval += interval
                             }
                             avgInterval /= tracks.count
+                            
+                            if avgInterval > 100 {
+                                isMoreThanHundred = true
+                            }
+                            
                             let dataEntry = ChartDataEntry(x: Double(i), y: Double(avgInterval))
                             statsDataEntry.append(dataEntry)
                         }
@@ -299,10 +323,20 @@ class StatsProvider {
                     return nil
                 }
             }
+            
+            if isMoreThanHundred {
+                statsDataEntry = statsDataEntry.map(minutesToHours(_:))
+            }
+            
             return StatData(statsDataEntry: statsDataEntry, labelText: "Средняя длина перерыва", xAxisLabels: labels, granularity: 10)
         } else {
             return nil
         }
+    }
+    
+    private func minutesToHours(_ data: ChartDataEntry) -> ChartDataEntry {
+        let minutses = data.y / 60
+        return ChartDataEntry(x: data.x, y: minutses)
     }
     
 }
