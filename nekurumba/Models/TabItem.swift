@@ -12,7 +12,7 @@ enum TabItem: String, CaseIterable {
         case .stats:
             return StatsViewController()
         case .settings:
-            return SettingsViewController()
+            return UINavigationController(rootViewController: SettingsViewController()) 
         }
     }
     
