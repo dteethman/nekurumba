@@ -11,16 +11,32 @@ class ProgressBarView: UIView {
     private var startCapLayer: CAShapeLayer!
     private var endCapLayer: CAShapeLayer!
     private var endCapShadowLayer: CAGradientLayer!
+    private var endCapPickerLayer: CAShapeLayer!
     
     public var startGradienttColor: UIColor = .red
     public var endGradientColor: UIColor = .orange
     public var backgroundLayerColor: UIColor = .lightGray
+    public var endCapPickerColor: UIColor? = nil {
+        didSet {
+            if let color = endCapPickerColor {
+                endCapLayer?.strokeColor = color.cgColor
+            }
+        }
+    }
     
     public var coloredBackgroundLayer = false
     public var transparentBackgroundLayer = false
     public var disableText = false
     
-    public var lineWidth: CGFloat = 0
+    public var lineWidth: CGFloat = 0 {
+        didSet {
+            if backgroundLayer != nil {
+                self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+                setupViews(self.layer.bounds)
+            }
+        }
+    }
+    
     public var animationDuration: CFTimeInterval = 0.30
     
     public var progress: CGFloat = 0 {
@@ -35,6 +51,10 @@ class ProgressBarView: UIView {
           return
         }
         
+        setupViews(rect)
+    }
+    
+    private func setupViews(_ rect: CGRect) {
         self.backgroundColor = .clear
         self.layer.backgroundColor = UIColor.clear.cgColor
         
@@ -48,6 +68,8 @@ class ProgressBarView: UIView {
         
         foregroundLayer = createCircularLayer(rect: rect, strokeColor: UIColor.red.cgColor,
                                               fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
+        
+        textLayer = createTextLayer(rect: rect, textColor: UIColor.black.cgColor)
         
         textLayer?.foregroundColor = isDarkMode() ? UIColor.white.cgColor : UIColor.black.cgColor
         
@@ -73,9 +95,12 @@ class ProgressBarView: UIView {
                                            strokeColor: UIColor.clear.cgColor, fillColor: startGradienttColor.cgColor)
         
         endCapLayer = createLineCapLayer(rect: rect, lineWidth: lineWidth,
-                                           strokeColor: UIColor.clear.cgColor, fillColor: endGradientColor.cgColor)
+                                         strokeColor: UIColor.clear.cgColor, fillColor: endGradientColor.cgColor)
         
         endCapShadowLayer = createLineCapShadowLayer(rect: rect, lineWidth: lineWidth)
+        
+        endCapPickerLayer = createLineCapPickerLayer(rect: rect, lineWidth: lineWidth,
+                                                     strokeColor: UIColor.clear.cgColor, fillColor: UIColor.clear.cgColor)
         
         foregroundLayer.strokeEnd = progress
         
@@ -91,11 +116,17 @@ class ProgressBarView: UIView {
         layer.addSublayer(startCapLayer)
         layer.addSublayer(endCapShadowLayer)
         layer.addSublayer(endCapLayer)
-        
+        layer.addSublayer(endCapPickerLayer)
         
         endCapLayer.fillColor = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: progress).cgColor
+        
+        if let color = endCapPickerColor {
+            endCapPickerLayer.strokeColor = color.cgColor
+        }
+        
         endCapLayer.frame.origin = getEndCapPoint(rect: rect, lineWidth: lineWidth, progress: progress)
         endCapShadowLayer.frame.origin = getEndCapPoint(rect: rect, lineWidth: lineWidth, progress: progress + 0.007)
+        endCapPickerLayer.frame.origin = getEndCapPoint(rect: rect, lineWidth: lineWidth, progress: progress)
     }
     
     private func createCircularLayer(rect: CGRect, strokeColor: CGColor, fillColor: CGColor,
@@ -168,6 +199,32 @@ class ProgressBarView: UIView {
         return shapeLayer
     }
     
+    private func createLineCapPickerLayer(rect: CGRect, lineWidth: CGFloat,
+                                    strokeColor: CGColor, fillColor: CGColor) -> CAShapeLayer {
+        let width = rect.width
+        
+        let center = CGPoint(x: lineWidth / 2, y: lineWidth / 2)
+        let radius = lineWidth / 4
+        
+        let startAndle = -CGFloat.pi / 2
+        let endAngle = startAndle + (CGFloat.pi * 2)
+        
+        let circularPath = UIBezierPath(arcCenter: center, radius: radius,
+                                        startAngle: startAndle, endAngle: endAngle,
+                                        clockwise: true)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circularPath.cgPath
+        
+        shapeLayer.fillColor = fillColor
+        shapeLayer.strokeColor = strokeColor
+        shapeLayer.lineWidth = lineWidth / 2 - 8
+        shapeLayer.frame = CGRect(x: width / 2 - lineWidth / 2, y: 0, width: lineWidth, height: lineWidth)
+        shapeLayer.lineCap = .round
+        
+        return shapeLayer
+    }
+    
     private func createLineCapShadowLayer(rect: CGRect, lineWidth: CGFloat) -> CAGradientLayer {
         let width = rect.width
         
@@ -207,6 +264,7 @@ class ProgressBarView: UIView {
             animateEndCapColor(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
             animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
             animateEndCap(startPosition: prevProgress + 0.007, endPosition: progress + 0.007, layer: endCapShadowLayer)
+            animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapPickerLayer)
             animateStrokeEnd(startPosition: prevProgress, endPosition: progress, layer: foregroundLayer)
         }
         
@@ -297,6 +355,10 @@ class ProgressBarView: UIView {
                 backgroundLayerColor = .lightGray
                 backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
             }
+        }
+        
+        if let color = endCapPickerColor {
+            endCapPickerLayer?.strokeColor = color.cgColor
         }
         
         if transparentBackgroundLayer {
