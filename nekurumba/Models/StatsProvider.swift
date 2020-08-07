@@ -5,7 +5,7 @@ class StatsProvider {
     var dataManager: CoreDataManager!
     var statsData: [SmokeTracker]?
     
-   private  func loadStats() {
+   private func loadStats() {
         statsData = dataManager?.loadAllData()
     }
     
