@@ -1,7 +1,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    let smokeTimer = UDLoadableTimer()
+    let app = UIApplication.shared.delegate as? AppDelegate
+    var plannedInterval: TimeInterval = 7200
+    
     let coreDataManager = CoreDataManager()
     let statsManager = StatsProvider()
     var todayData: [SmokeTracker]?
@@ -25,19 +27,22 @@ class HomeViewController: UIViewController {
         setupHighlightCollectionView()
                 
         timerView.buttonTouchUpInside = {
-            self.smokeTimer.start()
+            self.app?.smokeTimer.start()
             self.timerView.deactivateButton()
             self.coreDataManager.addData(date: Date())
             self.setupHighlightCollectionView()
         }
         
-        smokeTimer.interval = 7200
-        smokeTimer.currentTime.value = 2
-        smokeTimer.defaultsKey = "firstTimer"
-        smokeTimer.currentTime.bind { [unowned self] in
-            self.timerView.progressBar.progress = CGFloat($0 / self.smokeTimer.interval)
-            let remainingTime = self.smokeTimer.interval - $0
-            if $0 >= self.smokeTimer.interval {
+        plannedInterval = loadPlannedInterval()
+        
+        app?.smokeTimer = UDLoadableTimer()
+        app?.smokeTimer.interval.value = plannedInterval
+        app?.smokeTimer.currentTime.value = 0
+        app?.smokeTimer.defaultsKey = "firstTimer"
+        app?.smokeTimer.currentTime.bind { [unowned self] in
+            self.timerView.progressBar.progress = CGFloat($0 / (app?.smokeTimer.interval.value)!)
+            let remainingTime = (app?.smokeTimer.interval.value)! - $0
+            if $0 >= (app?.smokeTimer.interval.value)! {
                 self.timerView.changeButtonTitle("🚬", font: UIFont.systemFont(ofSize: 60))
                 self.timerView.activateButton()
             } else {
@@ -46,8 +51,13 @@ class HomeViewController: UIViewController {
             }
         }
         
+        app?.smokeTimer.interval.bind { [unowned self] in
+            plannedInterval = $0
+            setupHighlightCollectionView()
+        }
+        
         if #available(iOS 13.0, *) { } else {
-            smokeTimer.loadFromDefaults()
+            app?.smokeTimer?.loadFromDefaults()
         }
         
         NotificationCenter.default.addObserver(self,
@@ -170,7 +180,7 @@ class HomeViewController: UIViewController {
         var highlights: [HighlightData] = []
         
         let countHighlight = provider.makeCountHighlight(todayData: todayData, yesterdayData: yesterdayData, isDarkMode: isDarkMode)
-        let intervalHighlight = provider.makeIntervalHighlight(todayData: todayData, plannedInteval: 120, isDarkMode: isDarkMode)
+        let intervalHighlight = provider.makeIntervalHighlight(todayData: todayData, plannedInteval: Int(plannedInterval) / 60, isDarkMode: isDarkMode)
         
         if countHighlight != nil {
             highlights.append(countHighlight!)
@@ -184,18 +194,31 @@ class HomeViewController: UIViewController {
         highlightCollectionView.reloadData()
     }
     
+    func loadPlannedInterval() -> TimeInterval {
+        let defaults = UserDefaults.standard
+        var hours: Int = defaults.integer(forKey: "hours")
+        let minutes: Int = defaults.integer(forKey: "minutes")
+
+        if hours == 0 && minutes == 0 {
+            defaults.setValue(2, forKey: "hours")
+            hours = 2
+        }
+        
+        return TimeInterval(hours * 3600 + minutes * 60)
+    }
+    
     @objc func viewWillResignActive() {
-        smokeTimer.saveToDefaults()
+        app?.smokeTimer?.saveToDefaults()
     }
-    
+
     @objc func viewWillEnterForeground() {
-        smokeTimer.loadFromDefaults()
+        app?.smokeTimer?.loadFromDefaults()
     }
-    
+
     @objc func viewWillTerminate() {
-        smokeTimer.saveToDefaults()
+        app?.smokeTimer?.saveToDefaults()
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupHighlightCollectionView()

@@ -2,7 +2,7 @@ import UIKit
 
 class UDLoadableTimer {
     public var defaultsKey: String = ""
-    public var interval: TimeInterval = 7200
+    public var interval: Box<TimeInterval> = Box(7200)
     public var currentTime: Box<TimeInterval> = Box(0)
     private var timer = Timer()
     private var isActive: Bool = false
@@ -11,9 +11,9 @@ class UDLoadableTimer {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] (timer) in
             self.currentTime.value += 1
             
-            if self.currentTime.value >= self.interval {
+            if self.currentTime.value >= self.interval.value {
                 self.pause()
-                if self.currentTime.value > self.interval { self.currentTime.value = self.interval }
+                if self.currentTime.value > self.interval.value { self.currentTime.value = self.interval.value }
             }
         })
     }
@@ -35,7 +35,7 @@ class UDLoadableTimer {
     }
     
     func resume() {
-        if currentTime.value < interval {
+        if currentTime.value < interval.value {
             pause()
             isActive = true
             launchTimer()
@@ -68,14 +68,15 @@ class UDLoadableTimer {
         let curentDate = Double(NSDate().timeIntervalSince1970)
         
         if resignDate == 0  && resignValue == 0 {
-            currentTime.value = interval
+            currentTime.value = interval.value
             pause()
             saveToDefaults()
         } else {
             if isActive {
+                currentTime.value = resignValue
                 let deltaTime = Double(Int(curentDate - resignDate))
-                if currentTime.value + deltaTime >= interval {
-                    currentTime.value = interval
+                if currentTime.value + deltaTime >= interval.value {
+                    currentTime.value = interval.value
                     pause()
                     saveToDefaults()
                 } else {
@@ -84,7 +85,7 @@ class UDLoadableTimer {
                     saveToDefaults()
                 }
             } else {
-                currentTime.value = interval
+                currentTime.value = interval.value
                 pause()
                 saveToDefaults()
             }
