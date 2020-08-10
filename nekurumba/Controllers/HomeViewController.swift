@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     var highlightsLabel: UILabel!
     var highlightCollectionView: UICollectionView!
     
+    var isCountdown: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,13 @@ class HomeViewController: UIViewController {
         app?.smokeTimer.currentTime.bind { [unowned self] in
             self.timerView.progressBar.progress = CGFloat($0 / (app?.smokeTimer.interval.value)!)
             let remainingTime = (app?.smokeTimer.interval.value)! - $0
+            let displayedTime = isCountdown ? remainingTime : $0
             if $0 >= (app?.smokeTimer.interval.value)! {
                 self.timerView.changeButtonTitle("🚬", font: UIFont.systemFont(ofSize: 60))
                 self.timerView.activateButton()
             } else {
                 $0 < 61 ? self.timerView.deactivateButton() : self.timerView.activateButton()
-                self.timerView.changeButtonTitle(remainingTime.timeString, font: UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold))
+                self.timerView.changeButtonTitle(displayedTime.timeString, font: UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold))
             }
         }
         
@@ -75,6 +77,12 @@ class HomeViewController: UIViewController {
                                                name: UIApplication.willTerminateNotification,
                                                object: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let defaults = UserDefaults.standard
+        isCountdown = defaults.bool(forKey: "isCountdown")
     }
     
     private func setupViews() {
