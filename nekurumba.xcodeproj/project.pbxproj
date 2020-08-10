@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		423DD1BC24DD84C2005BFEB1 /* IntervalChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */; };
+		423DD1BE24DD8503005BFEB1 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DD1BD24DD8503005BFEB1 /* SliderItem.swift */; };
+		423DD1C024DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */; };
 		42560BBF24C32AF600A17AD9 /* StatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560BBE24C32AF600A17AD9 /* StatsProvider.swift */; };
+		42579F9424E08259005A51A3 /* NMSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42579F9324E08259005A51A3 /* NMSwitch.swift */; };
 		425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */; };
 		425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C274C24C679C200AE8C7B /* SegmentItem.swift */; };
 		426E55D724C9D661004F9BD9 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 426E55D624C9D661004F9BD9 /* Charts */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -31,6 +35,7 @@
 		42C5E77E24C1794B0010F5FC /* E_UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77924C1794A0010F5FC /* E_UIViewController.swift */; };
 		42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77A24C1794A0010F5FC /* E_UIView.swift */; };
 		42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77B24C1794B0010F5FC /* E_UIColor.swift */; };
+		42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8B9A124DECE4400E953F4 /* NMButton.swift */; };
 		42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */; };
 		42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7924C1CC6300D74068 /* TabBarController.swift */; };
 		42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */; };
@@ -39,7 +44,7 @@
 		42FA7D8424C1CD6000D74068 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */; };
 		42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8224C1CD6000D74068 /* HomeViewController.swift */; };
 		42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8324C1CD6000D74068 /* StatsViewController.swift */; };
-		42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8724C1CDE500D74068 /* NMViev.swift */; };
+		42FA7D8824C1CDE500D74068 /* NMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8724C1CDE500D74068 /* NMView.swift */; };
 		42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */; };
 		42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */; };
 		42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 42FA7D9024C2093E00D74068 /* AEConicalGradient */; };
@@ -49,7 +54,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalChangerViewController.swift; sourceTree = "<group>"; };
+		423DD1BD24DD8503005BFEB1 /* SliderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
+		423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMMultiLevelCircularSlider.swift; sourceTree = "<group>"; };
 		42560BBE24C32AF600A17AD9 /* StatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsProvider.swift; sourceTree = "<group>"; };
+		42579F9324E08259005A51A3 /* NMSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMSwitch.swift; sourceTree = "<group>"; };
 		425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMSegmentedControl.swift; sourceTree = "<group>"; };
 		425C274C24C679C200AE8C7B /* SegmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItem.swift; sourceTree = "<group>"; };
 		42A6536224CB104A00681D8F /* StatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatData.swift; sourceTree = "<group>"; };
@@ -74,6 +83,7 @@
 		42C5E77924C1794A0010F5FC /* E_UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIViewController.swift; sourceTree = "<group>"; };
 		42C5E77A24C1794A0010F5FC /* E_UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIView.swift; sourceTree = "<group>"; };
 		42C5E77B24C1794B0010F5FC /* E_UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIColor.swift; sourceTree = "<group>"; };
+		42E8B9A124DECE4400E953F4 /* NMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMButton.swift; sourceTree = "<group>"; };
 		42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_TimeInterval.swift; sourceTree = "<group>"; };
 		42FA7D7924C1CC6300D74068 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
@@ -82,7 +92,7 @@
 		42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		42FA7D8224C1CD6000D74068 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		42FA7D8324C1CD6000D74068 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		42FA7D8724C1CDE500D74068 /* NMViev.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMViev.swift; sourceTree = "<group>"; };
+		42FA7D8724C1CDE500D74068 /* NMView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMView.swift; sourceTree = "<group>"; };
 		42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMProgressViewWithButton.swift; sourceTree = "<group>"; };
 		42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLoadableTimer.swift; sourceTree = "<group>"; };
@@ -179,6 +189,19 @@
 			path = UIResponders;
 			sourceTree = "<group>";
 		};
+		42EC447A24DDA52C00BBFBAC /* NeomorpKit */ = {
+			isa = PBXGroup;
+			children = (
+				42FA7D8724C1CDE500D74068 /* NMView.swift */,
+				42E8B9A124DECE4400E953F4 /* NMButton.swift */,
+				42579F9324E08259005A51A3 /* NMSwitch.swift */,
+				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
+				42A6536724CB19B900681D8F /* NMLineChartView.swift */,
+				423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */,
+			);
+			path = NeomorpKit;
+			sourceTree = "<group>";
+		};
 		42FA7D7424C1CBE800D74068 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +212,7 @@
 				42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
 				425C274C24C679C200AE8C7B /* SegmentItem.swift */,
+				423DD1BD24DD8503005BFEB1 /* SliderItem.swift */,
 				42A6536224CB104A00681D8F /* StatData.swift */,
 			);
 			path = Models;
@@ -197,9 +221,7 @@
 		42FA7D7524C1CBFA00D74068 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				42FA7D8724C1CDE500D74068 /* NMViev.swift */,
-				42A6536724CB19B900681D8F /* NMLineChartView.swift */,
-				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
+				42EC447A24DDA52C00BBFBAC /* NeomorpKit */,
 				42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */,
 				42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */,
 				42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */,
@@ -216,6 +238,7 @@
 				42A6536424CB196D00681D8F /* StatsTableView */,
 				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D7924C1CC6300D74068 /* TabBarController.swift */,
+				423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -305,8 +328,9 @@
 				42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */,
 				42A6536624CB199F00681D8F /* StatsTableViewCell.swift in Sources */,
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
-				42FA7D8824C1CDE500D74068 /* NMViev.swift in Sources */,
+				42FA7D8824C1CDE500D74068 /* NMView.swift in Sources */,
 				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
+				42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */,
 				42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */,
 				42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */,
 				42FA7D8024C1CCDC00D74068 /* Colors.swift in Sources */,
@@ -318,9 +342,12 @@
 				42B885BF24C4E080007924A6 /* HighlightCollectionViewDelegate.swift in Sources */,
 				42FA7D8424C1CD6000D74068 /* SettingsViewController.swift in Sources */,
 				42560BBF24C32AF600A17AD9 /* StatsProvider.swift in Sources */,
+				423DD1BC24DD84C2005BFEB1 /* IntervalChangerViewController.swift in Sources */,
 				42C5E73A24C171110010F5FC /* AppDelegate.swift in Sources */,
 				42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */,
+				423DD1BE24DD8503005BFEB1 /* SliderItem.swift in Sources */,
 				42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */,
+				42579F9424E08259005A51A3 /* NMSwitch.swift in Sources */,
 				42FA7D9524C2141700D74068 /* Box.swift in Sources */,
 				42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */,
 				42B885C124C4EB91007924A6 /* E_Date.swift in Sources */,
@@ -329,6 +356,7 @@
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
 				425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */,
 				42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */,
+				423DD1C024DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift in Sources */,
 				42A6536824CB19B900681D8F /* NMLineChartView.swift in Sources */,
 				42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */,
 				42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */,
