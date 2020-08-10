@@ -1,23 +1,24 @@
 import UIKit
 
 class IntervalChangerViewController: UIViewController {
-    var sliderView: NMDualCircularSlider!
-    var segmentControll: NMSegmentedControl!
-    var separatorLabel: UILabel!
-    var hoursLabel: UILabel!
-    var minutesLabel: UILabel!
+    private var sliderView: NMMultiLevelCircularSlider!
+    private var segmentControll: NMSegmentedControl!
+    private var sliderLabel: UILabel!
+    private var backButton: NMButton!
     
-    var hours: Int!
-    var minutes: Int!
-    var hoursSliderValue: CGFloat = 0
-    var minutesSliderValue: CGFloat = 0
+    private var hours: Int!
+    private var minutes: Int!
+    private var hoursSliderValue: CGFloat = 0
+    private var minutesSliderValue: CGFloat = 0
+    private var activeSegment: Int = 0
     
-    var segments: [SegmentItem] = []
+    private var segments: [SegmentItem] = []
     
-    var sliderItems: [SliderItem] = []
+    private var sliderItems: [SliderItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         loadTimeFromDefaults()
         
         
@@ -37,7 +38,9 @@ class IntervalChangerViewController: UIViewController {
                 } else {
                     sliderView?.sliderItems[1].minSliderValue = 0
                 }
-                hoursLabel?.text = hours < 10 ? "0\(hours!)" : "\(hours!)"
+                if activeSegment == 0 {
+                    sliderLabel.text = "\(hours!)"
+                }
                 saveToDefaults(hours!, forKey: "hours")
             }
             
@@ -46,7 +49,9 @@ class IntervalChangerViewController: UIViewController {
         sliderItems[1].sliderValue.bind { [unowned self] (value) in
             if sliderView != nil {
                 minutes = Int(round(value * sliderView!.sliderItems[1].maxValue))
-                minutesLabel?.text = minutes < 10 ? "0\(minutes!)" : "\(minutes!)"
+                if activeSegment == 1 {
+                    sliderLabel?.text = "\(minutes!)"
+                }
                 saveToDefaults(minutes!, forKey: "minutes")
             }
         }
@@ -54,9 +59,18 @@ class IntervalChangerViewController: UIViewController {
         segments = [
             SegmentItem(displayTitle: "Часы", action: { [self] in
                 sliderView?.switchSliderForItem(0)
+                activeSegment = 0
+                if let h = hours {
+                    sliderLabel?.text = "\(h)"
+                }
+                
             }),
             SegmentItem(displayTitle: "Минуты", action: { [self] in
                 sliderView?.switchSliderForItem(1)
+                activeSegment = 1
+                if let m = minutes {
+                    sliderLabel?.text = "\(m)"
+                }
             })
         ]
 
@@ -75,11 +89,27 @@ class IntervalChangerViewController: UIViewController {
         view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
         let safeGuide = view.safeAreaLayoutGuide
         
-        sliderView = NMDualCircularSlider()
+        
+        backButton = NMButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.bgColors = bgColors
+        backButton.cornerRadius = 20
+        backButton.buttonTouchUpInside = {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        backButton.titleLabel.text = "◀︎"
+        backButton.titleLabel.font = .systemFont(ofSize: 17, weight: .regular)
+        backButton.titleLabel.textColor = activeColor
+        self.view.addSubview(backButton)
+        
+        sliderView = NMMultiLevelCircularSlider()
         sliderView.translatesAutoresizingMaskIntoConstraints = false
         sliderView.numberOfDivisions = 12
         sliderView.cornerRadius = (UIScreen.main.bounds.width - 40 ) / 2
         sliderView.sliderItems = sliderItems
+        sliderView.progressBar.startGradienttColor = .systemPink
+        sliderView.progressBar.endGradientColor = .systemPink
         view.addSubview(sliderView)
         
         let width = UIScreen.main.bounds.width - 40
@@ -90,33 +120,21 @@ class IntervalChangerViewController: UIViewController {
         segmentControll.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(segmentControll)
         
-        separatorLabel = UILabel()
-        separatorLabel.translatesAutoresizingMaskIntoConstraints = false
-        separatorLabel.textColor = inactiveColor
-        separatorLabel.text = ":"
-        separatorLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold)
-        separatorLabel.textAlignment = .center
-        self.view.addSubview(separatorLabel)
-        
-        hoursLabel = UILabel()
-        hoursLabel.translatesAutoresizingMaskIntoConstraints = false
-        hoursLabel.textColor = activeColor
-        hoursLabel.text = hours < 10 ? "0\(hours!)" : "\(hours!)"
-        hoursLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold)
-        hoursLabel.textAlignment = .right
-        self.view.addSubview(hoursLabel)
-        
-        minutesLabel = UILabel()
-        minutesLabel.translatesAutoresizingMaskIntoConstraints = false
-        minutesLabel.textColor = inactiveColor
-        minutesLabel.text = minutes < 10 ? "0\(minutes!)" : "\(minutes!)"
-        minutesLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold)
-        minutesLabel.textAlignment = .left
-        self.view.addSubview(minutesLabel)
-        
+        sliderLabel = UILabel()
+        sliderLabel.translatesAutoresizingMaskIntoConstraints = false
+        sliderLabel.textColor = isDarkMode ? .white : .black
+        sliderLabel.text = activeSegment == 0 ? "\(hours!)" : "\(minutes!)"
+        sliderLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 54, weight: .bold)
+        sliderLabel.textAlignment = .center
+        self.view.addSubview(sliderLabel)
         
         NSLayoutConstraint.activate([
-            segmentControll.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 10),
+            backButton.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 14),
+            backButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            segmentControll.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 30),
             segmentControll.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
             segmentControll.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
             segmentControll.heightAnchor.constraint(equalToConstant: 40),
@@ -126,22 +144,17 @@ class IntervalChangerViewController: UIViewController {
             sliderView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
             sliderView.heightAnchor.constraint(equalTo: sliderView.widthAnchor),
             
-            separatorLabel.topAnchor.constraint(equalTo: sliderView.bottomAnchor, constant: 20),
-            separatorLabel.heightAnchor.constraint(equalToConstant: 50),
-            separatorLabel.widthAnchor.constraint(equalToConstant: 10),
-            separatorLabel.centerXAnchor.constraint(equalTo: sliderView.centerXAnchor),
-            
-            hoursLabel.topAnchor.constraint(equalTo: separatorLabel.topAnchor, constant: 0),
-            hoursLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
-            hoursLabel.trailingAnchor.constraint(equalTo: separatorLabel.leadingAnchor, constant: 0),
-            hoursLabel.heightAnchor.constraint(equalTo: separatorLabel.heightAnchor),
-            
-            minutesLabel.topAnchor.constraint(equalTo: separatorLabel.topAnchor, constant: 0),
-            minutesLabel.leadingAnchor.constraint(equalTo: separatorLabel.trailingAnchor, constant: 0),
-            minutesLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
-            minutesLabel.heightAnchor.constraint(equalTo: separatorLabel.heightAnchor),
+            sliderLabel.topAnchor.constraint(equalTo: sliderView.topAnchor, constant: 50),
+            sliderLabel.leadingAnchor.constraint(equalTo: sliderView.leadingAnchor, constant: 50),
+            sliderLabel.trailingAnchor.constraint(equalTo: sliderView.trailingAnchor, constant: -50),
+            sliderLabel.bottomAnchor.constraint(equalTo: sliderView.bottomAnchor, constant: -50),
 
         ])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func loadTimeFromDefaults() {
@@ -168,6 +181,7 @@ class IntervalChangerViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super .traitCollectionDidChange(previousTraitCollection)
         view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        sliderLabel?.textColor = isDarkMode ? .white : .black
     }
 
 
