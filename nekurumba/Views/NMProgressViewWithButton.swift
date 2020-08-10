@@ -14,9 +14,9 @@ class NMProgressViewWithButton: UIView {
     public var buttonTouchCancel: ButtonFunction?
     
     public var progressBar: ProgressBarView!
-    private var circleBackgroundView: NMViev!
-    private var timerBackgroundView: NMViev!
-    private var buttonBackgroundView: NMViev!
+    private var circleBackgroundView: NMView!
+    private var timerBackgroundView: NMView!
+    private var buttonBackgroundView: NMView!
     private var button: UIButton!
     
     override init(frame: CGRect) {
@@ -39,19 +39,19 @@ class NMProgressViewWithButton: UIView {
     }
     
     private func setupView() {
-        circleBackgroundView = NMViev()
+        circleBackgroundView = NMView()
         circleBackgroundView.isConvex = true
         circleBackgroundView.bgColors = bgColors
         circleBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(circleBackgroundView)
         
-        timerBackgroundView = NMViev()
+        timerBackgroundView = NMView()
         timerBackgroundView.isConvex = false
         timerBackgroundView.bgColors = bgColors
         timerBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(timerBackgroundView)
         
-        buttonBackgroundView = NMViev()
+        buttonBackgroundView = NMView()
         buttonBackgroundView.isConvex = true
         buttonBackgroundView.bgColors = bgColors
         buttonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
