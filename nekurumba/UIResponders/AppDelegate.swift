@@ -10,6 +10,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let defaults = UserDefaults.standard
+        
+        if !defaults.bool(forKey: "userDidOnboarding") {
+            defaults.setValue(true, forKey: "isCountdown")
+            defaults.setValue(true, forKey: "userDidOnboarding")
+        }
+        
         if #available(iOS 13.0, *) {
             return true
         } else {
