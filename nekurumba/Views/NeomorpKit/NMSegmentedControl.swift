@@ -6,8 +6,8 @@ class NMSegmentedControl: UIView {
     private var segmentItems: [SegmentItem]!
     private var itemWidth: CGFloat!
     
-    private var backgroundView: NMViev!
-    private var activeSegmentView: NMViev!
+    private var backgroundView: NMView!
+    private var activeSegmentView: NMView!
     
     private var activeSegmentLeaging: NSLayoutConstraint!
     private var activeSegmentTrailing: NSLayoutConstraint!
@@ -31,13 +31,13 @@ class NMSegmentedControl: UIView {
         self.init(frame: frame)
         self.segmentItems = segmentItems
         
-        backgroundView = NMViev()
+        backgroundView = NMView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.cornerRadius = cornerRadius
         backgroundView.bgColors = bgColors
         self.addSubview(backgroundView)
         
-        activeSegmentView = NMViev()
+        activeSegmentView = NMView()
         activeSegmentView.translatesAutoresizingMaskIntoConstraints = false
         activeSegmentView.cornerRadius = cornerRadius - 2
         activeSegmentView.bgColors = bgColors
