@@ -45,7 +45,7 @@ class NMLineChartView: UIView {
     
     public var chartDataEntries: [ChartDataEntry]?
     
-    private var nmBackgroundView: NMViev!
+    private var nmBackgroundView: NMView!
     private var chartView: LineChartView!
     private var titleLabel: UILabel!
     
@@ -56,7 +56,7 @@ class NMLineChartView: UIView {
         self.backgroundColor = .blue
         self.isUserInteractionEnabled = false
         
-        nmBackgroundView = NMViev()
+        nmBackgroundView = NMView()
         nmBackgroundView.cornerRadius = cornerRadius
         nmBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         nmBackgroundView.backgroundColor = .clear

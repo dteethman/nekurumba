@@ -1,6 +1,6 @@
 import UIKit
 
-class NMViev: UIView {
+class NMView: UIView {
     public var cornerRadius: CGFloat = 0 {
         didSet {
             backgroundViewMask?.layer.cornerRadius = cornerRadius

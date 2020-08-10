@@ -1,13 +1,13 @@
 import UIKit
 
-class NMDualCircularSlider: UIView {
+class NMMultiLevelCircularSlider: UIView {
     public var sliderItems: [SliderItem] = []
     private var activeItem: Int!
     
     public var progressBar: ProgressBarView!
-    private var circleBackgroundView: NMViev!
-    private var timerBackgroundView: NMViev!
-    private var innerCircleView: NMViev!
+    private var circleBackgroundView: NMView!
+    private var timerBackgroundView: NMView!
+    private var innerCircleView: NMView!
     private var divisionsView: UIView!
     private var panGRView: UIView!
     
@@ -44,13 +44,10 @@ class NMDualCircularSlider: UIView {
         }
     }
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupView()
-        
     }
 
     required init?(coder: NSCoder) {
@@ -58,19 +55,19 @@ class NMDualCircularSlider: UIView {
     }
     
     private func setupView() {
-        circleBackgroundView = NMViev()
+        circleBackgroundView = NMView()
         circleBackgroundView.isConvex = true
         circleBackgroundView.bgColors = bgColors
         circleBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(circleBackgroundView)
         
-        timerBackgroundView = NMViev()
+        timerBackgroundView = NMView()
         timerBackgroundView.isConvex = false
         timerBackgroundView.bgColors = bgColors
         timerBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(timerBackgroundView)
         
-        innerCircleView = NMViev()
+        innerCircleView = NMView()
         innerCircleView.isConvex = true
         innerCircleView.bgColors = bgColors
         innerCircleView.translatesAutoresizingMaskIntoConstraints = false
@@ -228,7 +225,6 @@ class NMDualCircularSlider: UIView {
                         sliderItems[activeItem].sliderValue.value = sliderPosition
                     }
                     progressBar.progress = sliderPosition
-                    
                     prevPosition = sliderPosition
                 }
             }
@@ -242,7 +238,6 @@ class NMDualCircularSlider: UIView {
                 var finalPosition = positionDelta <= step ? round(sliderPosition * div) / div : round(prevPosition! * div) / div
                 finalPosition = min(finalPosition, maxSliderValue)
                 finalPosition = max(finalPosition, minSliderValue)
-                print(minSliderValue, maxSliderValue)
                 
                 sliderItems[activeItem].sliderValue.value = finalPosition
                 progressBar.progress = finalPosition

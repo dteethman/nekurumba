@@ -28,7 +28,7 @@ class TabBarController: UITabBarController {
         // hide the tab bar
         tabBar.isHidden = true
         
-        let nmBackgroundView = NMViev(frame: .zero)
+        let nmBackgroundView = NMView(frame: .zero)
         nmBackgroundView.cornerRadius = 10
         nmBackgroundView.isConvex = true
         nmBackgroundView.translatesAutoresizingMaskIntoConstraints = false

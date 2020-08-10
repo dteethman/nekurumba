@@ -20,11 +20,11 @@ class HighlightCollectionViewCell: UICollectionViewCell {
 //        }
 //    }
     
-    private let bgView = NMViev()
+    private let bgView = NMView()
     private let bgMask = UIView()
     private let titleTextView = UITextView()
     private let descriptionTextView = UITextView()
-    private let markView = NMViev()
+    private let markView = NMView()
     private let markLabel = UILabel()
     
     override init(frame: CGRect) {
