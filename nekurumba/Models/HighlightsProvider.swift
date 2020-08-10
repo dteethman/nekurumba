@@ -91,7 +91,7 @@ class HighlightsProvider {
             let avgHoursNoun = getNounByNumber(root: "час", singleEnd: "", dualEnd: "а", multipleEnd: "ов", number: avgHours)
             let avgMinutesNoun = getNounByNumber(root: "минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "", number: avgMinutes)
             let diffHoursNoun = getNounByNumber(root: "час", singleEnd: "", dualEnd: "а", multipleEnd: "ов", number: diffHours)
-            let diffMinutesNoun = getNounByNumber(root: "минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "", number: diffMinutes)
+            let diffMinutesNoun = getNounByNumber(root: "минут", singleEnd: "у", dualEnd: "ы", multipleEnd: "", number: diffMinutes)
             
             var avgTimeStr = ""
             
