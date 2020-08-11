@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     var titleLabel: UILabel!
     var highlightsLabel: UILabel!
     var highlightCollectionView: UICollectionView!
+    var nightModeButton: NMButton!
+    var nightModeProgressView: ProgressBarView!
     
     var isCountdown: Bool = true
     
@@ -143,6 +145,20 @@ class HomeViewController: UIViewController {
         highlightCollectionView.showsVerticalScrollIndicator = false
         highlightCollectionView.translatesAutoresizingMaskIntoConstraints = false
         safeAreaBoundsView.addSubview(highlightCollectionView)
+        
+        nightModeButton = NMButton()
+        nightModeButton.translatesAutoresizingMaskIntoConstraints = false
+        nightModeButton.bgColors = bgColors
+        nightModeButton.cornerRadius = 25
+        nightModeButton.titleLabel?.text = "🌙"
+        nightModeButton.titleLabel?.textAlignment = .center
+        safeAreaBoundsView.addSubview(nightModeButton)
+        
+        nightModeProgressView = ProgressBarView()
+        nightModeProgressView.translatesAutoresizingMaskIntoConstraints = false
+        nightModeProgressView.lineWidth = 3
+        nightModeProgressView.progress = 1
+        safeAreaBoundsView.addSubview(nightModeProgressView)
          
         NSLayoutConstraint.activate([
             safeAreaBoundsView.topAnchor.constraint(equalTo: safeGuide.topAnchor),
@@ -150,9 +166,19 @@ class HomeViewController: UIViewController {
             safeAreaBoundsView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor),
             safeAreaBoundsView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor),
             
+            nightModeButton.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
+            nightModeButton.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
+            nightModeButton.widthAnchor.constraint(equalToConstant: 50),
+            nightModeButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            nightModeProgressView.topAnchor.constraint(equalTo: nightModeButton.topAnchor),
+            nightModeProgressView.bottomAnchor.constraint(equalTo: nightModeButton.bottomAnchor),
+            nightModeProgressView.leadingAnchor.constraint(equalTo: nightModeButton.leadingAnchor),
+            nightModeProgressView.trailingAnchor.constraint(equalTo: nightModeButton.trailingAnchor),
+            
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: nightModeButton.leadingAnchor, constant: 0),
             titleLabel.heightAnchor.constraint(equalToConstant: 40),
             
             timerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
@@ -169,6 +195,9 @@ class HomeViewController: UIViewController {
             highlightCollectionView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 10),
             highlightCollectionView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 10),
             highlightCollectionView.heightAnchor.constraint(equalToConstant: highlightHeight),
+            
+            
+            
         ])
     }
     
