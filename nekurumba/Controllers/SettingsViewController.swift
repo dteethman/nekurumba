@@ -327,6 +327,7 @@ class SettingsViewController: UIViewController {
         self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
         intervaSublabel?.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
         intervalTextView?.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
+        timerCountdownTextView?.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
         setupIntervalText()
         
     }
