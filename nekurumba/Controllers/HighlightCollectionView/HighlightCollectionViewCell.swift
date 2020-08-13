@@ -4,7 +4,7 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     public var data: HighlightData? {
         didSet {
             if let d = data {
-                markView.bgColors = d.mark ? (light: greenHighlightColor, dark: greenHighlightColor) : (light: redHighlightColor, dark: redHighlightColor)
+                markView.bgColors = d.mark ? ColorSet(light: greenHighlightColor, dark: greenHighlightColor) : ColorSet(light: redHighlightColor, dark: redHighlightColor)
                 markLabel.text = d.mark ? "👍" : "👎"
                 titleTextView.attributedText = d.title
                 descriptionTextView.text = d.text

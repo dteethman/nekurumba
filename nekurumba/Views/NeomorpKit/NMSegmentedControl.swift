@@ -19,6 +19,15 @@ class NMSegmentedControl: UIView {
         }
     }
     
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
+        didSet {
+            self.backgroundColor = .clear
+            layoutSubviews()
+            backgroundView?.bgColors = bgColors
+            activeSegmentView?.bgColors = bgColors
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

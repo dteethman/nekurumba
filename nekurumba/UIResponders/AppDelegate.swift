@@ -12,17 +12,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let defaults = UserDefaults.standard
         
-        if !defaults.bool(forKey: "userDidOnboarding") {
-            defaults.setValue(true, forKey: "isCountdown")
-            defaults.setValue(true, forKey: "userDidOnboarding")
-        }
-        
         if #available(iOS 13.0, *) {
             return true
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = TabBarController()
             window?.makeKeyAndVisible()
+            if !defaults.bool(forKey: "userDidOnboarding") {
+                let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
+                onboardingViewController.modalPresentationStyle = .fullScreen
+                window?.rootViewController?.present(onboardingViewController, animated: false, completion: nil)
+            }
         }
         return true
     }

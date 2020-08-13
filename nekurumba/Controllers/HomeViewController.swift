@@ -92,7 +92,7 @@ class HomeViewController: UIViewController {
         let screenHeight = UIScreen.main.bounds.height
         let timerViewHeight = min(screenWidth - 60, screenHeight - 340)
         let highlightHeight: CGFloat = screenHeight < 800 ? 110 : 220
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
         let safeGuide = view.safeAreaLayoutGuide
         let safeAreaBoundsView = UIView()
@@ -259,7 +259,7 @@ class HomeViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupHighlightCollectionView()
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
     }
 

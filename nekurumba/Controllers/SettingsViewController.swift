@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -95,10 +95,10 @@ class SettingsViewController: UIViewController {
         intervalChangeButton.titleLabel?.text = "▶︎"
         intervalChangeButton.titleLabel?.textAlignment = .center
         intervalChangeButton.titleLabel?.textColor = activeColor
-        intervalChangeButton.buttonTouchUpInside = {
+        intervalChangeButton.addAction(for: .touchUpInside, action: {
             let presentingController = IntervalChangerViewController()
             self.navigationController?.pushViewController(presentingController, animated: true)
-        }
+        })
         intervalBackgroundViewMask.addSubview(intervalChangeButton)
         
         intervalLabel = UILabel()
@@ -112,7 +112,7 @@ class SettingsViewController: UIViewController {
         intervaSublabel.translatesAutoresizingMaskIntoConstraints = false
         intervaSublabel.text = "1 час 12 минут"
         intervaSublabel.font = .systemFont(ofSize: 15, weight: .regular)
-        intervaSublabel.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
+        intervaSublabel.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
         intervaSublabel.textAlignment = .left
         intervalBackgroundViewMask.addSubview(intervaSublabel)
         
@@ -125,7 +125,7 @@ class SettingsViewController: UIViewController {
         
         intervalTextView.text = intervalText
         intervalTextView.font = descriptionTextViewFont
-        intervalTextView.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
+        intervalTextView.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
         intervalTextView.backgroundColor = .clear
         intervalTextView.textContainer.lineBreakMode = .byWordWrapping
         intervalTextView.textAlignment = .left
@@ -207,7 +207,7 @@ class SettingsViewController: UIViewController {
         
         timerCountdownTextView.text = timerCountdownText
         timerCountdownTextView.font = descriptionTextViewFont
-        timerCountdownTextView.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
+        timerCountdownTextView.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
         timerCountdownTextView.backgroundColor = .clear
         timerCountdownTextView.textContainer.lineBreakMode = .byWordWrapping
         timerCountdownTextView.textAlignment = .left
@@ -324,9 +324,10 @@ class SettingsViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
-        intervaSublabel?.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
-        intervalTextView?.textColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        intervaSublabel?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        intervalTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        timerCountdownTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
         setupIntervalText()
         
     }

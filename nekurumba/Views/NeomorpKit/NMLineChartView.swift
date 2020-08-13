@@ -13,7 +13,7 @@ class NMLineChartView: UIView {
         }
     }
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
             nmBackgroundView?.bgColors = bgColors

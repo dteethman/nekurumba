@@ -1,17 +1,29 @@
 import UIKit
 
+enum NMButtonState {
+    case touchDown
+    case touchDownRepeat
+    case touchDragInside
+    case touchDragOutside
+    case touchDragEnter
+    case touchDragExit
+    case touchUpInside
+    case touchUpOutside
+    case touchCancel
+}
+
 class NMButton: UIView {
     typealias ButtonFunction = () -> Void
     
-    public var buttonTouchDown: ButtonFunction?
-    public var buttonTouchDownRepeat: ButtonFunction?
-    public var buttonTouchDragInside: ButtonFunction?
-    public var buttonTouchDragOutside: ButtonFunction?
-    public var buttonTouchDragEnter: ButtonFunction?
-    public var buttonTouchDragExit: ButtonFunction?
-    public var buttonTouchUpInside: ButtonFunction?
-    public var buttonTouchUpOutside: ButtonFunction?
-    public var buttonTouchCancel: ButtonFunction?
+    private var buttonTouchDown: ButtonFunction?
+    private var buttonTouchDownRepeat: ButtonFunction?
+    private var buttonTouchDragInside: ButtonFunction?
+    private var buttonTouchDragOutside: ButtonFunction?
+    private var buttonTouchDragEnter: ButtonFunction?
+    private var buttonTouchDragExit: ButtonFunction?
+    private var buttonTouchUpInside: ButtonFunction?
+    private var buttonTouchUpOutside: ButtonFunction?
+    private var buttonTouchCancel: ButtonFunction?
     
     private var backgroundView: NMView!
     private var button: UIButton!
@@ -30,7 +42,7 @@ class NMButton: UIView {
         }
     }
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
             backgroundView?.bgColors = bgColors
@@ -94,6 +106,28 @@ class NMButton: UIView {
         layoutSubviews()
     }
     
+    public func addAction(for state: NMButtonState, action: @escaping () -> Void) {
+        switch state {
+        case .touchDown:
+            buttonTouchDown = action
+        case .touchDownRepeat:
+            buttonTouchDownRepeat = action
+        case .touchDragInside:
+            buttonTouchDragInside = action
+        case .touchDragOutside:
+            buttonTouchDragOutside = action
+        case .touchDragEnter:
+            buttonTouchDragEnter = action
+        case .touchDragExit:
+            buttonTouchDragExit = action
+        case .touchUpInside:
+            buttonTouchUpInside = action
+        case .touchUpOutside:
+            buttonTouchUpOutside = action
+        case .touchCancel:
+            buttonTouchCancel = action
+        }
+    }
     
     @objc private func touchDownAction(_ sender: UIButton!) {
         if isEnabled {

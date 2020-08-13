@@ -30,12 +30,12 @@ class NMSwitch: UIView {
         }
     }
     
-    private var dimmedbgColors: (light: UIColor, dark: UIColor) = (UIColor.lightGray, UIColor.lightGray)
+    private var dimmedbgColors: ColorSet = ColorSet(light: UIColor.lightGray, dark:UIColor.lightGray)
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
-            dimmedbgColors = (light: getGradientColor(startColor: bgColors.light, endColor: .black, percent: 0.1),
+            dimmedbgColors = ColorSet(light: getGradientColor(startColor: bgColors.light, endColor: .black, percent: 0.1),
                               dark: getGradientColor(startColor: bgColors.dark, endColor: .white, percent: 0.1))
             backgroundView?.bgColors = bgColors
             foregroundView?.bgColors = isActive ? accentColors : dimmedbgColors
@@ -44,7 +44,7 @@ class NMSwitch: UIView {
         }
     }
     
-    public var accentColors: (light: UIColor, dark: UIColor) = (UIColor.systemGreen, UIColor.systemGreen) {
+    public var accentColors: ColorSet = ColorSet(light: UIColor.systemGreen, dark:UIColor.systemGreen) {
         didSet {
             foregroundView?.bgColors = isActive ? accentColors : dimmedbgColors
         }

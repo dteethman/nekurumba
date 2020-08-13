@@ -33,8 +33,16 @@ class NMProgressViewWithButton: UIView {
         didSet {
             circleBackgroundView?.cornerRadius = cornerRadius
             timerBackgroundView?.cornerRadius = cornerRadius - 10
-            buttonBackgroundView?.cornerRadius = cornerRadius - 40
-            button?.layer.cornerRadius = cornerRadius - 40
+            buttonBackgroundView?.cornerRadius = cornerRadius - 10 - lineWidth
+            button?.layer.cornerRadius = cornerRadius - 20 - lineWidth
+        }
+    }
+    
+    public var lineWidth: CGFloat = 30 {
+        didSet {
+            buttonBackgroundView?.cornerRadius = cornerRadius - 10 - lineWidth
+            button?.layer.cornerRadius = cornerRadius - 20 - lineWidth
+            progressBar?.lineWidth = lineWidth
         }
     }
     
@@ -58,6 +66,7 @@ class NMProgressViewWithButton: UIView {
         self.addSubview(buttonBackgroundView)
         
         progressBar = ProgressBarView()
+        progressBar.lineWidth = lineWidth
         progressBar.backgroundColor = .clear
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(progressBar)
@@ -175,7 +184,7 @@ class NMProgressViewWithButton: UIView {
     }
     
     override func layoutSubviews() {
-        button?.setTitleColor(isDarkMode() ? .white : .black, for: .normal)
+        button?.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode()), for: .normal)
     }
     
 }
