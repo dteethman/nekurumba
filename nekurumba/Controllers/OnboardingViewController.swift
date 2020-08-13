@@ -186,28 +186,28 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
             intervalButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
-        buttonsArray[0].buttonTouchUpInside = {
+        buttonsArray[0].addAction(for: .touchUpInside, action: {
             self.scrollToPage(page: 1, animated: true)
-        }
+        })
         
-        buttonsArray[1].buttonTouchUpInside = {
+        buttonsArray[1].addAction(for: .touchUpInside, action: {
             self.scrollToPage(page: 2, animated: true)
-        }
+        })
         
-        buttonsArray[2].buttonTouchUpInside = {
+        buttonsArray[2].addAction(for: .touchUpInside, action: {
             self.scrollToPage(page: 3, animated: true)
-        }
+        })
         
-        buttonsArray[3].buttonTouchUpInside = {
+        buttonsArray[3].addAction(for: .touchUpInside, action: {
             self.dismiss(animated: true) {
                 self.defaults.setValue(true, forKey: "userDidOnboarding")
             }
-        }
+        })
         
-        intervalButton.buttonTouchUpInside = {
+        intervalButton.addAction(for: .touchUpInside, action: {
             let presentingController = IntervalChangerViewController()
             self.navigationController?.pushViewController(presentingController, animated: true)
-        }
+        })
         
     }
 

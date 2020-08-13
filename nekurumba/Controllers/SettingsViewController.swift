@@ -95,10 +95,10 @@ class SettingsViewController: UIViewController {
         intervalChangeButton.titleLabel?.text = "▶︎"
         intervalChangeButton.titleLabel?.textAlignment = .center
         intervalChangeButton.titleLabel?.textColor = activeColor
-        intervalChangeButton.buttonTouchUpInside = {
+        intervalChangeButton.addAction(for: .touchUpInside, action: {
             let presentingController = IntervalChangerViewController()
             self.navigationController?.pushViewController(presentingController, animated: true)
-        }
+        })
         intervalBackgroundViewMask.addSubview(intervalChangeButton)
         
         intervalLabel = UILabel()

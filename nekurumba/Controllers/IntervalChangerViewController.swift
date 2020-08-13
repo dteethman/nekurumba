@@ -93,10 +93,9 @@ class IntervalChangerViewController: UIViewController {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.bgColors = bgColors
         backButton.cornerRadius = 20
-        backButton.buttonTouchUpInside = {
+        backButton.addAction(for: .touchUpInside, action: {
             self.navigationController?.popViewController(animated: true)
-        }
-        
+        })
         backButton.titleLabel.text = "◀︎"
         backButton.titleLabel.font = .systemFont(ofSize: 17, weight: .regular)
         backButton.titleLabel.textColor = activeColor
