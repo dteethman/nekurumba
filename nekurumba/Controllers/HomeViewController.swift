@@ -17,8 +17,7 @@ class HomeViewController: UIViewController {
     var titleLabel: UILabel!
     var highlightsLabel: UILabel!
     var highlightCollectionView: UICollectionView!
-    var nightModeButton: NMButton!
-    var nightModeProgressView: ProgressBarView!
+    var nightModeButton: NMProgressViewWithButton!
     
     var isCountdown: Bool = true
     
@@ -108,14 +107,14 @@ class HomeViewController: UIViewController {
         
         timerView = NMProgressViewWithButton(frame: .zero)
         timerView.cornerRadius = timerViewHeight / 2
+        timerView.bgColors = bgColors
+        timerView.lineWidth = 30
         timerView.progressBar.progress = 1
         timerView.progressBar.startGradienttColor = .red
         timerView.progressBar.endGradientColor = .systemPink
         timerView.progressBar.transparentBackgroundLayer = true
         timerView.progressBar.disableText = true
         timerView.progressBar.animationDuration = 0.2
-        timerView.progressBar.lineWidth = 30
-        
         timerView.translatesAutoresizingMaskIntoConstraints = false
         safeAreaBoundsView.addSubview(timerView)
         
@@ -146,19 +145,20 @@ class HomeViewController: UIViewController {
         highlightCollectionView.translatesAutoresizingMaskIntoConstraints = false
         safeAreaBoundsView.addSubview(highlightCollectionView)
         
-        nightModeButton = NMButton()
+        nightModeButton = NMProgressViewWithButton()
         nightModeButton.translatesAutoresizingMaskIntoConstraints = false
         nightModeButton.bgColors = bgColors
         nightModeButton.cornerRadius = 25
-        nightModeButton.titleLabel?.text = "🌙"
-        nightModeButton.titleLabel?.textAlignment = .center
+        nightModeButton.changeButtonTitle("🌙", font: .systemFont(ofSize: 17))
+        nightModeButton.lineWidth = 6
+        nightModeButton.progressBarOffset = 0
+        nightModeButton.progressBar.progress = 0
+        nightModeButton.progressBar.startGradienttColor = activeColor
+        nightModeButton.progressBar.endGradientColor = activeColor
+        nightModeButton.progressBar.transparentBackgroundLayer = true
+        nightModeButton.progressBar.disableText = true
+        nightModeButton.progressBar.animationDuration = 0.2
         safeAreaBoundsView.addSubview(nightModeButton)
-        
-        nightModeProgressView = ProgressBarView()
-        nightModeProgressView.translatesAutoresizingMaskIntoConstraints = false
-        nightModeProgressView.lineWidth = 3
-        nightModeProgressView.progress = 1
-        safeAreaBoundsView.addSubview(nightModeProgressView)
          
         NSLayoutConstraint.activate([
             safeAreaBoundsView.topAnchor.constraint(equalTo: safeGuide.topAnchor),
@@ -170,11 +170,6 @@ class HomeViewController: UIViewController {
             nightModeButton.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
             nightModeButton.widthAnchor.constraint(equalToConstant: 50),
             nightModeButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            nightModeProgressView.topAnchor.constraint(equalTo: nightModeButton.topAnchor),
-            nightModeProgressView.bottomAnchor.constraint(equalTo: nightModeButton.bottomAnchor),
-            nightModeProgressView.leadingAnchor.constraint(equalTo: nightModeButton.leadingAnchor),
-            nightModeProgressView.trailingAnchor.constraint(equalTo: nightModeButton.trailingAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
@@ -195,9 +190,7 @@ class HomeViewController: UIViewController {
             highlightCollectionView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 10),
             highlightCollectionView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 10),
             highlightCollectionView.heightAnchor.constraint(equalToConstant: highlightHeight),
-            
-            
-            
+
         ])
     }
     
