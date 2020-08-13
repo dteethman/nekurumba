@@ -36,6 +36,8 @@
 		42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77A24C1794A0010F5FC /* E_UIView.swift */; };
 		42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5E77B24C1794B0010F5FC /* E_UIColor.swift */; };
 		42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8B9A124DECE4400E953F4 /* NMButton.swift */; };
+		42F3128024E4283A00050D0E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3127F24E4283A00050D0E /* OnboardingViewController.swift */; };
+		42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3128124E4D46200050D0E /* OnboardingView.swift */; };
 		42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */; };
 		42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7924C1CC6300D74068 /* TabBarController.swift */; };
 		42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */; };
@@ -84,6 +86,8 @@
 		42C5E77A24C1794A0010F5FC /* E_UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIView.swift; sourceTree = "<group>"; };
 		42C5E77B24C1794B0010F5FC /* E_UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_UIColor.swift; sourceTree = "<group>"; };
 		42E8B9A124DECE4400E953F4 /* NMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMButton.swift; sourceTree = "<group>"; };
+		42F3127F24E4283A00050D0E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		42F3128124E4D46200050D0E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_TimeInterval.swift; sourceTree = "<group>"; };
 		42FA7D7924C1CC6300D74068 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 				42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */,
 				42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */,
 				42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */,
+				42F3128124E4D46200050D0E /* OnboardingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D7924C1CC6300D74068 /* TabBarController.swift */,
 				423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */,
+				42F3127F24E4283A00050D0E /* OnboardingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -347,12 +353,14 @@
 				42C5E77F24C1794B0010F5FC /* E_UIView.swift in Sources */,
 				423DD1BE24DD8503005BFEB1 /* SliderItem.swift in Sources */,
 				42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */,
+				42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */,
 				42579F9424E08259005A51A3 /* NMSwitch.swift in Sources */,
 				42FA7D9524C2141700D74068 /* Box.swift in Sources */,
 				42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */,
 				42B885C124C4EB91007924A6 /* E_Date.swift in Sources */,
 				42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */,
 				42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */,
+				42F3128024E4283A00050D0E /* OnboardingViewController.swift in Sources */,
 				42C5E73C24C171110010F5FC /* SceneDelegate.swift in Sources */,
 				425C274B24C6788300AE8C7B /* NMSegmentedControl.swift in Sources */,
 				42C5E78024C1794B0010F5FC /* E_UIColor.swift in Sources */,
