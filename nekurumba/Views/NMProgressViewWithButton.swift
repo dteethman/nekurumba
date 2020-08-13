@@ -32,17 +32,43 @@ class NMProgressViewWithButton: UIView {
     public var cornerRadius: CGFloat = 0 {
         didSet {
             circleBackgroundView?.cornerRadius = cornerRadius
-            timerBackgroundView?.cornerRadius = cornerRadius - 10
-            buttonBackgroundView?.cornerRadius = cornerRadius - 10 - lineWidth
-            button?.layer.cornerRadius = cornerRadius - 20 - lineWidth
+            timerBackgroundView?.cornerRadius = cornerRadius - progressBarOffset
+            buttonBackgroundView?.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+            button?.layer.cornerRadius = cornerRadius - progressBarOffset - lineWidth
         }
     }
     
     public var lineWidth: CGFloat = 30 {
         didSet {
-            buttonBackgroundView?.cornerRadius = cornerRadius - 10 - lineWidth
-            button?.layer.cornerRadius = cornerRadius - 20 - lineWidth
+            buttonBackgroundView?.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+            button?.layer.cornerRadius = cornerRadius - progressBarOffset - lineWidth
             progressBar?.lineWidth = lineWidth
+            
+            updateLayout()
+            
+            self.layoutSubviews()
+        }
+    }
+    
+    public var progressBarOffset: CGFloat = 10 {
+        didSet {
+            timerBackgroundView?.cornerRadius = cornerRadius - progressBarOffset
+            buttonBackgroundView?.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+            button?.layer.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+
+            updateLayout()
+            
+            self.layoutSubviews()
+        }
+    }
+    
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
+        didSet {
+            self.backgroundColor = .clear
+            circleBackgroundView?.bgColors = bgColors
+            timerBackgroundView?.bgColors = bgColors
+            buttonBackgroundView?.bgColors = bgColors
+            layoutSubviews()
         }
     }
     
@@ -83,6 +109,7 @@ class NMProgressViewWithButton: UIView {
         button.addTarget(self, action: #selector(touchCancelAction(_:)), for: .touchCancel)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
+        button.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode()), for: .normal)
         self.addSubview(button)
         
         NSLayoutConstraint.activate([
@@ -91,25 +118,25 @@ class NMProgressViewWithButton: UIView {
             circleBackgroundView.topAnchor.constraint(equalTo: self.topAnchor),
             circleBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            timerBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            timerBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            timerBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            timerBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            timerBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset),
+            timerBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -progressBarOffset),
+            timerBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset),
+            timerBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -progressBarOffset),
             
-            buttonBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
-            buttonBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40),
-            buttonBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-            buttonBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            buttonBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset + lineWidth),
+            buttonBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(progressBarOffset + lineWidth)),
+            buttonBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset + lineWidth),
+            buttonBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(progressBarOffset + lineWidth)),
             
-            progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            progressBar.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            progressBar.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset),
+            progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -progressBarOffset),
+            progressBar.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset),
+            progressBar.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -progressBarOffset),
             
-            button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
-            button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40),
-            button.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-            button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset + lineWidth),
+            button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(progressBarOffset + lineWidth)),
+            button.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset + lineWidth),
+            button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(progressBarOffset + lineWidth)),
         ])
     }
     
@@ -136,6 +163,56 @@ class NMProgressViewWithButton: UIView {
                 button.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.2)
             }, completion: nil)
             button.isEnabled = false
+        }
+    }
+    
+    private func updateLayout() {
+        if timerBackgroundView != nil {
+            timerBackgroundView.removeFromSuperview()
+            timerBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(timerBackgroundView)
+            NSLayoutConstraint.activate([
+                timerBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset),
+                timerBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -progressBarOffset),
+                timerBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset),
+                timerBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -progressBarOffset),
+            ])
+        }
+        
+        if buttonBackgroundView != nil {
+            buttonBackgroundView.removeFromSuperview()
+            buttonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(buttonBackgroundView)
+            NSLayoutConstraint.activate([
+                buttonBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset + lineWidth),
+                buttonBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(progressBarOffset + lineWidth)),
+                buttonBackgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset + lineWidth),
+                buttonBackgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(progressBarOffset + lineWidth)),
+            ])
+        }
+
+        if progressBar != nil {
+            progressBar.removeFromSuperview()
+            progressBar.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(progressBar)
+            NSLayoutConstraint.activate([
+                progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset),
+                progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -progressBarOffset),
+                progressBar.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset),
+                progressBar.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -progressBarOffset),
+            ])
+        }
+
+        if button != nil {
+            button.removeFromSuperview()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(button)
+            NSLayoutConstraint.activate([
+                button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: progressBarOffset + lineWidth),
+                button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(progressBarOffset + lineWidth)),
+                button.topAnchor.constraint(equalTo: self.topAnchor, constant: progressBarOffset + lineWidth),
+                button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(progressBarOffset + lineWidth)),
+            ])
         }
     }
     
