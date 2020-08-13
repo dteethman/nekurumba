@@ -8,7 +8,7 @@ class OnboardingView: UIView {
     
     public var data: (titleText: String, emoji: String, shortDesc: String, fullDesc: String)? = nil
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
 
@@ -45,7 +45,7 @@ class OnboardingView: UIView {
         titleTextView.translatesAutoresizingMaskIntoConstraints = false
         titleTextView.text = data?.titleText ?? "No data"
         titleTextView.font = .systemFont(ofSize: 34, weight: .bold)
-        titleTextView.textColor = isDarkMode() ? .white : .black
+        titleTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
         titleTextView.backgroundColor = .clear
         titleTextView.textContainer.lineBreakMode = .byWordWrapping
         titleTextView.textAlignment = .left
@@ -78,7 +78,7 @@ class OnboardingView: UIView {
         shortDescTextView.translatesAutoresizingMaskIntoConstraints = false
         shortDescTextView.text = shortDescText
         shortDescTextView.font = shortDescFont
-        shortDescTextView.textColor = isDarkMode() ? .white : .black
+        shortDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
         shortDescTextView.backgroundColor = .clear
         shortDescTextView.textContainer.lineBreakMode = .byWordWrapping
         shortDescTextView.textAlignment = .left
@@ -98,7 +98,7 @@ class OnboardingView: UIView {
         fullDescTextView.translatesAutoresizingMaskIntoConstraints = false
         fullDescTextView.text = fullDescText
         fullDescTextView.font = fullDescFont
-        fullDescTextView.textColor = isDarkMode() ? .white : .black
+        fullDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
         fullDescTextView.backgroundColor = .clear
         fullDescTextView.textContainer.lineBreakMode = .byWordWrapping
         fullDescTextView.textAlignment = .left
@@ -135,9 +135,9 @@ class OnboardingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        titleTextView?.textColor = isDarkMode() ? .white : .black
-        shortDescTextView?.textColor = isDarkMode() ? .white : .black
-        fullDescTextView?.textColor = isDarkMode() ? .white : .black
+        titleTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        shortDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        fullDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
     }
     
     

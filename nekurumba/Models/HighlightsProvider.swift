@@ -18,7 +18,7 @@ class HighlightsProvider {
             var smokedStr = "Сегодня " + getNounByNumber(root: "выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ", number: todayCount)
             var cigStr = "\(todayCount) " + getNounByNumber(root: "сигарет", singleEnd: "а ", dualEnd: "ы ", multipleEnd: " ", number: todayCount)
             
-            let textColor = isDarkMode ? UIColor.white : UIColor.black
+            let textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
             
             if todayCount == 0 {
                 smokedStr = "Сегодня не выкурено "
@@ -114,7 +114,7 @@ class HighlightsProvider {
             }
             
             
-            let textColor = isDarkMode ? UIColor.white : UIColor.black
+            let textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
             let firstAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: textColor]
             let firstStr = NSMutableAttributedString(string: "Средний перерыв: ", attributes: firstAtr)
             let secondAtr = [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), NSMutableAttributedString.Key.foregroundColor: UIColor.systemPink]

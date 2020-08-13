@@ -175,7 +175,7 @@ class NMProgressViewWithButton: UIView {
     }
     
     override func layoutSubviews() {
-        button?.setTitleColor(isDarkMode() ? .white : .black, for: .normal)
+        button?.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode()), for: .normal)
     }
     
 }

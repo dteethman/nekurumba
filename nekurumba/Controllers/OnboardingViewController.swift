@@ -58,7 +58,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
         defaults.setValue(true, forKey: "isCountdown")
         defaults.setValue(2, forKey: "hours")
@@ -88,8 +88,8 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.numberOfPages = onboardingDataArray.count
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
-        pageControl.currentPageIndicatorTintColor = isDarkMode ? bgColors.light : bgColors.dark
+        pageControl.pageIndicatorTintColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        pageControl.currentPageIndicatorTintColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         pageControl.isUserInteractionEnabled = false
         self.view.addSubview(pageControl)
         
@@ -226,9 +226,9 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
-        pageControl?.pageIndicatorTintColor = isDarkMode ? secondaryLabelColors.dark : secondaryLabelColors.light
-        pageControl?.currentPageIndicatorTintColor = isDarkMode ? bgColors.light : bgColors.dark
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        pageControl?.pageIndicatorTintColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        pageControl?.currentPageIndicatorTintColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
     }
 

@@ -71,7 +71,7 @@ class ProgressBarView: UIView {
         
         textLayer = createTextLayer(rect: rect, textColor: UIColor.black.cgColor)
         
-        textLayer?.foregroundColor = isDarkMode() ? UIColor.white.cgColor : UIColor.black.cgColor
+        textLayer?.foregroundColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode()).cgColor
         
         gradientLayer = CAGradientLayer()
         conGradientLayer = ConicalGradientLayer()
@@ -365,7 +365,7 @@ class ProgressBarView: UIView {
             backgroundLayer?.strokeColor = UIColor.clear.cgColor
         }
         
-        textLayer?.foregroundColor = isDarkMode() ? UIColor.white.cgColor : UIColor.black.cgColor
+        textLayer?.foregroundColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode()).cgColor
     }
 }
 

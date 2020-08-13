@@ -10,7 +10,7 @@ class NMView: UIView {
         }
     }
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
             layoutSubviews()
@@ -223,8 +223,8 @@ class NMView: UIView {
         bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.5 : 0.2
         
-        backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
-        foregroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
+        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
             
     }
     
@@ -245,8 +245,8 @@ class NMView: UIView {
         bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.1 : 0.8
         
-        backgroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
-        foregroundView?.backgroundColor = isDarkMode() ? bgColors.dark : bgColors.light
+        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
             
         
     }

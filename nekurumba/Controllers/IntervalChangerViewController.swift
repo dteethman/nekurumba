@@ -86,9 +86,8 @@ class IntervalChangerViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         let safeGuide = view.safeAreaLayoutGuide
-        
         
         backButton = NMButton()
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -117,12 +116,13 @@ class IntervalChangerViewController: UIViewController {
         
         segmentControll = NMSegmentedControl(segmentItems: segments, frame: frame)
         segmentControll.cornerRadius = 20
+        segmentControll.bgColors = bgColors
         segmentControll.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(segmentControll)
         
         sliderLabel = UILabel()
         sliderLabel.translatesAutoresizingMaskIntoConstraints = false
-        sliderLabel.textColor = isDarkMode ? .white : .black
+        sliderLabel.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
         sliderLabel.text = activeSegment == 0 ? "\(hours!)" : "\(minutes!)"
         sliderLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 54, weight: .bold)
         sliderLabel.textAlignment = .center
@@ -180,8 +180,8 @@ class IntervalChangerViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super .traitCollectionDidChange(previousTraitCollection)
-        view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
-        sliderLabel?.textColor = isDarkMode ? .white : .black
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        sliderLabel?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
     }
 
 

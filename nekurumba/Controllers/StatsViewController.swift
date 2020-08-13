@@ -14,7 +14,7 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
         segments = [
             SegmentItem(displayTitle: "День", action: {
@@ -51,6 +51,7 @@ class StatsViewController: UIViewController {
         }
         segmentedControl = NMSegmentedControl(segmentItems: segments, frame: segmentedControlFrame)
         segmentedControl.cornerRadius = 20
+        segmentedControl.bgColors = bgColors
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(segmentedControl)
         
@@ -189,7 +190,7 @@ class StatsViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        view.backgroundColor = isDarkMode ? bgColors.dark : bgColors.light
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
     }
 
 }

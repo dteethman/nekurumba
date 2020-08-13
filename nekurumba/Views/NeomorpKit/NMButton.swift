@@ -1,5 +1,17 @@
 import UIKit
 
+enum NMButtonState {
+    case touchDown
+    case touchDownRepeat
+    case touchDragInside
+    case touchDragOutside
+    case touchDragEnter
+    case touchDragExit
+    case touchUpInside
+    case touchUpOutside
+    case touchCancel
+}
+
 class NMButton: UIView {
     typealias ButtonFunction = () -> Void
     
@@ -30,7 +42,7 @@ class NMButton: UIView {
         }
     }
     
-    public var bgColors: (light: UIColor, dark: UIColor) = (UIColor.white, UIColor.black) {
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
             backgroundView?.bgColors = bgColors
