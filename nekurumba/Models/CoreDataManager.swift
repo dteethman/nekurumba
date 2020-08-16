@@ -1,10 +1,3 @@
-//
-//  CoreDataModel.swift
-//  aaaa
-//
-//  Created by Дмитрий Зубков on 17.07.2020.
-//
-
 import CoreData
 import UIKit
 
@@ -33,18 +26,18 @@ class CoreDataManager {
     func loadForDate(year: Int, month: Int, day: Int) -> [SmokeTracker]? {
         let fetchRequest: NSFetchRequest<SmokeTracker> = SmokeTracker.fetchRequest()
         
-        let yearPredicate = NSPredicate(format: "year == %d", Int32(year))
-        let monthPredicate = NSPredicate(format: "month == %d", Int32(month))
-        let dayPredicate = NSPredicate(format: "day == %d", Int32(day))
+        let yearPredicate = NSPredicate(format: "\(yearKey) == %d", Int32(year))
+        let monthPredicate = NSPredicate(format: "\(monthKey) == %d", Int32(month))
+        let dayPredicate = NSPredicate(format: "\(dayKey) == %d", Int32(day))
         
         let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [dayPredicate, monthPredicate, yearPredicate])
         
         let sortDescriptors = [
-            NSSortDescriptor(key: "year", ascending: true),
-            NSSortDescriptor(key: "month", ascending: true),
-            NSSortDescriptor(key: "day", ascending: true),
-            NSSortDescriptor(key: "hour", ascending: true),
-            NSSortDescriptor(key: "minute", ascending: true),
+            NSSortDescriptor(key: yearKey, ascending: true),
+            NSSortDescriptor(key: monthKey, ascending: true),
+            NSSortDescriptor(key: dayKey, ascending: true),
+            NSSortDescriptor(key: hourKey, ascending: true),
+            NSSortDescriptor(key: minuteKey, ascending: true),
             
         ]
         
@@ -71,11 +64,11 @@ class CoreDataManager {
         let minute = Int32(calendar.component(.minute, from: date))
             
         let tracker = NSManagedObject(entity: entity, insertInto: context)
-        tracker.setValue(year, forKey: "year")
-        tracker.setValue(month, forKey: "month")
-        tracker.setValue(day, forKey: "day")
-        tracker.setValue(hour, forKey: "hour")
-        tracker.setValue(minute, forKey: "minute")
+        tracker.setValue(year, forKey: yearKey)
+        tracker.setValue(month, forKey: monthKey)
+        tracker.setValue(day, forKey: dayKey)
+        tracker.setValue(hour, forKey: hourKey)
+        tracker.setValue(minute, forKey: minuteKey)
         
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }

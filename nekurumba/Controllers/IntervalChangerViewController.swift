@@ -41,7 +41,7 @@ class IntervalChangerViewController: UIViewController {
                 if activeSegment == 0 {
                     sliderLabel.text = "\(hours!)"
                 }
-                saveToDefaults(hours!, forKey: "hours")
+                saveToDefaults(hours!, forKey: intervalHoursKey)
             }
             
         }
@@ -52,7 +52,7 @@ class IntervalChangerViewController: UIViewController {
                 if activeSegment == 1 {
                     sliderLabel?.text = "\(minutes!)"
                 }
-                saveToDefaults(minutes!, forKey: "minutes")
+                saveToDefaults(minutes!, forKey: intervalMinutesKey)
             }
         }
         
@@ -159,12 +159,12 @@ class IntervalChangerViewController: UIViewController {
     private func loadTimeFromDefaults() {
         let defaults = UserDefaults.standard
         
-        hours = defaults.integer(forKey: "hours")
-        minutes = defaults.integer(forKey: "minutes")
+        hours = defaults.integer(forKey: intervalHoursKey)
+        minutes = defaults.integer(forKey: intervalMinutesKey)
         
         
         if hours == 0 && minutes == 0 {
-            defaults.setValue(2, forKey: "hours")
+            defaults.setValue(2, forKey: intervalHoursKey)
             hours = 2
         }
             

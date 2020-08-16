@@ -40,6 +40,8 @@
 		42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3128124E4D46200050D0E /* OnboardingView.swift */; };
 		42F99FB124E95F09004955C9 /* E_String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB024E95F09004955C9 /* E_String.swift */; };
 		42F99FB324E963B0004955C9 /* E_Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB224E963B0004955C9 /* E_Int.swift */; };
+		42F99FB524E97569004955C9 /* NightModeChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB424E97569004955C9 /* NightModeChangerViewController.swift */; };
+		42F99FB724E99E28004955C9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB624E99E28004955C9 /* Keys.swift */; };
 		42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */; };
 		42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7924C1CC6300D74068 /* TabBarController.swift */; };
 		42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */; };
@@ -92,6 +94,8 @@
 		42F3128124E4D46200050D0E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		42F99FB024E95F09004955C9 /* E_String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_String.swift; sourceTree = "<group>"; };
 		42F99FB224E963B0004955C9 /* E_Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_Int.swift; sourceTree = "<group>"; };
+		42F99FB424E97569004955C9 /* NightModeChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightModeChangerViewController.swift; sourceTree = "<group>"; };
+		42F99FB624E99E28004955C9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_TimeInterval.swift; sourceTree = "<group>"; };
 		42FA7D7924C1CC6300D74068 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
@@ -183,9 +187,10 @@
 				42C5E77924C1794A0010F5FC /* E_UIViewController.swift */,
 				42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */,
 				42B885C024C4EB91007924A6 /* E_Date.swift */,
-				42FA7D7F24C1CCDC00D74068 /* Colors.swift */,
 				42F99FB024E95F09004955C9 /* E_String.swift */,
 				42F99FB224E963B0004955C9 /* E_Int.swift */,
+				42FA7D7F24C1CCDC00D74068 /* Colors.swift */,
+				42F99FB624E99E28004955C9 /* Keys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				42FA7D8124C1CD6000D74068 /* SettingsViewController.swift */,
 				42FA7D7924C1CC6300D74068 /* TabBarController.swift */,
 				423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */,
+				42F99FB424E97569004955C9 /* NightModeChangerViewController.swift */,
 				42F3127F24E4283A00050D0E /* OnboardingViewController.swift */,
 			);
 			path = Controllers;
@@ -346,11 +352,13 @@
 				42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */,
 				42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */,
 				42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */,
+				42F99FB524E97569004955C9 /* NightModeChangerViewController.swift in Sources */,
 				42FA7D8024C1CCDC00D74068 /* Colors.swift in Sources */,
 				42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */,
 				42C5E77E24C1794B0010F5FC /* E_UIViewController.swift in Sources */,
 				42F99FB124E95F09004955C9 /* E_String.swift in Sources */,
 				42B885BD24C4E080007924A6 /* HighlightCollectionViewCell.swift in Sources */,
+				42F99FB724E99E28004955C9 /* Keys.swift in Sources */,
 				42C5E77C24C1794B0010F5FC /* E_UIImageView.swift in Sources */,
 				42FA7D7E24C1CC7D00D74068 /* TabItem.swift in Sources */,
 				42B885BF24C4E080007924A6 /* HighlightCollectionViewDelegate.swift in Sources */,

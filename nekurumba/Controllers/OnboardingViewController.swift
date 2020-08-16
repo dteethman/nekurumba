@@ -60,8 +60,8 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
-        defaults.setValue(true, forKey: "isCountdown")
-        defaults.setValue(2, forKey: "hours")
+        defaults.setValue(true, forKey: isCountdownKey)
+        defaults.setValue(2, forKey: intervalHoursKey)
         
         setupViews()
         setupButtons()
@@ -200,7 +200,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         
         buttonsArray[3].addAction(for: .touchUpInside, action: {
             self.dismiss(animated: true) {
-                self.defaults.setValue(true, forKey: "userDidOnboarding")
+                self.defaults.setValue(true, forKey: userDidOnboardingKey)
             }
         })
         

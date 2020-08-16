@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
-        if !defaults.bool(forKey: "userDidOnboarding") {
+        if !defaults.bool(forKey: userDidOnboardingKey) {
             let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
             onboardingViewController.modalPresentationStyle = .fullScreen
             window?.rootViewController?.present(onboardingViewController, animated: false, completion: nil)
