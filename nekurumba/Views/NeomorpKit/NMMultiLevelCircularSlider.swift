@@ -203,7 +203,7 @@ class NMMultiLevelCircularSlider: UIView {
         let sliderRadius = circleRadius - sliderWidth / 2
         
         let sliderPosition = angleOfTouchPoint(center: center, touchPoint: point) / (CGFloat.pi * 2)
-        let step = 5 / CGFloat(numberOfDivisions)
+        let step: CGFloat = 0.1
         
         if gesture.state == .began {
             let validAngle = (-CGFloat.pi / 2) + (2 * CGFloat.pi * progressBar.progress)
