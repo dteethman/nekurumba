@@ -16,7 +16,7 @@ class HighlightsProvider {
             let difference = abs(todayCount - yesterdayCount)
             
             var smokedStr = "Сегодня " + todayCount.getNoun("выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ")
-            var cigStr = "\(todayCount) " + todayCount.getNoun("выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ")
+            var cigStr = "\(todayCount) " + todayCount.getNoun("сигарет", singleEnd: "а", dualEnd: "ы", multipleEnd: "")
             
             let textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
             
