@@ -73,13 +73,33 @@ class CoreDataManager {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
+    func addData(year: Int, month: Int, day: Int, hour: Int, minute: Int) {
+        guard let entity = NSEntityDescription.entity(forEntityName: "SmokeTracker", in: context!) else {
+            fatalError("Could not find entity description SmokeTracker!")
+        }
+        let y = Int32(year)
+        let mo = Int32(month)
+        let d = Int32(day)
+        let h = Int32(hour)
+        let min = Int32(minute)
+            
+        let tracker = NSManagedObject(entity: entity, insertInto: context)
+        tracker.setValue(y, forKey: yearKey)
+        tracker.setValue(mo, forKey: monthKey)
+        tracker.setValue(d, forKey: dayKey)
+        tracker.setValue(h, forKey: hourKey)
+        tracker.setValue(min, forKey: minuteKey)
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    }
+    
     func printSmokeData(_ data: [SmokeTracker]?) {
         if data != nil {
             for d in data! {
                 print(d.year, d.month, d.day, d.hour, d.minute)
             }
         } else {
-            print("data id nil")
+            print("ERROR: Cannot print - data is nil")
         }
     }
 }
