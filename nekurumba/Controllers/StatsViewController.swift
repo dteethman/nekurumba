@@ -11,24 +11,26 @@ class StatsViewController: UIViewController {
     var segments: [SegmentItem]!
     var selectedSegment: Int!
     
+    var date = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
         segments = [
-            SegmentItem(displayTitle: "День", action: {
-                self.selectedSegment = 1
-                self.presentTodayStats()
+            SegmentItem(displayTitle: "День", action: { [self] in
+                selectedSegment = 1
+                updateData()
             }),
-            SegmentItem(displayTitle: "Неделя", action: {
-                self.selectedSegment = 2
-                self.presentWeeklyStats()
+            SegmentItem(displayTitle: "Неделя", action: { [self] in
+                selectedSegment = 2
+                updateData()
                 
             }),
-            SegmentItem(displayTitle: "Месяц", action: {
-                self.selectedSegment = 3
-                self.presentMonthlyStats()
+            SegmentItem(displayTitle: "Месяц", action: { [self] in
+                selectedSegment = 3
+                updateData()
                 
             }),
         ]
@@ -86,7 +88,6 @@ class StatsViewController: UIViewController {
             
         ])
         
-        
         segmentedControl.layoutSubviews()
     }
     
@@ -94,7 +95,6 @@ class StatsViewController: UIViewController {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
-        let date = Date()
         let calendaer = Calendar.current
         let year = calendaer.component(.year, from: date)
         let month = calendaer.component(.month, from: date)
@@ -121,7 +121,6 @@ class StatsViewController: UIViewController {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
-        let date = Date()
         let calendaer = Calendar.current
         let year = calendaer.component(.year, from: date)
         let month = calendaer.component(.month, from: date)
@@ -148,7 +147,6 @@ class StatsViewController: UIViewController {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
-        let date = Date()
         let calendaer = Calendar.current
         let year = calendaer.component(.year, from: date)
         let month = calendaer.component(.month, from: date)
@@ -172,6 +170,7 @@ class StatsViewController: UIViewController {
     }
     
     func updateData() {
+        date = checkNightModeDate()
         if let segment = selectedSegment {
             switch segment {
             case 1:
@@ -183,6 +182,17 @@ class StatsViewController: UIViewController {
             default:
                 break
             }
+        }
+    }
+    
+    private func checkNightModeDate() -> Date {
+        let defaults = UserDefaults.standard
+        
+        let h = defaults.integer(forKey: nightModeHoursKey)
+        if  h > 0 && h > Calendar.current.component(.hour, from: Date()) {
+            return Date().dayBefore
+        } else {
+            return Date()
         }
     }
     

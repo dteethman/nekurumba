@@ -1,8 +1,10 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    //MARK: - Variables
     let app = UIApplication.shared.delegate as? AppDelegate
     var plannedInterval: TimeInterval = 7200
+    let defaults = UserDefaults.standard
     
     let coreDataManager = CoreDataManager()
     let statsManager = StatsProvider()
@@ -17,22 +19,44 @@ class HomeViewController: UIViewController {
     var titleLabel: UILabel!
     var highlightsLabel: UILabel!
     var highlightCollectionView: UICollectionView!
-    var nightModeButton: NMProgressViewWithButton!
     
     var isCountdown: Bool = true
+    var isNightMode: Bool = false {
+        didSet {
+            titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
+            setupHighslightCollectionView()
+        }
+    }
     
+    //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         statsManager.dataManager = coreDataManager
         
         setupViews()
-        setupHighlightCollectionView()
+        setupHighslightCollectionView()
                 
-        timerView.buttonTouchUpInside = {
-            self.app?.smokeTimer.start()
-            self.timerView.deactivateButton()
-            self.coreDataManager.addData(date: Date())
-            self.setupHighlightCollectionView()
+        timerView.buttonTouchUpInside = { [self] in
+            app?.smokeTimer.start()
+            timerView.deactivateButton()
+            isNightMode = loadIsNightMode()
+            
+            if isNightMode {
+                let calendar = Calendar.current
+                let todayDate = Date()
+                let yesterdayDate = Date().dayBefore
+                
+                let y = calendar.component(.year, from: yesterdayDate)
+                let mo = calendar.component(.month, from: yesterdayDate)
+                let d = calendar.component(.day, from: yesterdayDate)
+                let h = 24 + calendar.component(.hour, from: todayDate)
+                let min = calendar.component(.minute, from: todayDate)
+                coreDataManager.addData(year: y, month: mo, day: d, hour: h, minute: min)
+            } else {
+                coreDataManager.addData(date: Date())
+            }
+            
+            setupHighslightCollectionView()
         }
         
         plannedInterval = loadPlannedInterval()
@@ -56,7 +80,7 @@ class HomeViewController: UIViewController {
         
         app?.smokeTimer.interval.bind { [unowned self] in
             plannedInterval = $0
-            setupHighlightCollectionView()
+            setupHighslightCollectionView()
         }
         
         if #available(iOS 13.0, *) { } else {
@@ -78,14 +102,30 @@ class HomeViewController: UIViewController {
                                                name: UIApplication.willTerminateNotification,
                                                object: nil)
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dayChanged),
+                                               name: NSNotification.Name.NSCalendarDayChanged,
+                                               object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let defaults = UserDefaults.standard
-        isCountdown = defaults.bool(forKey: "isCountdown")
+        
+        isCountdown = defaults.bool(forKey: isCountdownKey)
+        
+        isNightMode = loadIsNightMode()
+        titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setupHighslightCollectionView()
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        
+    }
+    
+    //MARK: - Layout
     private func setupViews() {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
@@ -94,16 +134,13 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         
         let safeGuide = view.safeAreaLayoutGuide
-        let safeAreaBoundsView = UIView()
-        safeAreaBoundsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(safeAreaBoundsView)
         
         titleLabel = UILabel()
         titleLabel.text = "Некурёмба"
         titleLabel.font = .systemFont(ofSize: 34, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .left
-        safeAreaBoundsView.addSubview(titleLabel)
+        self.view.addSubview(titleLabel)
         
         timerView = NMProgressViewWithButton(frame: .zero)
         timerView.cornerRadius = timerViewHeight / 2
@@ -116,14 +153,14 @@ class HomeViewController: UIViewController {
         timerView.progressBar.disableText = true
         timerView.progressBar.animationDuration = 0.2
         timerView.translatesAutoresizingMaskIntoConstraints = false
-        safeAreaBoundsView.addSubview(timerView)
+        self.view.addSubview(timerView)
         
         highlightsLabel = UILabel()
         highlightsLabel.text = "Сводка"
         highlightsLabel.font = .systemFont(ofSize: 28, weight: .bold)
         highlightsLabel.translatesAutoresizingMaskIntoConstraints = false
         highlightsLabel.textAlignment = .left
-        safeAreaBoundsView.addSubview(highlightsLabel)
+        self.view.addSubview(highlightsLabel)
         
         highlightCollectionViewLayout = UICollectionViewFlowLayout()
         highlightCollectionViewLayout.scrollDirection = .horizontal
@@ -143,41 +180,17 @@ class HomeViewController: UIViewController {
         highlightCollectionView.showsHorizontalScrollIndicator = false
         highlightCollectionView.showsVerticalScrollIndicator = false
         highlightCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        safeAreaBoundsView.addSubview(highlightCollectionView)
+        self.view.addSubview(highlightCollectionView)
         
-        nightModeButton = NMProgressViewWithButton()
-        nightModeButton.translatesAutoresizingMaskIntoConstraints = false
-        nightModeButton.bgColors = bgColors
-        nightModeButton.cornerRadius = 25
-        nightModeButton.changeButtonTitle("🌙", font: .systemFont(ofSize: 17))
-        nightModeButton.lineWidth = 6
-        nightModeButton.progressBarOffset = 0
-        nightModeButton.progressBar.progress = 0
-        nightModeButton.progressBar.startGradienttColor = activeColor
-        nightModeButton.progressBar.endGradientColor = activeColor
-        nightModeButton.progressBar.transparentBackgroundLayer = true
-        nightModeButton.progressBar.disableText = true
-        nightModeButton.progressBar.animationDuration = 0.2
-        safeAreaBoundsView.addSubview(nightModeButton)
          
         NSLayoutConstraint.activate([
-            safeAreaBoundsView.topAnchor.constraint(equalTo: safeGuide.topAnchor),
-            safeAreaBoundsView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor),
-            safeAreaBoundsView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor),
-            safeAreaBoundsView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor),
-            
-            nightModeButton.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
-            nightModeButton.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
-            nightModeButton.widthAnchor.constraint(equalToConstant: 50),
-            nightModeButton.heightAnchor.constraint(equalToConstant: 50),
-            
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: nightModeButton.leadingAnchor, constant: 0),
+            titleLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
             titleLabel.heightAnchor.constraint(equalToConstant: 40),
             
             timerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            timerView.centerXAnchor.constraint(equalTo: safeAreaBoundsView.centerXAnchor),
+            timerView.centerXAnchor.constraint(equalTo: safeGuide.centerXAnchor),
             timerView.heightAnchor.constraint(equalToConstant: timerViewHeight),
             timerView.widthAnchor.constraint(equalTo: timerView.heightAnchor),
             
@@ -194,9 +207,14 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    func setupHighlightCollectionView() {
+    //MARK: - HighlightsCollectionView Setup
+    func setupHighslightCollectionView() {
         let provider = HighlightsProvider()
-        let today = Date()
+        var today = Date()
+        if isNightMode {
+            today = Date().dayBefore
+        }
+        
         let calendar = Calendar.current
         
         todayData = coreDataManager.loadForDate(year: calendar.component(.year, from: today),
@@ -224,19 +242,26 @@ class HomeViewController: UIViewController {
         highlightCollectionView.reloadData()
     }
     
+    //MARK: - UserDefaults loading
     func loadPlannedInterval() -> TimeInterval {
         let defaults = UserDefaults.standard
-        var hours: Int = defaults.integer(forKey: "hours")
-        let minutes: Int = defaults.integer(forKey: "minutes")
+        var hours: Int = defaults.integer(forKey: intervalHoursKey)
+        let minutes: Int = defaults.integer(forKey: intervalMinutesKey)
 
         if hours == 0 && minutes == 0 {
-            defaults.setValue(2, forKey: "hours")
+            defaults.setValue(2, forKey: intervalHoursKey)
             hours = 2
         }
         
         return TimeInterval(hours * 3600 + minutes * 60)
     }
     
+    func loadIsNightMode() -> Bool {
+        let h = defaults.integer(forKey: nightModeHoursKey)
+        return h > 0 && h > Calendar.current.component(.hour, from: Date())
+    }
+    
+    //MARK: - NotificationCenter actions
     @objc func viewWillResignActive() {
         app?.smokeTimer?.saveToDefaults()
     }
@@ -248,13 +273,14 @@ class HomeViewController: UIViewController {
     @objc func viewWillTerminate() {
         app?.smokeTimer?.saveToDefaults()
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        setupHighlightCollectionView()
-        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+    
+    @objc func dayChanged() {
+        isNightMode = loadIsNightMode()
+        titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
         
     }
+
+    
 
 }
 

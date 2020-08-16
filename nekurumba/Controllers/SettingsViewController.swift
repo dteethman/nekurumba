@@ -1,35 +1,40 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    // MARK: - Variables
     private var titleLabel: UILabel!
     
     private var intervalBackgroundView: NMView!
     private var intervalBackgroundViewMask: UIView!
     private var intervalLabel: UILabel!
-    private var intervaSublabel: UILabel!
+    private var intervalSublabel: UILabel!
     private var intervalTextView: UITextView!
     private var intervalChangeButton: NMButton!
     
+    private var nightModeBackgroundView: NMView!
+    private var nightModeBackgroundViewMask: UIView!
+    private var nightModeLabel: UILabel!
+    private var nightModeSublabel: UILabel!
+    private var nightModeTextView: UITextView!
+    private var nightModeChangeButton: NMButton!
+
     private var timerCountdownBackgroundView: NMView!
     private var timerCountdownBackgroundViewMask: UIView!
     private var timerCountdownlLabel: UILabel!
     private var timerCountdownSwitch: NMSwitch!
     private var timerCountdownTextView: UITextView!
     
-    private var hours: Int!
-    private var minutes: Int!
+    private var intervalHours: Int!
+    private var intervalMinutes: Int!
+    private var nightModeHours: Int!
+    
     private var timerCountdownSwitchState: Bool = true {
         didSet {
-            if timerCountdownSwitchState {
-                let timerCountdownText = "Внутри таймера будет отображаться время до окончания перерыва."
-                timerCountdownTextView?.text = timerCountdownText
-            } else {
-                let timerCountdownText = "Внутри таймера будет отображаться время от начала перерыва."
-                timerCountdownTextView?.text = timerCountdownText
-            }
+            changeCountdownDescription(timerCountdownSwitchState)
         }
     }
     
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
@@ -40,9 +45,10 @@ class SettingsViewController: UIViewController {
         
         self.title = "Настройки"
         let defaults = UserDefaults.standard
-        timerCountdownSwitchState = defaults.bool(forKey: "isCountdown")
+        timerCountdownSwitchState = defaults.bool(forKey: isCountdownKey)
        
         setupViews()
+        changeCountdownDescription(timerCountdownSwitchState)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,12 +58,43 @@ class SettingsViewController: UIViewController {
         setupIntervalText()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        intervalSublabel?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        intervalTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        nightModeSublabel?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        nightModeTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        timerCountdownTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        setupIntervalText()
+        
+    }
+    
+    // MARK: - Layout Initialization
     func setupViews() {
         let safeGuide = view.safeAreaLayoutGuide
         
+        let bodyHorizontalMargin: CGFloat = 20
+        let bodyTopMargin: CGFloat = 20
+        let bodyHeight: CGFloat = 70
+        
+        let labelHorizontalMargin: CGFloat = 12
+        let labelHeight: CGFloat = 20
+        
+        let sublabelHeight: CGFloat = 18
+        
+        let textTopMargin: CGFloat = 8
+        
+        let controlHorizontalMargin: CGFloat = 20
+        
+        let buttonHeight: CGFloat = 40
+        
+        let switchHeight: CGFloat = 47
+        let switchWidth: CGFloat = switchHeight + 20
+        
         let descriptionTextViewWidth = UIScreen.main.bounds.width - 64
         let descriptionTextViewFont = UIFont.systemFont(ofSize: 13, weight: .regular)
-        let descriptionTextAttributes = [NSAttributedString.Key.font: descriptionTextViewFont]
+        
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -108,21 +145,19 @@ class SettingsViewController: UIViewController {
         intervalLabel.textAlignment = .left
         intervalBackgroundViewMask.addSubview(intervalLabel)
         
-        intervaSublabel = UILabel()
-        intervaSublabel.translatesAutoresizingMaskIntoConstraints = false
-        intervaSublabel.text = "1 час 12 минут"
-        intervaSublabel.font = .systemFont(ofSize: 15, weight: .regular)
-        intervaSublabel.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
-        intervaSublabel.textAlignment = .left
-        intervalBackgroundViewMask.addSubview(intervaSublabel)
+        intervalSublabel = UILabel()
+        intervalSublabel.translatesAutoresizingMaskIntoConstraints = false
+        intervalSublabel.text = "1 час 12 минут"
+        intervalSublabel.font = .systemFont(ofSize: 15, weight: .regular)
+        intervalSublabel.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        intervalSublabel.textAlignment = .left
+        intervalBackgroundViewMask.addSubview(intervalSublabel)
         
         intervalTextView = UITextView()
         intervalTextView.translatesAutoresizingMaskIntoConstraints = false
         
         let intervalText = "Вы можете поменять длину перерыва, который хотите выдерживать между каждой сигаретой."
-        let intervalTextHeight = calculateTextFieldHeight(width: descriptionTextViewWidth,
-                                 string: NSAttributedString(string: intervalText, attributes: descriptionTextAttributes))
-        
+        let intervalTextHeight = intervalText.calculateTextFieldHeight(width: descriptionTextViewWidth, font: descriptionTextViewFont)
         intervalTextView.text = intervalText
         intervalTextView.font = descriptionTextViewFont
         intervalTextView.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
@@ -139,34 +174,128 @@ class SettingsViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             intervalBackgroundView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            intervalBackgroundView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
-            intervalBackgroundView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
-            intervalBackgroundView.heightAnchor.constraint(equalToConstant: 80),
+            intervalBackgroundView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: bodyHorizontalMargin),
+            intervalBackgroundView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -bodyHorizontalMargin),
+            intervalBackgroundView.heightAnchor.constraint(equalToConstant: bodyHeight),
 
             intervalBackgroundViewMask.topAnchor.constraint(equalTo: intervalBackgroundView.topAnchor),
             intervalBackgroundViewMask.leadingAnchor.constraint(equalTo: intervalBackgroundView.leadingAnchor),
             intervalBackgroundViewMask.trailingAnchor.constraint(equalTo: intervalBackgroundView.trailingAnchor),
             intervalBackgroundViewMask.bottomAnchor.constraint(equalTo: intervalBackgroundView.bottomAnchor),
             
-            intervalChangeButton.topAnchor.constraint(equalTo: intervalBackgroundView.topAnchor, constant: 20),
-            intervalChangeButton.bottomAnchor.constraint(equalTo: intervalBackgroundView.bottomAnchor, constant: -20),
-            intervalChangeButton.trailingAnchor.constraint(equalTo: intervalBackgroundView.trailingAnchor, constant: -20),
+            intervalChangeButton.trailingAnchor.constraint(equalTo: intervalBackgroundView.trailingAnchor, constant: -controlHorizontalMargin),
+            intervalChangeButton.centerYAnchor.constraint(equalTo: intervalBackgroundView.centerYAnchor),
+            intervalChangeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             intervalChangeButton.widthAnchor.constraint(equalTo: intervalChangeButton.heightAnchor),
 
-            intervalLabel.topAnchor.constraint(equalTo: intervalBackgroundView.topAnchor, constant: 20),
-            intervalLabel.leadingAnchor.constraint(equalTo: intervalBackgroundView.leadingAnchor, constant: 12),
+            intervalLabel.leadingAnchor.constraint(equalTo: intervalBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
             intervalLabel.trailingAnchor.constraint(equalTo: intervalChangeButton.leadingAnchor, constant: -10),
-            intervalLabel.heightAnchor.constraint(equalToConstant: 20),
+            intervalLabel.centerYAnchor.constraint(equalTo: intervalBackgroundView.centerYAnchor, constant: -10),
+            intervalLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
-            intervaSublabel.topAnchor.constraint(equalTo: intervalLabel.bottomAnchor, constant: 2),
-            intervaSublabel.leadingAnchor.constraint(equalTo: intervalLabel.leadingAnchor),
-            intervaSublabel.trailingAnchor.constraint(equalTo: intervalLabel.trailingAnchor),
-            intervaSublabel.heightAnchor.constraint(equalToConstant: 18),
+            intervalSublabel.leadingAnchor.constraint(equalTo: intervalLabel.leadingAnchor),
+            intervalSublabel.trailingAnchor.constraint(equalTo: intervalLabel.trailingAnchor),
+            intervalSublabel.centerYAnchor.constraint(equalTo: intervalBackgroundView.centerYAnchor, constant: 12),
+            intervalSublabel.heightAnchor.constraint(equalToConstant: sublabelHeight),
 
-            intervalTextView.topAnchor.constraint(equalTo: intervalBackgroundView.bottomAnchor, constant: 12),
-            intervalTextView.leadingAnchor.constraint(equalTo: intervalBackgroundView.leadingAnchor, constant: 12),
-            intervalTextView.trailingAnchor.constraint(equalTo: intervalBackgroundView.trailingAnchor, constant: -12),
+            intervalTextView.topAnchor.constraint(equalTo: intervalBackgroundView.bottomAnchor, constant: textTopMargin),
+            intervalTextView.leadingAnchor.constraint(equalTo: intervalBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
+            intervalTextView.trailingAnchor.constraint(equalTo: intervalBackgroundView.trailingAnchor, constant: -labelHorizontalMargin),
             intervalTextView.heightAnchor.constraint(equalToConstant: intervalTextHeight),
+        ])
+        
+        //NightMode Settings
+        nightModeBackgroundView = NMView()
+        nightModeBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        nightModeBackgroundView.bgColors = bgColors
+        nightModeBackgroundView.cornerRadius = 10
+        self.view.addSubview(nightModeBackgroundView)
+        
+        nightModeBackgroundViewMask = UIView()
+        nightModeBackgroundViewMask.translatesAutoresizingMaskIntoConstraints = false
+        nightModeBackgroundViewMask.clipsToBounds = true
+        nightModeBackgroundViewMask.backgroundColor = .clear
+        nightModeBackgroundViewMask.layer.cornerRadius = nightModeBackgroundView.cornerRadius
+        self.view.addSubview(nightModeBackgroundViewMask)
+        
+        nightModeChangeButton = NMButton()
+        nightModeChangeButton.translatesAutoresizingMaskIntoConstraints = false
+        nightModeChangeButton.frame = CGRect(x: 20, y: 100, width: 100, height: 40)
+        nightModeChangeButton.cornerRadius = 20
+        nightModeChangeButton.bgColors = bgColors
+        nightModeChangeButton.titleLabel?.text = "▶︎"
+        nightModeChangeButton.titleLabel?.textAlignment = .center
+        nightModeChangeButton.titleLabel?.textColor = activeColor
+        nightModeChangeButton.addAction(for: .touchUpInside, action: {
+            let presentingController = NightModeChangerViewController()
+            self.navigationController?.pushViewController(presentingController, animated: true)
+        })
+        nightModeBackgroundViewMask.addSubview(nightModeChangeButton)
+        
+        nightModeLabel = UILabel()
+        nightModeLabel.translatesAutoresizingMaskIntoConstraints = false
+        nightModeLabel.text = "Ночной режим"
+        nightModeLabel.font = .systemFont(ofSize: 17, weight: .regular)
+        nightModeLabel.textAlignment = .left
+        nightModeBackgroundViewMask.addSubview(nightModeLabel)
+        
+        nightModeSublabel = UILabel()
+        nightModeSublabel.translatesAutoresizingMaskIntoConstraints = false
+        nightModeSublabel.text = "00:00 – 02:00"
+        nightModeSublabel.font = .systemFont(ofSize: 15, weight: .regular)
+        nightModeSublabel.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        nightModeSublabel.textAlignment = .left
+        nightModeBackgroundViewMask.addSubview(nightModeSublabel)
+        
+        nightModeTextView = UITextView()
+        nightModeTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let nightModeText = "В ночном режиме перекуры учитываются в прошедший день."
+        let nightModeTextHeight = nightModeText.calculateTextFieldHeight(width: descriptionTextViewWidth, font: descriptionTextViewFont)
+        nightModeTextView.text = nightModeText
+        nightModeTextView.font = descriptionTextViewFont
+        nightModeTextView.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        nightModeTextView.backgroundColor = .clear
+        nightModeTextView.textContainer.lineBreakMode = .byWordWrapping
+        nightModeTextView.textAlignment = .left
+        nightModeTextView.isScrollEnabled = false
+        nightModeTextView.isEditable = false
+        nightModeTextView.isSelectable = false
+        nightModeTextView.textContainerInset = .zero
+        nightModeTextView.textContainer.lineFragmentPadding = 0
+        
+        self.view.addSubview(nightModeTextView)
+        
+        NSLayoutConstraint.activate([
+            nightModeBackgroundView.topAnchor.constraint(equalTo: intervalTextView.bottomAnchor, constant: bodyTopMargin),
+            nightModeBackgroundView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: bodyHorizontalMargin),
+            nightModeBackgroundView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -bodyHorizontalMargin),
+            nightModeBackgroundView.heightAnchor.constraint(equalToConstant: bodyHeight),
+
+            nightModeBackgroundViewMask.topAnchor.constraint(equalTo: nightModeBackgroundView.topAnchor),
+            nightModeBackgroundViewMask.leadingAnchor.constraint(equalTo: nightModeBackgroundView.leadingAnchor),
+            nightModeBackgroundViewMask.trailingAnchor.constraint(equalTo: nightModeBackgroundView.trailingAnchor),
+            nightModeBackgroundViewMask.bottomAnchor.constraint(equalTo: nightModeBackgroundView.bottomAnchor),
+            
+            nightModeChangeButton.trailingAnchor.constraint(equalTo: nightModeBackgroundView.trailingAnchor, constant: -controlHorizontalMargin),
+            nightModeChangeButton.centerYAnchor.constraint(equalTo: nightModeBackgroundView.centerYAnchor),
+            nightModeChangeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            nightModeChangeButton.widthAnchor.constraint(equalTo: nightModeChangeButton.heightAnchor),
+
+            nightModeLabel.leadingAnchor.constraint(equalTo: nightModeBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
+            nightModeLabel.trailingAnchor.constraint(equalTo: nightModeChangeButton.leadingAnchor, constant: -10),
+            nightModeLabel.centerYAnchor.constraint(equalTo: nightModeBackgroundView.centerYAnchor, constant: -10),
+            nightModeLabel.heightAnchor.constraint(equalToConstant: labelHeight),
+
+            nightModeSublabel.leadingAnchor.constraint(equalTo: nightModeLabel.leadingAnchor),
+            nightModeSublabel.trailingAnchor.constraint(equalTo: nightModeLabel.trailingAnchor),
+            nightModeSublabel.centerYAnchor.constraint(equalTo: nightModeBackgroundView.centerYAnchor, constant: 12),
+            nightModeSublabel.heightAnchor.constraint(equalToConstant: sublabelHeight),
+
+            nightModeTextView.topAnchor.constraint(equalTo: nightModeBackgroundView.bottomAnchor, constant: textTopMargin),
+            nightModeTextView.leadingAnchor.constraint(equalTo: nightModeBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
+            nightModeTextView.trailingAnchor.constraint(equalTo: nightModeBackgroundView.trailingAnchor, constant: -labelHorizontalMargin),
+            nightModeTextView.heightAnchor.constraint(equalToConstant: nightModeTextHeight),
         ])
         
         //Timer countdown Settings
@@ -202,9 +331,7 @@ class SettingsViewController: UIViewController {
         timerCountdownTextView.translatesAutoresizingMaskIntoConstraints = false
         
         let timerCountdownText = "Внутри таймера будет отображаться время до окончания перерыва."
-        let timerCountdownTextHeight = calculateTextFieldHeight(width: descriptionTextViewWidth,
-                                 string: NSAttributedString(string: timerCountdownText, attributes: descriptionTextAttributes))
-        
+        let timerCountdownTextHeight = timerCountdownText.calculateTextFieldHeight(width: descriptionTextViewWidth, font: descriptionTextViewFont)
         timerCountdownTextView.text = timerCountdownText
         timerCountdownTextView.font = descriptionTextViewFont
         timerCountdownTextView.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
@@ -220,68 +347,39 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(timerCountdownTextView)
         
         NSLayoutConstraint.activate([
-            timerCountdownBackgroundView.topAnchor.constraint(equalTo: intervalTextView.bottomAnchor, constant: 30),
-            timerCountdownBackgroundView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
-            timerCountdownBackgroundView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),
-            timerCountdownBackgroundView.heightAnchor.constraint(equalToConstant: 67),
+            timerCountdownBackgroundView.topAnchor.constraint(equalTo: nightModeTextView.bottomAnchor, constant: bodyTopMargin),
+            timerCountdownBackgroundView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: bodyHorizontalMargin),
+            timerCountdownBackgroundView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -bodyHorizontalMargin),
+            timerCountdownBackgroundView.heightAnchor.constraint(equalToConstant: bodyHeight),
 
             timerCountdownBackgroundViewMask.topAnchor.constraint(equalTo: timerCountdownBackgroundView.topAnchor),
             timerCountdownBackgroundViewMask.leadingAnchor.constraint(equalTo: timerCountdownBackgroundView.leadingAnchor),
             timerCountdownBackgroundViewMask.trailingAnchor.constraint(equalTo: timerCountdownBackgroundView.trailingAnchor),
             timerCountdownBackgroundViewMask.bottomAnchor.constraint(equalTo: timerCountdownBackgroundView.bottomAnchor),
             
-            timerCountdownSwitch.topAnchor.constraint(equalTo: timerCountdownBackgroundViewMask.topAnchor, constant: 10),
-            timerCountdownSwitch.bottomAnchor.constraint(equalTo: timerCountdownBackgroundViewMask.bottomAnchor, constant: -10),
-            timerCountdownSwitch.trailingAnchor.constraint(equalTo: timerCountdownBackgroundViewMask.trailingAnchor, constant: -20),
-            timerCountdownSwitch.widthAnchor.constraint(equalToConstant: 67),
+            timerCountdownSwitch.centerYAnchor.constraint(equalTo: timerCountdownBackgroundView.centerYAnchor),
+            timerCountdownSwitch.trailingAnchor.constraint(equalTo: timerCountdownBackgroundView.trailingAnchor, constant: -controlHorizontalMargin),
+            timerCountdownSwitch.heightAnchor.constraint(equalToConstant: switchHeight),
+            timerCountdownSwitch.widthAnchor.constraint(equalToConstant: switchWidth),
             
-            timerCountdownlLabel.topAnchor.constraint(equalTo: timerCountdownBackgroundView.topAnchor, constant: 20),
-            timerCountdownlLabel.leadingAnchor.constraint(equalTo: timerCountdownBackgroundView.leadingAnchor, constant: 12),
+            timerCountdownlLabel.leadingAnchor.constraint(equalTo: timerCountdownBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
             timerCountdownlLabel.trailingAnchor.constraint(equalTo: timerCountdownSwitch.leadingAnchor, constant: -10),
-            timerCountdownlLabel.bottomAnchor.constraint(equalTo: timerCountdownBackgroundView.bottomAnchor, constant: -20),
+            timerCountdownlLabel.centerYAnchor.constraint(equalTo: timerCountdownBackgroundView.centerYAnchor),
+            timerCountdownlLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             
-            timerCountdownTextView.topAnchor.constraint(equalTo: timerCountdownBackgroundView.bottomAnchor, constant: 12),
-            timerCountdownTextView.leadingAnchor.constraint(equalTo: timerCountdownBackgroundView.leadingAnchor, constant: 12),
-            timerCountdownTextView.trailingAnchor.constraint(equalTo: timerCountdownBackgroundView.trailingAnchor, constant: -12),
+            timerCountdownTextView.topAnchor.constraint(equalTo: timerCountdownBackgroundView.bottomAnchor, constant: textTopMargin),
+            timerCountdownTextView.leadingAnchor.constraint(equalTo: timerCountdownBackgroundView.leadingAnchor, constant: labelHorizontalMargin),
+            timerCountdownTextView.trailingAnchor.constraint(equalTo: timerCountdownBackgroundView.trailingAnchor, constant: -labelHorizontalMargin),
             timerCountdownTextView.heightAnchor.constraint(equalToConstant: timerCountdownTextHeight),
         ])
-        
-    }
-
-    func calculateTextFieldHeight(width: CGFloat, string: NSAttributedString) -> CGFloat {
-        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let stringSize = string.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).size
-
-        let range = CFRangeMake(0, string.length)
-        let framesetter = CTFramesetterCreateWithAttributedString(string)
-        let framesetterSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, maxSize, nil)
-        
-        return max(stringSize.height.rounded(.up), framesetterSize.height.rounded(.up))
     }
     
-    func getNounByNumber(root: String, singleEnd: String, dualEnd: String, multipleEnd: String, number: Int) -> String {
-        var resStr = root
-        switch number % 10 {
-        case 1:
-            resStr += singleEnd
-        case 2, 3, 4:
-            resStr += dualEnd
-        default:
-            resStr += multipleEnd
-        }
-        
-        if number % 100 >= 11 &&  number % 100 <= 14 {
-            resStr = root + multipleEnd
-        }
-        
-        return resStr
-    }
-    
+    // MARK: - Layout Changes
     private func setupIntervalText() {
         loadTimeFromDefaults()
-        if let h = hours, let m = minutes {
-            let hoursStr = getNounByNumber(root: "час", singleEnd: "", dualEnd: "а", multipleEnd: "ов", number: h)
-            let minutesStr = getNounByNumber(root: "минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "", number: m)
+        if let h = intervalHours, let m = intervalMinutes {
+            let hoursStr = h.getNoun("час", singleEnd: "", dualEnd: "а", multipleEnd: "ов")
+            let minutesStr = m.getNoun("минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "")
             var timeStr = ""
             if h != 0 {
                 timeStr.append("\(h) \(hoursStr) ")
@@ -291,44 +389,53 @@ class SettingsViewController: UIViewController {
                 timeStr.append("\(m) \(minutesStr)")
             }
            
-            
-            intervaSublabel?.text = timeStr
+            intervalSublabel?.text = timeStr
+        }
+        
+        if let h = nightModeHours {
+            if h == 0 {
+                nightModeSublabel?.text = "Отключен"
+            } else {
+                nightModeSublabel?.text = "00:00 – 0\(h):00"
+            }
         }
     }
     
+    func changeCountdownDescription(_ isCountdown: Bool) {
+            let isCountdownText = "Внутри таймера будет отображаться время до окончания перерыва."
+            let isNotCountdownText = "Внутри таймера будет отображаться время от начала перерыва."
+        timerCountdownTextView?.text = isCountdown ? isCountdownText : isNotCountdownText
+    }
+    
+    // MARK: - Controlls Actions
     private func switchCountdown() {
         let defaults = UserDefaults.standard
         if timerCountdownSwitch != nil {
             if timerCountdownSwitch.isActive {
                 timerCountdownSwitchState = true
-                defaults.setValue(true, forKey: "isCountdown")
+                defaults.setValue(true, forKey: isCountdownKey)
             } else {
                 timerCountdownSwitchState = false
-                defaults.setValue(false, forKey: "isCountdown")
+                defaults.setValue(false, forKey: isCountdownKey)
             }
         }
     }
     
+    
+    // MARK: - UserDefaults loading
     private func loadTimeFromDefaults() {
         let defaults = UserDefaults.standard
         
-        hours = defaults.integer(forKey: "hours")
-        minutes = defaults.integer(forKey: "minutes")
+        intervalHours = defaults.integer(forKey: intervalHoursKey)
+        intervalMinutes = defaults.integer(forKey: intervalMinutesKey)
         
-        
-        if hours == 0 && minutes == 0 {
-            defaults.setValue(2, forKey: "hours")
-            hours = 2
+        if intervalHours == 0 && intervalMinutes == 0 {
+            defaults.setValue(2, forKey: intervalHoursKey)
+            intervalHours = 2
         }
+        
+        nightModeHours = defaults.integer(forKey: nightModeHoursKey)
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        intervaSublabel?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
-        intervalTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
-        timerCountdownTextView?.textColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
-        setupIntervalText()
-        
-    }
+    
 }

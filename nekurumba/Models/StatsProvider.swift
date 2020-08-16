@@ -17,18 +17,30 @@ class StatsProvider {
             
             for track in tracks {
                 let ind = Int(track.hour)
-                smokedCount[ind] += 1
+                if ind < 24 {
+                    smokedCount[ind] += 1
+                } else {
+                    if !smokedCount.indices.contains(24) {
+                        smokedCount.append(0)
+                    }
+                    smokedCount[24] += 1
+                }
+
             }
             
-            for i in 0 ... 23 {
+            for i in 0 ..< smokedCount.count {
                 if i > 0 {
                     smokedCount[i] += smokedCount[i - 1]
                 }
                 let chartData = ChartDataEntry(x: Double(i), y: Double(smokedCount[i]))
                 statsDataEntry.append(chartData)
-                if i % 4 == 0 && i != 0 {
+                
+                switch i {
+                case 4, 8 , 12, 16, 20:
                     labels.append("\(i)")
-                } else {
+                case 24:
+                    labels.append("🌙")
+                default:
                     labels.append("")
                 }
             }
