@@ -45,7 +45,7 @@ class OnboardingView: UIView {
         titleTextView.translatesAutoresizingMaskIntoConstraints = false
         titleTextView.text = data?.titleText ?? "No data"
         titleTextView.font = .systemFont(ofSize: 34, weight: .bold)
-        titleTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        titleTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
         titleTextView.backgroundColor = .clear
         titleTextView.textContainer.lineBreakMode = .byWordWrapping
         titleTextView.textAlignment = .left
@@ -71,14 +71,13 @@ class OnboardingView: UIView {
         
         let shortDescText = data?.shortDesc ?? "No data"
         let shortDescFont = UIFont.systemFont(ofSize: 17, weight: .medium)
-        let shortDescHeight = calculateTextFieldHeight(width: screenWidth - 40,
-                                                       string: NSAttributedString(string: shortDescText,
-                                                                                  attributes: [NSAttributedString.Key.font : shortDescFont]))
+        let shortDescHeight = shortDescText.calculateTextFieldHeight(width: screenWidth - 40, font: shortDescFont)
+ 
         shortDescTextView = UITextView()
         shortDescTextView.translatesAutoresizingMaskIntoConstraints = false
         shortDescTextView.text = shortDescText
         shortDescTextView.font = shortDescFont
-        shortDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        shortDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
         shortDescTextView.backgroundColor = .clear
         shortDescTextView.textContainer.lineBreakMode = .byWordWrapping
         shortDescTextView.textAlignment = .left
@@ -91,14 +90,12 @@ class OnboardingView: UIView {
         
         let fullDescText = data?.fullDesc ?? "No data"
         let fullDescFont = UIFont.systemFont(ofSize: 13, weight: .regular)
-        let fullDescHeight = calculateTextFieldHeight(width: screenWidth - 40,
-                                                       string: NSAttributedString(string: fullDescText,
-                                                                                  attributes: [NSAttributedString.Key.font : fullDescFont]))
+        let fullDescHeight = fullDescText.calculateTextFieldHeight(width: screenWidth - 40, font: fullDescFont)
         fullDescTextView = UITextView()
         fullDescTextView.translatesAutoresizingMaskIntoConstraints = false
         fullDescTextView.text = fullDescText
         fullDescTextView.font = fullDescFont
-        fullDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        fullDescTextView.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
         fullDescTextView.backgroundColor = .clear
         fullDescTextView.textContainer.lineBreakMode = .byWordWrapping
         fullDescTextView.textAlignment = .left
@@ -135,21 +132,10 @@ class OnboardingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        titleTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
-        shortDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
-        fullDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode())
+        titleTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
+        shortDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
+        fullDescTextView?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
     }
     
-    
-    func calculateTextFieldHeight(width: CGFloat, string: NSAttributedString) -> CGFloat {
-        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let stringSize = string.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).size
-
-        let range = CFRangeMake(0, string.length)
-        let framesetter = CTFramesetterCreateWithAttributedString(string)
-        let framesetterSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, maxSize, nil)
-        
-        return max(stringSize.height.rounded(.up), framesetterSize.height.rounded(.up))
-    }
 }
 

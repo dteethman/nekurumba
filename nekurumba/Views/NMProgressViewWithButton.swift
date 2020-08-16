@@ -109,7 +109,7 @@ class NMProgressViewWithButton: UIView {
         button.addTarget(self, action: #selector(touchCancelAction(_:)), for: .touchCancel)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode()), for: .normal)
+        button.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode), for: .normal)
         self.addSubview(button)
         
         NSLayoutConstraint.activate([
@@ -261,7 +261,7 @@ class NMProgressViewWithButton: UIView {
     }
     
     override func layoutSubviews() {
-        button?.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode()), for: .normal)
+        button?.setTitleColor(colorForMode(primaryLabelColors, isDarkMode: isDarkMode), for: .normal)
     }
     
 }

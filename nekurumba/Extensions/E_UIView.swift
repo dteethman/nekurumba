@@ -11,7 +11,7 @@ extension UIView {
         }
     }
     
-    func isDarkMode() -> Bool {
+    var isDarkMode: Bool {
         if let darkMode = findViewController()?.isDarkMode {
             return darkMode
         } else {

@@ -215,16 +215,16 @@ class NMView: UIView {
         topShadowLayer?.shadowColor = topShadowColor.convex
         topShadowLayer?.shadowOffset = topShadowOffset.convex
         topShadowLayer?.shadowRadius = shadowRadius
-        topShadowLayer?.shadowOpacity = isDarkMode() ? 0.1 : 0.8
+        topShadowLayer?.shadowOpacity = isDarkMode ? 0.1 : 0.8
 
         bottomShadowLayer?.fillColor = UIColor.clear.cgColor
         bottomShadowLayer?.shadowColor = bottomShadowColor.convex
         bottomShadowLayer?.shadowOffset = bottomShadowOffset.convex
         bottomShadowLayer?.shadowRadius = shadowRadius
-        bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.5 : 0.2
+        bottomShadowLayer?.shadowOpacity = isDarkMode ? 0.5 : 0.2
         
-        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
-        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
             
     }
     
@@ -237,16 +237,16 @@ class NMView: UIView {
         topShadowLayer?.shadowColor = topShadowColor.concave
         topShadowLayer?.shadowOffset = topShadowOffset.concave
         topShadowLayer?.shadowRadius = shadowRadius
-        topShadowLayer?.shadowOpacity = isDarkMode() ? 0.5 : 0.2
+        topShadowLayer?.shadowOpacity = isDarkMode ? 0.5 : 0.2
         
         bottomShadowLayer?.fillColor = UIColor.clear.cgColor
         bottomShadowLayer?.shadowColor = bottomShadowColor.concave
         bottomShadowLayer?.shadowOffset = bottomShadowOffset.concave
         bottomShadowLayer?.shadowRadius = shadowRadius
-        bottomShadowLayer?.shadowOpacity = isDarkMode() ? 0.1 : 0.8
+        bottomShadowLayer?.shadowOpacity = isDarkMode ? 0.1 : 0.8
         
-        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
-        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
             
         
     }

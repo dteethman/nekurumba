@@ -79,7 +79,7 @@ class NMMultiLevelCircularSlider: UIView {
         progressBar.lineWidth = sliderWidth
         progressBar.transparentBackgroundLayer = true
         progressBar.disableText = true
-        progressBar.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        progressBar.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(progressBar)
         
@@ -272,7 +272,7 @@ class NMMultiLevelCircularSlider: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        progressBar?.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode())
+        progressBar?.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         divisionsView?.frame = self.bounds
         
         createDivisions(numberOfDivisions: numberOfDivisions)
