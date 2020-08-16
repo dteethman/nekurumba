@@ -39,6 +39,7 @@
 		42F3128024E4283A00050D0E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3127F24E4283A00050D0E /* OnboardingViewController.swift */; };
 		42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3128124E4D46200050D0E /* OnboardingView.swift */; };
 		42F99FB124E95F09004955C9 /* E_String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB024E95F09004955C9 /* E_String.swift */; };
+		42F99FB324E963B0004955C9 /* E_Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB224E963B0004955C9 /* E_Int.swift */; };
 		42FA7D7824C1CC2C00D74068 /* E_TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */; };
 		42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7924C1CC6300D74068 /* TabBarController.swift */; };
 		42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */; };
@@ -90,6 +91,7 @@
 		42F3127F24E4283A00050D0E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		42F3128124E4D46200050D0E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		42F99FB024E95F09004955C9 /* E_String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_String.swift; sourceTree = "<group>"; };
+		42F99FB224E963B0004955C9 /* E_Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_Int.swift; sourceTree = "<group>"; };
 		42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E_TimeInterval.swift; sourceTree = "<group>"; };
 		42FA7D7924C1CC6300D74068 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				42B885C024C4EB91007924A6 /* E_Date.swift */,
 				42FA7D7F24C1CCDC00D74068 /* Colors.swift */,
 				42F99FB024E95F09004955C9 /* E_String.swift */,
+				42F99FB224E963B0004955C9 /* E_Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42A6536324CB104A00681D8F /* StatData.swift in Sources */,
+				42F99FB324E963B0004955C9 /* E_Int.swift in Sources */,
 				425C274D24C679C200AE8C7B /* SegmentItem.swift in Sources */,
 				42A6536A24CB1A6C00681D8F /* StatsTableViewDelegate.swift in Sources */,
 				42FA7D9924C2398D00D74068 /* CoreDataManager.swift in Sources */,

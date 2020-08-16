@@ -15,8 +15,8 @@ class HighlightsProvider {
             var mark = todayCount < yesterdayCount ? true : false
             let difference = abs(todayCount - yesterdayCount)
             
-            var smokedStr = "Сегодня " + getNounByNumber(root: "выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ", number: todayCount)
-            var cigStr = "\(todayCount) " + getNounByNumber(root: "сигарет", singleEnd: "а ", dualEnd: "ы ", multipleEnd: " ", number: todayCount)
+            var smokedStr = "Сегодня " + todayCount.getNoun("выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ")
+            var cigStr = "\(todayCount) " + todayCount.getNoun("выкурен", singleEnd: "а ", dualEnd: "о ", multipleEnd: "о ")
             
             let textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
             
@@ -88,10 +88,10 @@ class HighlightsProvider {
             let diffHours = difference / 60
             let diffMinutes = difference - diffHours * 60
             
-            let avgHoursNoun = getNounByNumber(root: "час", singleEnd: "", dualEnd: "а", multipleEnd: "ов", number: avgHours)
-            let avgMinutesNoun = getNounByNumber(root: "минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "", number: avgMinutes)
-            let diffHoursNoun = getNounByNumber(root: "час", singleEnd: "", dualEnd: "а", multipleEnd: "ов", number: diffHours)
-            let diffMinutesNoun = getNounByNumber(root: "минут", singleEnd: "у", dualEnd: "ы", multipleEnd: "", number: diffMinutes)
+            let avgHoursNoun = avgHours.getNoun("час", singleEnd: "", dualEnd: "а", multipleEnd: "ов")
+            let avgMinutesNoun = avgMinutes.getNoun("минут", singleEnd: "а", dualEnd: "ы", multipleEnd: "")
+            let diffHoursNoun = diffHours.getNoun("час", singleEnd: "", dualEnd: "а", multipleEnd: "ов")
+            let diffMinutesNoun = diffMinutes.getNoun("минут", singleEnd: "у", dualEnd: "ы", multipleEnd: "")
             
             var avgTimeStr = ""
             
@@ -138,23 +138,5 @@ class HighlightsProvider {
         } else {
             return nil
         }
-    }
-    
-    func getNounByNumber(root: String, singleEnd: String, dualEnd: String, multipleEnd: String, number: Int) -> String {
-        var resStr = root
-        switch number % 10 {
-        case 1:
-            resStr += singleEnd
-        case 2, 3, 4:
-            resStr += dualEnd
-        default:
-            resStr += multipleEnd
-        }
-        
-        if number % 100 >= 11 &&  number % 100 <= 14 {
-            resStr = root + multipleEnd
-        }
-        
-        return resStr
     }
 }
