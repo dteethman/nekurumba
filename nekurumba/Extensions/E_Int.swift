@@ -10,8 +10,11 @@ extension Int {
             resStr += multipleEnd
         }
         
-        if self % 100 >= 11 &&  self % 100 <= 14 {
-            resStr = root + multipleEnd
+        switch self % 100 {
+        case 11, 12:
+            resStr += multipleEnd
+        default:
+            break
         }
         
         return resStr
