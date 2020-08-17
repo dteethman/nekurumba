@@ -1,5 +1,6 @@
 import UIKit
 
+//MARK: - SegmentItem Struct
 struct SegmentItem {
     typealias SegmentFunction = () -> Void
     
@@ -8,7 +9,7 @@ struct SegmentItem {
 }
 
 class NMSegmentedControl: UIView {
-    var itemTapped: ((_ segment: Int) -> Void)?
+    //MARK: - Variables
     private var activeItem: Int = 0
     private var segmentItems: [SegmentItem]!
     private var itemWidth: CGFloat!
@@ -35,6 +36,7 @@ class NMSegmentedControl: UIView {
         }
     }
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -47,6 +49,11 @@ class NMSegmentedControl: UIView {
         self.init(frame: frame)
         self.segmentItems = segmentItems
         
+        setupViews()
+    }
+    
+    //MARK: - Layout
+    private func setupViews() {
         backgroundView = NMView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.cornerRadius = cornerRadius
@@ -102,15 +109,15 @@ class NMSegmentedControl: UIView {
         ])
     }
     
-    func createSegmentItem(item: SegmentItem) -> UIView {
+    private func createSegmentItem(item: SegmentItem) -> UIView {
         let segmentItem = UIView(frame: CGRect.zero)
         let segmentLabel = UILabel(frame: CGRect.zero)
         
+        segmentLabel.translatesAutoresizingMaskIntoConstraints = false
         segmentLabel.text = item.displayTitle
         segmentLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         segmentLabel.textColor = inactiveColor
         segmentLabel.textAlignment = .center
-        segmentLabel.translatesAutoresizingMaskIntoConstraints = false
         segmentLabel.clipsToBounds = true
         
         segmentItem.addSubview(segmentLabel)
@@ -130,18 +137,15 @@ class NMSegmentedControl: UIView {
         return segmentItem
     }
     
-    @objc func handleTap(_ sender: UIGestureRecognizer) {
-        self.switchSegment(from: self.activeItem, to: sender.view!.tag)
-    }
-    
-    func switchSegment(from: Int, to: Int) {
+    //MARK: - Segment management methods
+    private func switchSegment(from: Int, to: Int) {
         if from != to {
             self.deactivateSegment(segment: from)
             self.activateSegment(segment: to)
         }
     }
     
-    func activateSegment(segment: Int) {
+    private func activateSegment(segment: Int) {
         let tabToActivate = self.subviews[segment + 2]
         let itemTitleLabel = tabToActivate.subviews[0] as! UILabel
         
@@ -157,7 +161,7 @@ class NMSegmentedControl: UIView {
         self.activeItem = segment
     }
     
-    func deactivateSegment(segment: Int) {
+    private func deactivateSegment(segment: Int) {
         let inactiveTab = self.subviews[segment + 2]
         let itemTitleLabel = inactiveTab.subviews[0] as! UILabel
         
@@ -165,5 +169,10 @@ class NMSegmentedControl: UIView {
             itemTitleLabel.textColor = inactiveColor
             self.layoutIfNeeded()
         })
+    }
+    
+    //MARK: - TapGestureRecognizer action
+    @objc private func handleTap(_ sender: UIGestureRecognizer) {
+        self.switchSegment(from: self.activeItem, to: sender.view!.tag)
     }
 }

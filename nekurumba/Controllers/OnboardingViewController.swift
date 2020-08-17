@@ -1,11 +1,14 @@
 import UIKit
 
 class OnboardingViewController: UIViewController, UIScrollViewDelegate {
-    var scrollView: UIScrollView!
-    var pageControl: UIPageControl!
-    var intervalButton: NMButton!
+    //MARK: - Variables
+    private let defaults = UserDefaults.standard
     
-    let onboardingDataArray: [(titleText: String, emoji: String, shortDesc: String, fullDesc: String)] = [
+    private var scrollView: UIScrollView!
+    private var pageControl: UIPageControl!
+    private var intervalButton: NMButton!
+    
+    private let onboardingDataArray: [(titleText: String, emoji: String, shortDesc: String, fullDesc: String)] = [
         (
             titleText: "Что такое Некурёмба?",
             emoji: "🤔",
@@ -49,13 +52,13 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
 """
         )
     ]
-    var onboardingViews: [OnboardingView] = []
-    var buttonsArray: [NMButton] = []
     
-    var screenWidth: CGFloat = 0
+    private var onboardingViews: [OnboardingView] = []
+    private var buttonsArray: [NMButton] = []
     
-    let defaults = UserDefaults.standard
+    private var screenWidth: CGFloat = 0
 
+    //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
@@ -65,7 +68,6 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         
         setupViews()
         setupButtons()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +75,15 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        pageControl?.pageIndicatorTintColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
+        pageControl?.currentPageIndicatorTintColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        
+    }
+    
+    //MARK: - Layout
     func setupViews() {
         let safeGuide = view.safeAreaLayoutGuide
         
@@ -211,25 +222,21 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         
     }
 
+    //MARK: - ScrollView methods
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         setIndiactorForCurrentPage()
     }
 
+    func scrollToPage(page: Int, animated: Bool) {
+        scrollView.setContentOffset(CGPoint(x: screenWidth * CGFloat(page), y: 0), animated: true)
+    }
+    
+    //MARK: - PageControll methods
     func setIndiactorForCurrentPage()  {
         let page = (scrollView?.contentOffset.x)!/screenWidth
         pageControl?.currentPage = Int(page)
     }
     
-    func scrollToPage(page: Int, animated: Bool) {
-        scrollView.setContentOffset(CGPoint(x: screenWidth * CGFloat(page), y: 0), animated: true)
-    }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        pageControl?.pageIndicatorTintColor = colorForMode(secondaryLabelColors, isDarkMode: isDarkMode)
-        pageControl?.currentPageIndicatorTintColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        
-    }
 
 }

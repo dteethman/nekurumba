@@ -2,21 +2,21 @@ import UIKit
 import Charts
 
 class StatsTableViewCell: UITableViewCell {
-    var statsDataEntry: [ChartDataEntry]? {
+    public var statsDataEntry: [ChartDataEntry]? {
         didSet {
             if let d = statsDataEntry {
                 statView?.setupData(entries: d)
             }
         }
     }
-    var labelText: String? {
+    public var labelText: String? {
         didSet {
             if let text = labelText {
                 statView?.label = text
             }
         }
     }
-    var xAxisLabels: [String]? {
+    public var xAxisLabels: [String]? {
         didSet {
             if let l = xAxisLabels {
                 statView?.xAxisLabels = l
@@ -24,7 +24,7 @@ class StatsTableViewCell: UITableViewCell {
         }
     }
     
-    var granularity: Double = 1 {
+    public var granularity: Double = 1 {
         didSet {
             statView.granularity = granularity
         }
@@ -32,6 +32,12 @@ class StatsTableViewCell: UITableViewCell {
     
     private var statView: NMLineChartView!
     
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black){
+        didSet {
+            statView?.bgColors = bgColors
+        }
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear

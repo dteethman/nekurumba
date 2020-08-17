@@ -1,5 +1,6 @@
 import UIKit
 
+//MARK: - Button states
 enum NMButtonState {
     case touchDown
     case touchDownRepeat
@@ -13,6 +14,7 @@ enum NMButtonState {
 }
 
 class NMButton: UIView {
+    //MARK: - Variables
     typealias ButtonFunction = () -> Void
     
     private var buttonTouchDown: ButtonFunction?
@@ -38,7 +40,6 @@ class NMButton: UIView {
     public var cornerRadius: CGFloat = 0 {
         didSet {
             backgroundView?.cornerRadius = cornerRadius
-            
         }
     }
     
@@ -50,6 +51,7 @@ class NMButton: UIView {
         }
     }
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -59,14 +61,16 @@ class NMButton: UIView {
         super.init(coder: coder)
     }
     
+    //MARK: - Layout
     private func setupViews() {
         backgroundView = NMView()
-        backgroundView.cornerRadius = cornerRadius
-        backgroundView?.bgColors = bgColors
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.cornerRadius = cornerRadius
+        backgroundView.bgColors = bgColors
         self.addSubview(backgroundView)
         
         button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = isEnabled
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(touchDownAction(_:)), for: .touchDown)
@@ -78,7 +82,6 @@ class NMButton: UIView {
         button.addTarget(self, action: #selector(touchUpInsideAction(_:)), for: .touchUpInside)
         button.addTarget(self, action: #selector(touchUpOutsideAction(_:)), for: .touchUpOutside)
         button.addTarget(self, action: #selector(touchCancelAction(_:)), for: .touchCancel)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         self.addSubview(button)
         
@@ -106,6 +109,7 @@ class NMButton: UIView {
         layoutSubviews()
     }
     
+    //MARK: - Action bindings
     public func addAction(for state: NMButtonState, action: @escaping () -> Void) {
         switch state {
         case .touchDown:
@@ -129,6 +133,7 @@ class NMButton: UIView {
         }
     }
     
+    //MARK: - Actions
     @objc private func touchDownAction(_ sender: UIButton!) {
         if isEnabled {
             buttonTouchDown?()

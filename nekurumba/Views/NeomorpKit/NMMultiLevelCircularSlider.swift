@@ -1,5 +1,6 @@
 import UIKit
 
+//MARK: - SliderItem Struct
 struct SliderItem {
     var sliderValue: Box<CGFloat>
     var minValue: CGFloat = 0
@@ -10,6 +11,7 @@ struct SliderItem {
 }
 
 class NMMultiLevelCircularSlider: UIView {
+    //MARK: - Variables
     public var sliderItems: [SliderItem] = []
     private var activeItem: Int!
     
@@ -53,6 +55,7 @@ class NMMultiLevelCircularSlider: UIView {
         }
     }
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -63,6 +66,7 @@ class NMMultiLevelCircularSlider: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Layout
     private func setupView() {
         circleBackgroundView = NMView()
         circleBackgroundView.isConvex = true
@@ -139,18 +143,6 @@ class NMMultiLevelCircularSlider: UIView {
         ])
     }
     
-    func switchSliderForItem(_ itemIndex: Int) {
-        if sliderItems.indices.contains(itemIndex) {
-            self.numberOfDivisions = sliderItems[itemIndex].numberOfDivisions
-            self.progressBar.progress = sliderItems[itemIndex].sliderValue.value
-            self.minValue = sliderItems[itemIndex].minValue
-            self.maxValue = sliderItems[itemIndex].maxValue
-            self.minSliderValue = sliderItems[itemIndex].minSliderValue
-            self.maxSliderValue = sliderItems[itemIndex].maxSliderValue
-            self.activeItem = itemIndex
-        }
-    }
-        
     private func createDivisions(numberOfDivisions: Int) {
         if numberOfDivisions == 0 {
             return
@@ -205,6 +197,30 @@ class NMMultiLevelCircularSlider: UIView {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        progressBar?.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        divisionsView?.frame = self.bounds
+        
+        createDivisions(numberOfDivisions: numberOfDivisions)
+    }
+    
+    //MARK: - Slider Setup
+    public func switchSliderForItem(_ itemIndex: Int) {
+        if sliderItems.indices.contains(itemIndex) {
+            self.numberOfDivisions = sliderItems[itemIndex].numberOfDivisions
+            self.progressBar.progress = sliderItems[itemIndex].sliderValue.value
+            self.minValue = sliderItems[itemIndex].minValue
+            self.maxValue = sliderItems[itemIndex].maxValue
+            self.minSliderValue = sliderItems[itemIndex].minSliderValue
+            self.maxSliderValue = sliderItems[itemIndex].maxSliderValue
+            self.activeItem = itemIndex
+        }
+    }
+        
+    
+    //MARK: - PanGestureRecognizer action
     @objc private func panGRAction(_ gesture: UIPanGestureRecognizer) {
         let point = gesture.location(in: panGRView)
         let center = CGPoint(x: self.bounds.width / 2, y: self.bounds.width / 2 )
@@ -258,6 +274,7 @@ class NMMultiLevelCircularSlider: UIView {
         
     }
     
+    //MARK: - Helpers
     private func angleOfTouchPoint(center: CGPoint, touchPoint: CGPoint) -> CGFloat {
             let firstAngle = atan2(touchPoint.y - center.y, touchPoint.x - center.x)
             let secondAnlge = atan2(0 - center.y, 0)
@@ -270,12 +287,5 @@ class NMMultiLevelCircularSlider: UIView {
             return angleDiff
         }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        progressBar?.endCapPickerColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        divisionsView?.frame = self.bounds
-        
-        createDivisions(numberOfDivisions: numberOfDivisions)
-    }
+    
 }

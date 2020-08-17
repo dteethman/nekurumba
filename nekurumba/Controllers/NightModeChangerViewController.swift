@@ -1,6 +1,7 @@
 import UIKit
 
 class NightModeChangerViewController: UIViewController {
+    //MARK: - Variables
     private var sliderView: NMMultiLevelCircularSlider!
     private var sliderLabel: UILabel!
     private var backButton: NMButton!
@@ -10,6 +11,7 @@ class NightModeChangerViewController: UIViewController {
 
     private var sliderItems: [SliderItem] = []
 
+    //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
@@ -31,7 +33,19 @@ class NightModeChangerViewController: UIViewController {
         sliderView.switchSliderForItem(0)
         sliderView.layoutSubviews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super .traitCollectionDidChange(previousTraitCollection)
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        sliderLabel?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
+    }
 
+    //MARK: - Layout
     private func setupViews() {
         view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         let safeGuide = view.safeAreaLayoutGuide
@@ -84,11 +98,7 @@ class NightModeChangerViewController: UIViewController {
         ])
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
+    //MARK: - UserDefaults methods
     private func loadTimeFromDefaults() {
         let defaults = UserDefaults.standard
 
@@ -101,13 +111,6 @@ class NightModeChangerViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaults.setValue(value, forKey: forKey)
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super .traitCollectionDidChange(previousTraitCollection)
-        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        sliderLabel?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
-    }
-
 
 }
 

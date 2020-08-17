@@ -1,7 +1,6 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    
     var customTabBar: TabNavigationView!
     var tabBarHeight: CGFloat = 67.0
     var controllers = [UIViewController]()
@@ -24,8 +23,6 @@ class TabBarController: UITabBarController {
         
         let safeGuide = view.safeAreaLayoutGuide
         
-        
-        // hide the tab bar
         tabBar.isHidden = true
         
         let nmBackgroundView = NMView(frame: .zero)
@@ -41,7 +38,6 @@ class TabBarController: UITabBarController {
         self.customTabBar.clipsToBounds = true
         self.customTabBar.itemTapped = self.changeTab
         
-        // Add it to the view
         self.view.addSubview(customTabBar)
         
         NSLayoutConstraint.activate([

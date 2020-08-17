@@ -1,9 +1,11 @@
 import UIKit
 
 class TabNavigationView: UIView {
-    var itemTapped: ((_ tab: Int) -> Void)?
-    var activeItem: Int = 0
+    //MARK: - Variables
+    public var itemTapped: ((_ tab: Int) -> Void)?
+    private var activeItem: Int = 0
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -15,7 +17,13 @@ class TabNavigationView: UIView {
     convenience init(menuItems: [TabItem], frame: CGRect) {
         self.init(frame: frame)
         
+        setupViews(menuItems)
         
+        self.activateTab(tab: 0)
+    }
+    
+    //MARK: - Layout
+    private func setupViews(_ menuItems: [TabItem]) {
         for i in 0 ..< menuItems.count {
             let itemWidth = self.frame.width / CGFloat(menuItems.count)
             let leadingAnchor = itemWidth * CGFloat(i)
@@ -37,10 +45,9 @@ class TabNavigationView: UIView {
         
         self.setNeedsLayout()
         self.layoutIfNeeded()
-        self.activateTab(tab: 0)
     }
     
-    func createTabItem(item: TabItem) -> UIView {
+    private func createTabItem(item: TabItem) -> UIView {
         let tabBarItem = UIView(frame: CGRect.zero)
         let itemTitleLabel = UILabel(frame: CGRect.zero)
         let itemIconView = UIImageView(frame: CGRect.zero)
@@ -78,16 +85,13 @@ class TabNavigationView: UIView {
         return tabBarItem
     }
     
-    @objc func handleTap(_ sender: UIGestureRecognizer) {
-        self.switchTab(from: self.activeItem, to: sender.view!.tag)
-    }
-    
-    func switchTab(from: Int, to: Int) {
+    //MARK: - Tab management methods
+    private func switchTab(from: Int, to: Int) {
         self.deactivateTab(tab: from)
         self.activateTab(tab: to)
     }
     
-    func activateTab(tab: Int) {
+    private func activateTab(tab: Int) {
         let tabToActivate = self.subviews[tab]
         let itemIconView = tabToActivate.subviews[0] as! UIImageView
         let itemTitleView = tabToActivate.subviews[1] as! UILabel
@@ -103,7 +107,7 @@ class TabNavigationView: UIView {
         self.activeItem = tab
     }
     
-    func deactivateTab(tab: Int) {
+    private func deactivateTab(tab: Int) {
         let inactiveTab = self.subviews[tab]
         let itemIconView = inactiveTab.subviews[0] as! UIImageView
         let itemTitleView = inactiveTab.subviews[1] as! UILabel
@@ -115,5 +119,10 @@ class TabNavigationView: UIView {
                 inactiveTab.layoutIfNeeded()
             })
         }
+    }
+    
+    //MARK: - TapGestureRecognizer action
+    @objc private func handleTap(_ sender: UIGestureRecognizer) {
+        self.switchTab(from: self.activeItem, to: sender.view!.tag)
     }
 }

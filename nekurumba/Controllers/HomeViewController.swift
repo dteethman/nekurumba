@@ -2,26 +2,26 @@ import UIKit
 
 class HomeViewController: UIViewController {
     //MARK: - Variables
-    let app = UIApplication.shared.delegate as? AppDelegate
-    var plannedInterval: TimeInterval = 7200
-    let defaults = UserDefaults.standard
+    private let app = UIApplication.shared.delegate as? AppDelegate
+    private var plannedInterval: TimeInterval = 7200
+    private let defaults = UserDefaults.standard
     
-    let coreDataManager = CoreDataManager()
-    let statsManager = StatsProvider()
-    var todayData: [SmokeTracker]?
-    var yesterdayData: [SmokeTracker]?
+    private let coreDataManager = CoreDataManager()
+    private let statsManager = StatsProvider()
+    private var todayData: [SmokeTracker]?
+    private var yesterdayData: [SmokeTracker]?
     
-    var highlightCollectionViewLayout: UICollectionViewFlowLayout!
-    var highlightCollectionViewDelegate = HighlightCollectionViewDelegate()
-    var highlightCollectionViewDataSource = HighlightCollectionViewDataSource()
+    private var highlightCollectionViewLayout: UICollectionViewFlowLayout!
+    private var highlightCollectionViewDelegate = HighlightCollectionViewDelegate()
+    private var highlightCollectionViewDataSource = HighlightCollectionViewDataSource()
     
-    var timerView: NMProgressViewWithButton!
-    var titleLabel: UILabel!
-    var highlightsLabel: UILabel!
-    var highlightCollectionView: UICollectionView!
+    private var timerView: NMProgressViewWithButton!
+    private var titleLabel: UILabel!
+    private var highlightsLabel: UILabel!
+    private var highlightCollectionView: UICollectionView!
     
-    var isCountdown: Bool = true
-    var isNightMode: Bool = false {
+    private var isCountdown: Bool = true
+    private var isNightMode: Bool = false {
         didSet {
             titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
             setupHighslightCollectionView()
@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         setupViews()
         setupHighslightCollectionView()
                 
-        timerView.buttonTouchUpInside = { [self] in
+        timerView.addAction(for: .touchUpInside, action: { [self] in
             app?.smokeTimer.start()
             timerView.deactivateButton()
             isNightMode = loadIsNightMode()
@@ -57,7 +57,7 @@ class HomeViewController: UIViewController {
             }
             
             setupHighslightCollectionView()
-        }
+        })
         
         plannedInterval = loadPlannedInterval()
         
@@ -136,13 +136,14 @@ class HomeViewController: UIViewController {
         let safeGuide = view.safeAreaLayoutGuide
         
         titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Некурёмба"
         titleLabel.font = .systemFont(ofSize: 34, weight: .bold)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .left
         self.view.addSubview(titleLabel)
         
         timerView = NMProgressViewWithButton(frame: .zero)
+        timerView.translatesAutoresizingMaskIntoConstraints = false
         timerView.cornerRadius = timerViewHeight / 2
         timerView.bgColors = bgColors
         timerView.lineWidth = 30
@@ -152,13 +153,12 @@ class HomeViewController: UIViewController {
         timerView.progressBar.transparentBackgroundLayer = true
         timerView.progressBar.disableText = true
         timerView.progressBar.animationDuration = 0.2
-        timerView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(timerView)
         
         highlightsLabel = UILabel()
+        highlightsLabel.translatesAutoresizingMaskIntoConstraints = false
         highlightsLabel.text = "Сводка"
         highlightsLabel.font = .systemFont(ofSize: 28, weight: .bold)
-        highlightsLabel.translatesAutoresizingMaskIntoConstraints = false
         highlightsLabel.textAlignment = .left
         self.view.addSubview(highlightsLabel)
         
@@ -171,6 +171,7 @@ class HomeViewController: UIViewController {
         
         highlightCollectionView = UICollectionView(frame: .zero,
                                                    collectionViewLayout: highlightCollectionViewLayout)
+        highlightCollectionView.translatesAutoresizingMaskIntoConstraints = false
         highlightCollectionView.register(HighlightCollectionViewCell.self, forCellWithReuseIdentifier: "highlightCell")
         highlightCollectionView.delegate = highlightCollectionViewDelegate
         highlightCollectionView.dataSource = highlightCollectionViewDataSource
@@ -179,9 +180,7 @@ class HomeViewController: UIViewController {
         highlightCollectionView.layer.masksToBounds = false
         highlightCollectionView.showsHorizontalScrollIndicator = false
         highlightCollectionView.showsVerticalScrollIndicator = false
-        highlightCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(highlightCollectionView)
-        
          
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
@@ -208,7 +207,7 @@ class HomeViewController: UIViewController {
     }
     
     //MARK: - HighlightsCollectionView Setup
-    func setupHighslightCollectionView() {
+    private func setupHighslightCollectionView() {
         let provider = HighlightsProvider()
         var today = Date()
         if isNightMode {
@@ -243,7 +242,7 @@ class HomeViewController: UIViewController {
     }
     
     //MARK: - UserDefaults loading
-    func loadPlannedInterval() -> TimeInterval {
+    private func loadPlannedInterval() -> TimeInterval {
         let defaults = UserDefaults.standard
         var hours: Int = defaults.integer(forKey: intervalHoursKey)
         let minutes: Int = defaults.integer(forKey: intervalMinutesKey)
@@ -256,32 +255,30 @@ class HomeViewController: UIViewController {
         return TimeInterval(hours * 3600 + minutes * 60)
     }
     
-    func loadIsNightMode() -> Bool {
+    private func loadIsNightMode() -> Bool {
         let h = defaults.integer(forKey: nightModeHoursKey)
         return h > 0 && h > Calendar.current.component(.hour, from: Date())
     }
     
     //MARK: - NotificationCenter actions
-    @objc func viewWillResignActive() {
+    @objc private func viewWillResignActive() {
         app?.smokeTimer?.saveToDefaults()
     }
 
-    @objc func viewWillEnterForeground() {
+    @objc private func viewWillEnterForeground() {
         app?.smokeTimer?.loadFromDefaults()
     }
 
-    @objc func viewWillTerminate() {
+    @objc private func viewWillTerminate() {
         app?.smokeTimer?.saveToDefaults()
     }
     
-    @objc func dayChanged() {
+    @objc private func dayChanged() {
         isNightMode = loadIsNightMode()
         titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
         
     }
-
     
-
 }
 
 

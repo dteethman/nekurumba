@@ -16,13 +16,7 @@ class OnboardingView: UIView {
         }
     }
     
-    init(frame: CGRect, data: (titleText: String, emoji: String, shortDesc: String, fullDesc: String)) {
-        super.init(frame: frame)
-        self.data = data
-        setupViews()
-    }
-    
-    
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -33,6 +27,13 @@ class OnboardingView: UIView {
         super.init(coder: coder)
     }
     
+    init(frame: CGRect, data: (titleText: String, emoji: String, shortDesc: String, fullDesc: String)) {
+        super.init(frame: frame)
+        self.data = data
+        setupViews()
+    }
+    
+    //MARK: - Layout
     private func setupViews() {
         for view in self.subviews {
             view.removeFromSuperview()

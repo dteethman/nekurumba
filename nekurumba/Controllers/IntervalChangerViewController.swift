@@ -1,6 +1,7 @@
 import UIKit
 
 class IntervalChangerViewController: UIViewController {
+    //MARK: - Variables
     private var sliderView: NMMultiLevelCircularSlider!
     private var segmentControll: NMSegmentedControl!
     private var sliderLabel: UILabel!
@@ -16,11 +17,11 @@ class IntervalChangerViewController: UIViewController {
     
     private var sliderItems: [SliderItem] = []
     
+    //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         loadTimeFromDefaults()
-        
         
         sliderItems = [
             SliderItem(sliderValue: Box(hoursSliderValue), minValue: 0, maxValue: 12, minSliderValue: 0, maxSliderValue: 1, numberOfDivisions: 12),
@@ -78,13 +79,24 @@ class IntervalChangerViewController: UIViewController {
         sliderView.layoutSubviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         if let h = hours, let m = minutes {
             (UIApplication.shared.delegate as? AppDelegate)?.smokeTimer?.interval.value = (TimeInterval(h * 3600 + m * 60))
         }
-        
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super .traitCollectionDidChange(previousTraitCollection)
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        sliderLabel?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
+    }
+    
+    //MARK: - Layout
     private func setupViews() {
         view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         let safeGuide = view.safeAreaLayoutGuide
@@ -114,9 +126,9 @@ class IntervalChangerViewController: UIViewController {
         let frame = CGRect(x: 20, y: 450, width: width, height: 40)
         
         segmentControll = NMSegmentedControl(segmentItems: segments, frame: frame)
+        segmentControll.translatesAutoresizingMaskIntoConstraints = false
         segmentControll.cornerRadius = 20
         segmentControll.bgColors = bgColors
-        segmentControll.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(segmentControll)
         
         sliderLabel = UILabel()
@@ -151,11 +163,7 @@ class IntervalChangerViewController: UIViewController {
         ])
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
+    //MARK: - UserDefaults methods
     private func loadTimeFromDefaults() {
         let defaults = UserDefaults.standard
         
@@ -177,11 +185,7 @@ class IntervalChangerViewController: UIViewController {
         defaults.setValue(value, forKey: forKey)
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super .traitCollectionDidChange(previousTraitCollection)
-        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        sliderLabel?.textColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode)
-    }
+    
 
 
 }

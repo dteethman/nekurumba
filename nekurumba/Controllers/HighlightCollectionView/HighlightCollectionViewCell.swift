@@ -1,6 +1,7 @@
 import UIKit
 
 class HighlightCollectionViewCell: UICollectionViewCell {
+    //MARK: - Variables
     public var data: HighlightData? {
         didSet {
             if let d = data {
@@ -13,13 +14,7 @@ class HighlightCollectionViewCell: UICollectionViewCell {
             
         }
     }
-    
-//    public var bgColors: (light: UIColor, dark: UIColor) = (light: .white, dark: .black){
-//        didSet {
-//            bgView.bgColors = bgColors
-//        }
-//    }
-    
+
     private let bgView = NMView()
     private let bgMask = UIView()
     private let titleTextView = UITextView()
@@ -27,8 +22,24 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     private let markView = NMView()
     private let markLabel = UILabel()
     
+    public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black){
+        didSet {
+            bgView.bgColors = bgColors
+        }
+    }
+    
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    //MARK: - Layout
+    private func setupViews() {
         self.backgroundColor = .clear
         bgView.translatesAutoresizingMaskIntoConstraints = false
         bgView.bgColors = bgColors
@@ -108,9 +119,4 @@ class HighlightCollectionViewCell: UICollectionViewCell {
         self.clipsToBounds = false
         self.layer.masksToBounds = false
     }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
 }

@@ -2,6 +2,13 @@ import UIKit
 import Charts
 
 class NMLineChartView: UIView {
+    //MARK: - Variables
+    public var chartDataEntries: [ChartDataEntry]?
+    
+    private var nmBackgroundView: NMView!
+    private var chartView: LineChartView!
+    private var titleLabel: UILabel!
+    
     public var cornerRadius: CGFloat = 0 {
         didSet {
             nmBackgroundView?.cornerRadius = cornerRadius
@@ -43,22 +50,30 @@ class NMLineChartView: UIView {
         }
     }
     
-    public var chartDataEntries: [ChartDataEntry]?
-    
-    private var nmBackgroundView: NMView!
-    private var chartView: LineChartView!
-    private var titleLabel: UILabel!
-    
-    
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    convenience init(frame: CGRect, entries: [ChartDataEntry]) {
+        self.init(frame: frame)
+        setupData(entries: entries)
+    }
+    
+    //MARK: - Layout
+    private func setupViews() {
         self.backgroundColor = .blue
         self.isUserInteractionEnabled = false
         
         nmBackgroundView = NMView()
-        nmBackgroundView.cornerRadius = cornerRadius
         nmBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        nmBackgroundView.cornerRadius = cornerRadius
         nmBackgroundView.backgroundColor = .clear
         self.addSubview(nmBackgroundView)
         
@@ -74,8 +89,6 @@ class NMLineChartView: UIView {
         chartView = LineChartView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.clipsToBounds = true
-        
-    
         
         setupChartView()
         
@@ -99,12 +112,7 @@ class NMLineChartView: UIView {
         ])
     }
     
-    convenience init(frame: CGRect, entries: [ChartDataEntry]) {
-        self.init(frame: frame)
-        setupData(entries: entries)
-    }
-    
-    func setupChartView() {
+    private func setupChartView() {
         chartView.backgroundColor = .clear
         chartView.rightAxis.enabled = false
         chartView.setExtraOffsets(left: 0, top: 30, right: 10, bottom: 10)
@@ -130,7 +138,12 @@ class NMLineChartView: UIView {
         chartView.legend.enabled = false
     }
     
-    func setupData(entries: [ChartDataEntry]) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    //MARK: - Data loading
+    public func setupData(entries: [ChartDataEntry]) {
         let set = LineChartDataSet(entries: entries, label: nil)
         set.mode = .horizontalBezier
         set.lineWidth = 3
@@ -155,22 +168,12 @@ class NMLineChartView: UIView {
         
         let data = LineChartData(dataSet: set)
         data.setDrawValues(false)
-        
-        
-        
+ 
         chartView.data = data
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
     }
 }
 
+//MARK: - Value Formater
 class ChartValueFormatter: NSObject, IValueFormatter {
     fileprivate var numberFormatter: NumberFormatter?
 

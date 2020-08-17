@@ -15,6 +15,7 @@ class HighlightCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         
         if let d = data {
             cell.data = d[indexPath.row]
+            cell.bgColors = bgColors
         }
         return cell
     }

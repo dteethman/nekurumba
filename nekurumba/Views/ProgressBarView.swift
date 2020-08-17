@@ -2,7 +2,7 @@ import UIKit
 import AEConicalGradient
 
 class ProgressBarView: UIView {
-    
+    //MARK: - Variables
     private var backgroundLayer: CAShapeLayer!
     private var foregroundLayer: CAShapeLayer!
     private var textLayer: CATextLayer!
@@ -46,6 +46,7 @@ class ProgressBarView: UIView {
     }
     private var prevProgress: CGFloat = 0
     
+    //MARK: - Layout
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else {
           return
@@ -129,6 +130,41 @@ class ProgressBarView: UIView {
         endCapPickerLayer.frame.origin = getEndCapPoint(rect: rect, lineWidth: lineWidth, progress: progress)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isDarkMode {
+            if coloredBackgroundLayer {
+                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
+                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.7, with: .black)
+                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
+            } else {
+                backgroundLayerColor = .darkGray
+                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
+            }
+            
+        } else {
+            if coloredBackgroundLayer {
+                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
+                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.5, with: .white)
+                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
+            } else {
+                backgroundLayerColor = .lightGray
+                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
+            }
+        }
+        
+        if let color = endCapPickerColor {
+            endCapPickerLayer?.strokeColor = color.cgColor
+        }
+        
+        if transparentBackgroundLayer {
+            backgroundLayer?.strokeColor = UIColor.clear.cgColor
+        }
+        
+        textLayer?.foregroundColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode).cgColor
+    }
+    
+    //MARK: Layout: Layers create methods
     private func createCircularLayer(rect: CGRect, strokeColor: CGColor, fillColor: CGColor,
                                      lineWidth: CGFloat) -> CAShapeLayer {
         let width = rect.width
@@ -239,39 +275,10 @@ class ProgressBarView: UIView {
         layer.colors = [startColor, endColor]
         layer.type = .radial
         
-        
         return layer
     }
     
-    private func getEndCapPoint(rect: CGRect, lineWidth: CGFloat, progress: CGFloat) -> CGPoint {
-        let width = rect.width
-        let height = rect.height
-        
-        let center = CGPoint(x: width / 2, y: height / 2)
-        let radius = (min(width, height) - lineWidth) / 2
-        
-        let startAndle = -CGFloat.pi / 2
-        let angle = startAndle + (CGFloat.pi * 2) * progress
-        
-        let X = center.x + radius * CGFloat(cos(angle)) - lineWidth / 2
-        let Y = center.y + radius * CGFloat(sin(angle)) - lineWidth / 2
-        let point = CGPoint(x: X, y: Y)
-        return point
-    }
-    
-    private func didProgressUpdated() {
-        if endCapLayer != nil {
-            animateEndCapColor(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
-            animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
-            animateEndCap(startPosition: prevProgress + 0.007, endPosition: progress + 0.007, layer: endCapShadowLayer)
-            animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapPickerLayer)
-            animateStrokeEnd(startPosition: prevProgress, endPosition: progress, layer: foregroundLayer)
-        }
-        
-        textLayer?.string = "\(Int(progress * 100))"
-        prevProgress = progress
-    }
-    
+    //MARK: - Animations
     private func animateEndCap(startPosition: CGFloat, endPosition: CGFloat, layer: CALayer) {
         let positionAnimation = CAKeyframeAnimation(keyPath: "position")
 
@@ -325,38 +332,37 @@ class ProgressBarView: UIView {
         
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isDarkMode {
-            if coloredBackgroundLayer {
-                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
-                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.7, with: .black)
-                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
-            } else {
-                backgroundLayerColor = .darkGray
-                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
-            }
-            
-        } else {
-            if coloredBackgroundLayer {
-                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
-                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.5, with: .white)
-                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
-            } else {
-                backgroundLayerColor = .lightGray
-                backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
-            }
-        }
+    //MARK: - Helpers
+    private func getEndCapPoint(rect: CGRect, lineWidth: CGFloat, progress: CGFloat) -> CGPoint {
+        let width = rect.width
+        let height = rect.height
         
-        if let color = endCapPickerColor {
-            endCapPickerLayer?.strokeColor = color.cgColor
-        }
+        let center = CGPoint(x: width / 2, y: height / 2)
+        let radius = (min(width, height) - lineWidth) / 2
         
-        if transparentBackgroundLayer {
-            backgroundLayer?.strokeColor = UIColor.clear.cgColor
-        }
+        let startAndle = -CGFloat.pi / 2
+        let angle = startAndle + (CGFloat.pi * 2) * progress
         
-        textLayer?.foregroundColor = colorForMode(primaryLabelColors, isDarkMode: isDarkMode).cgColor
+        let X = center.x + radius * CGFloat(cos(angle)) - lineWidth / 2
+        let Y = center.y + radius * CGFloat(sin(angle)) - lineWidth / 2
+        let point = CGPoint(x: X, y: Y)
+        return point
     }
+    
+    //MARK: Progress change responder
+    private func didProgressUpdated() {
+        if endCapLayer != nil {
+            animateEndCapColor(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
+            animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapLayer)
+            animateEndCap(startPosition: prevProgress + 0.007, endPosition: progress + 0.007, layer: endCapShadowLayer)
+            animateEndCap(startPosition: prevProgress, endPosition: progress, layer: endCapPickerLayer)
+            animateStrokeEnd(startPosition: prevProgress, endPosition: progress, layer: foregroundLayer)
+        }
+        
+        textLayer?.string = "\(Int(progress * 100))"
+        prevProgress = progress
+    }
+    
+   
 }
 

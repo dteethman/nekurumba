@@ -1,42 +1,24 @@
 import UIKit
 
 class NMProgressViewWithButton: UIView {
+    //MARK: - Variables
     typealias ButtonFunction = () -> Void
     
-    public var buttonTouchDown: ButtonFunction?
-    public var buttonTouchDownRepeat: ButtonFunction?
-    public var buttonTouchDragInside: ButtonFunction?
-    public var buttonTouchDragOutside: ButtonFunction?
-    public var buttonTouchDragEnter: ButtonFunction?
-    public var buttonTouchDragExit: ButtonFunction?
-    public var buttonTouchUpInside: ButtonFunction?
-    public var buttonTouchUpOutside: ButtonFunction?
-    public var buttonTouchCancel: ButtonFunction?
+    private var buttonTouchDown: ButtonFunction?
+    private var buttonTouchDownRepeat: ButtonFunction?
+    private var buttonTouchDragInside: ButtonFunction?
+    private var buttonTouchDragOutside: ButtonFunction?
+    private var buttonTouchDragEnter: ButtonFunction?
+    private var buttonTouchDragExit: ButtonFunction?
+    private var buttonTouchUpInside: ButtonFunction?
+    private var buttonTouchUpOutside: ButtonFunction?
+    private var buttonTouchCancel: ButtonFunction?
     
     public var progressBar: ProgressBarView!
     private var circleBackgroundView: NMView!
     private var timerBackgroundView: NMView!
     private var buttonBackgroundView: NMView!
     private var button: UIButton!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
-    }
-    
-    public var cornerRadius: CGFloat = 0 {
-        didSet {
-            circleBackgroundView?.cornerRadius = cornerRadius
-            timerBackgroundView?.cornerRadius = cornerRadius - progressBarOffset
-            buttonBackgroundView?.cornerRadius = cornerRadius - progressBarOffset - lineWidth
-            button?.layer.cornerRadius = cornerRadius - progressBarOffset - lineWidth
-        }
-    }
     
     public var lineWidth: CGFloat = 30 {
         didSet {
@@ -72,6 +54,26 @@ class NMProgressViewWithButton: UIView {
         }
     }
     
+    public var cornerRadius: CGFloat = 0 {
+        didSet {
+            circleBackgroundView?.cornerRadius = cornerRadius
+            timerBackgroundView?.cornerRadius = cornerRadius - progressBarOffset
+            buttonBackgroundView?.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+            button?.layer.cornerRadius = cornerRadius - progressBarOffset - lineWidth
+        }
+    }
+    
+    //MARK: - Initialisers
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    //MARK: - Layout
     private func setupView() {
         circleBackgroundView = NMView()
         circleBackgroundView.isConvex = true
@@ -140,32 +142,6 @@ class NMProgressViewWithButton: UIView {
         ])
     }
     
-    public func changeButtonTitle(_ text: String, font: UIFont? = nil) {
-        button?.setTitle(text, for: .normal)
-        if let f = font {
-            button?.titleLabel?.font = f
-        }
-    }
-    
-    public func activateButton() {
-        if !(button.isEnabled) {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [self] in
-                button.backgroundColor = .clear
-            }, completion: nil)
-            button.isEnabled = true
-        }
-        
-    }
-    
-    public func deactivateButton() {
-        if button.isEnabled {
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: { [self] in
-                button.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.2)
-            }, completion: nil)
-            button.isEnabled = false
-        }
-    }
-    
     private func updateLayout() {
         if timerBackgroundView != nil {
             timerBackgroundView.removeFromSuperview()
@@ -216,6 +192,58 @@ class NMProgressViewWithButton: UIView {
         }
     }
     
+    //MARK: - Button Action binding
+    public func addAction(for state: NMButtonState, action: @escaping () -> Void) {
+        switch state {
+        case .touchDown:
+            buttonTouchDown = action
+        case .touchDownRepeat:
+            buttonTouchDownRepeat = action
+        case .touchDragInside:
+            buttonTouchDragInside = action
+        case .touchDragOutside:
+            buttonTouchDragOutside = action
+        case .touchDragEnter:
+            buttonTouchDragEnter = action
+        case .touchDragExit:
+            buttonTouchDragExit = action
+        case .touchUpInside:
+            buttonTouchUpInside = action
+        case .touchUpOutside:
+            buttonTouchUpOutside = action
+        case .touchCancel:
+            buttonTouchCancel = action
+        }
+    }
+    
+    //MARK: - Button public methods
+    public func changeButtonTitle(_ text: String, font: UIFont? = nil) {
+        button?.setTitle(text, for: .normal)
+        if let f = font {
+            button?.titleLabel?.font = f
+        }
+    }
+    
+    public func activateButton() {
+        if !(button.isEnabled) {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [self] in
+                button.backgroundColor = .clear
+            }, completion: nil)
+            button.isEnabled = true
+        }
+        
+    }
+    
+    public func deactivateButton() {
+        if button.isEnabled {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: { [self] in
+                button.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.2)
+            }, completion: nil)
+            button.isEnabled = false
+        }
+    }
+    
+    //MARK: - Button Actions
     @objc private func touchDownAction(_ sender: UIButton!) {
         buttonTouchDown?()
         buttonBackgroundView.isConvex = false

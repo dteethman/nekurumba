@@ -24,6 +24,7 @@ class StatsTableViewDataSource: NSObject, UITableViewDataSource {
             cell.labelText = stats![indexPath.row].labelText
             cell.xAxisLabels = stats![indexPath.row].xAxisLabels
             cell.granularity = stats![indexPath.row].granularity
+            cell.bgColors = bgColors
             return cell
         }
 

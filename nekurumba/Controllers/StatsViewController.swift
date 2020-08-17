@@ -1,18 +1,20 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    var segmentedControl: NMSegmentedControl!
-    var titleLabel: UILabel!
-    var statsTableView: UITableView!
+    //MARK: - Variables
+    private var segmentedControl: NMSegmentedControl!
+    private var titleLabel: UILabel!
+    private var statsTableView: UITableView!
     
-    var statsTableViewDelegate = StatsTableViewDelegate()
-    var statsTableViewDataSource = StatsTableViewDataSource()
+    private var statsTableViewDelegate = StatsTableViewDelegate()
+    private var statsTableViewDataSource = StatsTableViewDataSource()
     
-    var segments: [SegmentItem]!
-    var selectedSegment: Int!
+    private var segments: [SegmentItem]!
+    private var selectedSegment: Int!
     
-    var date = Date()
+    private var date = Date()
     
+    //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,13 +39,20 @@ class StatsViewController: UIViewController {
         setupViews()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+    }
+    
+    //MARK: - Layout
     private func setupViews() {
         let safeGuide = view.safeAreaLayoutGuide
         
         titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Статистика"
         titleLabel.font = .systemFont(ofSize: 34, weight: .bold)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .left
         self.view.addSubview(titleLabel)
         
@@ -52,9 +61,9 @@ class StatsViewController: UIViewController {
             segments = []
         }
         segmentedControl = NMSegmentedControl(segmentItems: segments, frame: segmentedControlFrame)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.cornerRadius = 20
         segmentedControl.bgColors = bgColors
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(segmentedControl)
         
         statsTableView = UITableView()
@@ -91,7 +100,8 @@ class StatsViewController: UIViewController {
         segmentedControl.layoutSubviews()
     }
     
-    func presentTodayStats() {
+    //MARK: - Data Management methods
+    private func presentTodayStats() {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
@@ -117,7 +127,7 @@ class StatsViewController: UIViewController {
         statsTableView?.reloadData()
     }
     
-    func presentWeeklyStats() {
+    private func presentWeeklyStats() {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
@@ -143,7 +153,7 @@ class StatsViewController: UIViewController {
         statsTableView?.reloadData()
     }
     
-    func presentMonthlyStats() {
+    private func presentMonthlyStats() {
         let provider = StatsProvider()
         provider.dataManager = CoreDataManager()
         
@@ -169,7 +179,7 @@ class StatsViewController: UIViewController {
         statsTableView?.reloadData()
     }
     
-    func updateData() {
+    public func updateData() {
         date = checkNightModeDate()
         if let segment = selectedSegment {
             switch segment {
@@ -185,6 +195,7 @@ class StatsViewController: UIViewController {
         }
     }
     
+    //MARK: - NightMode check methods
     private func checkNightModeDate() -> Date {
         let defaults = UserDefaults.standard
         
@@ -195,12 +206,4 @@ class StatsViewController: UIViewController {
             return Date()
         }
     }
-    
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-    }
-
 }

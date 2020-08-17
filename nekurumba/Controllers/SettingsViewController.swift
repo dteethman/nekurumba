@@ -70,8 +70,8 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // MARK: - Layout Initialization
-    func setupViews() {
+    // MARK: - Layout Initialisation
+    private func setupViews() {
         let safeGuide = view.safeAreaLayoutGuide
         
         let bodyHorizontalMargin: CGFloat = 20
@@ -110,7 +110,7 @@ class SettingsViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 40),
         ])
         
-        //Interval Settings
+        //MARK: Interval Settings
         intervalBackgroundView = NMView()
         intervalBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         intervalBackgroundView.bgColors = bgColors
@@ -204,7 +204,7 @@ class SettingsViewController: UIViewController {
             intervalTextView.heightAnchor.constraint(equalToConstant: intervalTextHeight),
         ])
         
-        //NightMode Settings
+        //MARK: NightMode Settings
         nightModeBackgroundView = NMView()
         nightModeBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         nightModeBackgroundView.bgColors = bgColors
@@ -250,7 +250,7 @@ class SettingsViewController: UIViewController {
         nightModeTextView = UITextView()
         nightModeTextView.translatesAutoresizingMaskIntoConstraints = false
         
-        let nightModeText = "В ночном режиме перекуры учитываются в прошедший день."
+        let nightModeText = "В ночном режиме перекуры учитываются в прошедший день."
         let nightModeTextHeight = nightModeText.calculateTextFieldHeight(width: descriptionTextViewWidth, font: descriptionTextViewFont)
         nightModeTextView.text = nightModeText
         nightModeTextView.font = descriptionTextViewFont
@@ -263,7 +263,6 @@ class SettingsViewController: UIViewController {
         nightModeTextView.isSelectable = false
         nightModeTextView.textContainerInset = .zero
         nightModeTextView.textContainer.lineFragmentPadding = 0
-        
         self.view.addSubview(nightModeTextView)
         
         NSLayoutConstraint.activate([
@@ -298,7 +297,7 @@ class SettingsViewController: UIViewController {
             nightModeTextView.heightAnchor.constraint(equalToConstant: nightModeTextHeight),
         ])
         
-        //Timer countdown Settings
+        //MARK: Countdown Settings
         timerCountdownBackgroundView = NMView()
         timerCountdownBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         timerCountdownBackgroundView.bgColors = bgColors
@@ -401,7 +400,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    func changeCountdownDescription(_ isCountdown: Bool) {
+    private func changeCountdownDescription(_ isCountdown: Bool) {
             let isCountdownText = "Внутри таймера будет отображаться время до окончания перерыва."
             let isNotCountdownText = "Внутри таймера будет отображаться время от начала перерыва."
         timerCountdownTextView?.text = isCountdown ? isCountdownText : isNotCountdownText

@@ -70,7 +70,7 @@ class NMSwitch: UIView {
         }
     }
     
-    //MARK: - Initializers & Overrides
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -84,13 +84,6 @@ class NMSwitch: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if cornerRadius != min(self.bounds.width, self.bounds.height) / 2 {
-            cornerRadius = min(self.bounds.width, self.bounds.height) / 2
-        }
     }
     
     //MARK: - Layout
@@ -154,6 +147,13 @@ class NMSwitch: UIView {
             tapGRView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if cornerRadius != min(self.bounds.width, self.bounds.height) / 2 {
+            cornerRadius = min(self.bounds.width, self.bounds.height) / 2
+        }
     }
     
     //MARK: - Action bindings
