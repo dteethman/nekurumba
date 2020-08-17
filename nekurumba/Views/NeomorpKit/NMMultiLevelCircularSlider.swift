@@ -180,8 +180,8 @@ class NMMultiLevelCircularSlider: UIView {
             
             let layer = CAShapeLayer()
             let path = UIBezierPath()
-            path.move(to: getPointOnCircle(center: center, radius: outerRadius, angle: angle))
-            path.addLine(to: getPointOnCircle(center: center, radius: innerRadius, angle: angle))
+            path.move(to: CGPoint(center: center, radius: outerRadius, angle: angle))
+            path.addLine(to: CGPoint(center: center, radius: innerRadius, angle: angle))
             
             layer.path = path.cgPath
             layer.strokeColor = inactiveColor.cgColor
@@ -216,7 +216,7 @@ class NMMultiLevelCircularSlider: UIView {
         
         if gesture.state == .began {
             let validAngle = (-CGFloat.pi / 2) + (2 * CGFloat.pi * progressBar.progress)
-            let pointOnCircle = getPointOnCircle(center: center, radius: sliderRadius, angle: validAngle)
+            let pointOnCircle = CGPoint(center: center, radius: sliderRadius, angle: validAngle)
             if (point.x >= (pointOnCircle.x - (sliderWidth / 2 + 10))) && (point.x <= (pointOnCircle.x + (sliderWidth / 2 + 10)))
                 && (point.y >= (pointOnCircle.y - (sliderWidth / 2 + 10))) && (point.y <= (pointOnCircle.y + (sliderWidth / 2 + 10))) {
                 touchBeganAndValid = true
@@ -256,14 +256,6 @@ class NMMultiLevelCircularSlider: UIView {
             touchBeganAndValid = false
         }
         
-    }
-    
-    private func getPointOnCircle(center: CGPoint, radius: CGFloat, angle: CGFloat) -> CGPoint {
-        
-        let X = center.x + radius * CGFloat(cos(angle))
-        let Y = center.y + radius * CGFloat(sin(angle))
-        
-        return CGPoint(x: X, y: Y)
     }
     
     private func angleOfTouchPoint(center: CGPoint, touchPoint: CGPoint) -> CGFloat {

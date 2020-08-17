@@ -18,6 +18,7 @@
 		42A6536824CB19B900681D8F /* NMLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536724CB19B900681D8F /* NMLineChartView.swift */; };
 		42A6536A24CB1A6C00681D8F /* StatsTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536924CB1A6C00681D8F /* StatsTableViewDelegate.swift */; };
 		42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A6536B24CB1A8800681D8F /* StatsTableViewDataSource.swift */; };
+		42ACFCC024EADCAE00C90DCB /* E_CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ACFCBF24EADCAE00C90DCB /* E_CGPoint.swift */; };
 		42B885B124C4DDC3007924A6 /* HighlightsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */; };
 		42B885BD24C4E080007924A6 /* HighlightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */; };
 		42B885BE24C4E080007924A6 /* HighlightCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */; };
@@ -68,6 +69,7 @@
 		42A6536724CB19B900681D8F /* NMLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMLineChartView.swift; sourceTree = "<group>"; };
 		42A6536924CB1A6C00681D8F /* StatsTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewDelegate.swift; sourceTree = "<group>"; };
 		42A6536B24CB1A8800681D8F /* StatsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewDataSource.swift; sourceTree = "<group>"; };
+		42ACFCBF24EADCAE00C90DCB /* E_CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_CGPoint.swift; sourceTree = "<group>"; };
 		42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsProvider.swift; sourceTree = "<group>"; };
 		42B885BA24C4E080007924A6 /* HighlightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewCell.swift; sourceTree = "<group>"; };
 		42B885BB24C4E080007924A6 /* HighlightCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -176,15 +178,16 @@
 		42C5E77624C179360010F5FC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				42ACFCBF24EADCAE00C90DCB /* E_CGPoint.swift */,
+				42B885C024C4EB91007924A6 /* E_Date.swift */,
+				42F99FB224E963B0004955C9 /* E_Int.swift */,
+				42F99FB024E95F09004955C9 /* E_String.swift */,
+				42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */,
 				42C5E77B24C1794B0010F5FC /* E_UIColor.swift */,
 				42C5E77824C1794A0010F5FC /* E_UIImage.swift */,
 				42C5E77724C1794A0010F5FC /* E_UIImageView.swift */,
 				42C5E77A24C1794A0010F5FC /* E_UIView.swift */,
 				42C5E77924C1794A0010F5FC /* E_UIViewController.swift */,
-				42FA7D7724C1CC2C00D74068 /* E_TimeInterval.swift */,
-				42B885C024C4EB91007924A6 /* E_Date.swift */,
-				42F99FB024E95F09004955C9 /* E_String.swift */,
-				42F99FB224E963B0004955C9 /* E_Int.swift */,
 				42FA7D7F24C1CCDC00D74068 /* Colors.swift */,
 				42F99FB624E99E28004955C9 /* Keys.swift */,
 			);
@@ -340,6 +343,7 @@
 				42FA7D8D24C2054B00D74068 /* NMProgressViewWithButton.swift in Sources */,
 				42A6536624CB199F00681D8F /* StatsTableViewCell.swift in Sources */,
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
+				42ACFCC024EADCAE00C90DCB /* E_CGPoint.swift in Sources */,
 				42FA7D8824C1CDE500D74068 /* NMView.swift in Sources */,
 				42C5E77D24C1794B0010F5FC /* E_UIImage.swift in Sources */,
 				42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */,

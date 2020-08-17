@@ -1,6 +1,19 @@
 import UIKit
 
 class NMView: UIView {
+    //MARK: - Variables
+    private var topShadowLayer: CAShapeLayer!
+    private var bottomShadowLayer: CAShapeLayer!
+    private var backgroundViewMask: UIView!
+    private var backgroundView: UIView!
+    private var foregroundView: UIView!
+    
+    private var topShadowOffset = (convex: CGSize(width: -6, height: -6), concave: CGSize(width: 0, height: 0))
+    private var bottomShadowOffset = (convex: CGSize(width: 6, height: 6), concave: CGSize(width: 0, height: 0))
+    private var topShadowColor = (convex: UIColor.white.cgColor, concave: UIColor.black.cgColor)
+    private var bottomShadowColor = (convex: UIColor.black.cgColor, concave: UIColor.white.cgColor)
+    private var shadowRadius: CGFloat = 6
+    
     public var cornerRadius: CGFloat = 0 {
         didSet {
             backgroundViewMask?.layer.cornerRadius = cornerRadius
@@ -37,18 +50,7 @@ class NMView: UIView {
         }
     }
     
-    private var topShadowLayer: CAShapeLayer!
-    private var bottomShadowLayer: CAShapeLayer!
-    private var backgroundViewMask: UIView!
-    private var backgroundView: UIView!
-    private var foregroundView: UIView!
-    
-    private var topShadowOffset = (convex: CGSize(width: -6, height: -6), concave: CGSize(width: 0, height: 0))
-    private var bottomShadowOffset = (convex: CGSize(width: 6, height: 6), concave: CGSize(width: 0, height: 0))
-    private var topShadowColor = (convex: UIColor.white.cgColor, concave: UIColor.black.cgColor)
-    private var bottomShadowColor = (convex: UIColor.black.cgColor, concave: UIColor.white.cgColor)
-    private var shadowRadius: CGFloat = 6
-    
+    //MARK: - Draw
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else {
           return
@@ -82,6 +84,12 @@ class NMView: UIView {
         foregroundView.alpha = isConvex ? 1 : 0
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        isConvex ? layoutForConvex() : layoutForConcave()
+    }
+    
+    //MARK: - Layout
     private func addShadowPaths(rect: CGRect) {
         let cornerCenters = (topLeft: CGPoint(x: cornerRadius, y: cornerRadius),
                              topRight: CGPoint(x: rect.width - cornerRadius, y: cornerRadius),
@@ -116,7 +124,7 @@ class NMView: UIView {
                                   startAngle: -angles.d90,
                                   endAngle: -angles.d45,
                                   clockwise: true)
-        topShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.topRight,
+        topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
                                                         radius: cornerRadius - 6,
                                                         angle: -angles.d45))
         topShadowLayerPath.addArc(withCenter: cornerCenters.topRight,
@@ -124,7 +132,7 @@ class NMView: UIView {
                                   startAngle: -angles.d45,
                                   endAngle: -angles.d90,
                                   clockwise: false)
-        topShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.topLeft,
+        topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topLeft,
                                                         radius: cornerRadius - 6,
                                                         angle: -angles.d90))
         topShadowLayerPath.addArc(withCenter: cornerCenters.topLeft,
@@ -132,7 +140,7 @@ class NMView: UIView {
                                   startAngle: -angles.d90,
                                   endAngle: -angles.d180,
                                   clockwise: false)
-        topShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.bottomLeft,
+        topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
                                                         radius: cornerRadius - 6,
                                                         angle: -angles.d180))
         topShadowLayerPath.addArc(withCenter: cornerCenters.bottomLeft,
@@ -140,7 +148,7 @@ class NMView: UIView {
                                   startAngle: angles.d180,
                                   endAngle: angles.d135,
                                   clockwise: false)
-        topShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.bottomLeft,
+        topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
                                                         radius: cornerRadius,
                                                         angle: angles.d135))
 
@@ -166,7 +174,7 @@ class NMView: UIView {
                                      startAngle: angles.d90,
                                      endAngle: angles.d135,
                                      clockwise: true)
-        bottomShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.bottomLeft,
+        bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
                                                         radius: cornerRadius - 6,
                                                         angle: angles.d135))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.bottomLeft,
@@ -174,7 +182,7 @@ class NMView: UIView {
                                      startAngle: angles.d135,
                                      endAngle: angles.d90,
                                      clockwise: false)
-        bottomShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.bottomRight,
+        bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomRight,
                                                         radius: cornerRadius - 6,
                                                         angle: angles.d90))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.bottomRight,
@@ -182,7 +190,7 @@ class NMView: UIView {
                                      startAngle: angles.d90,
                                      endAngle: angles.d0,
                                      clockwise: false)
-        bottomShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.topRight,
+        bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
                                                         radius: cornerRadius - 6,
                                                         angle: angles.d0))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.topRight,
@@ -190,20 +198,12 @@ class NMView: UIView {
                                   startAngle: angles.d0,
                                   endAngle: -angles.d45,
                                   clockwise: false)
-        bottomShadowLayerPath.addLine(to: getPointOnCircle(center: cornerCenters.topRight,
+        bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
                                                         radius: cornerRadius,
                                                         angle: -angles.d45))
         
         bottomShadowLayer?.path = bottomShadowLayerPath.cgPath
         bottomShadowLayer?.shadowPath = bottomShadowLayerPath.cgPath
-    }
-    
-    private func getPointOnCircle(center: CGPoint, radius: CGFloat, angle: CGFloat) -> CGPoint {
-        
-        let X = center.x + radius * CGFloat(cos(angle))
-        let Y = center.y + radius * CGFloat(sin(angle))
-        
-        return CGPoint(x: X, y: Y)
     }
     
     private func layoutForConvex() {
@@ -225,7 +225,6 @@ class NMView: UIView {
         
         backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-            
     }
     
     private func layoutForConcave() {
@@ -247,13 +246,6 @@ class NMView: UIView {
         
         backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-            
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        isConvex ? layoutForConvex() : layoutForConcave()
     }
  
 }
