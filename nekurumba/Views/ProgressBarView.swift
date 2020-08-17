@@ -118,7 +118,7 @@ class ProgressBarView: UIView {
         layer.addSublayer(endCapLayer)
         layer.addSublayer(endCapPickerLayer)
         
-        endCapLayer.fillColor = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: progress).cgColor
+        endCapLayer.fillColor = startGradienttColor.getGradientColor(at: progress, with: endGradientColor).cgColor
         
         if let color = endCapPickerColor {
             endCapPickerLayer.strokeColor = color.cgColor
@@ -315,31 +315,22 @@ class ProgressBarView: UIView {
     
     private func animateEndCapColor(startPosition: CGFloat, endPosition: CGFloat, layer: CAShapeLayer) {
         let colorAnimation = CABasicAnimation(keyPath: "fillColor")
-        colorAnimation.fromValue = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: startPosition).cgColor
-        colorAnimation.toValue = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: endPosition).cgColor
+        colorAnimation.fromValue = startGradienttColor.getGradientColor(at: startPosition, with: endGradientColor).cgColor
+        colorAnimation.toValue = startGradienttColor.getGradientColor(at: endPosition, with: endGradientColor).cgColor
         colorAnimation.duration = animationDuration
         colorAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         
-        layer.fillColor = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: endPosition).cgColor
+        layer.fillColor = startGradienttColor.getGradientColor(at: endPosition, with: endGradientColor).cgColor
         layer.add(colorAnimation, forKey: "fillColor")
         
-    }
-    
-    private func getGradientColor(startColor: UIColor, endColor: UIColor, percent: CGFloat) -> UIColor{
-        let red = startColor.rgba.red + percent * (endColor.rgba.red - startColor.rgba.red)
-        let green = startColor.rgba.green + percent * (endColor.rgba.green - startColor.rgba.green)
-        let blue = startColor.rgba.blue + percent * (endColor.rgba.blue - startColor.rgba.blue)
-        let alpha = startColor.rgba.alpha + percent * (endColor.rgba.alpha - startColor.rgba.alpha)
-        
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if isDarkMode {
             if coloredBackgroundLayer {
-                backgroundLayerColor = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: 0.5)
-                backgroundLayerColor = getGradientColor(startColor: backgroundLayerColor, endColor: .black, percent: 0.7)
+                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
+                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.7, with: .black)
                 backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
             } else {
                 backgroundLayerColor = .darkGray
@@ -348,8 +339,8 @@ class ProgressBarView: UIView {
             
         } else {
             if coloredBackgroundLayer {
-                backgroundLayerColor = getGradientColor(startColor: startGradienttColor, endColor: endGradientColor, percent: 0.5)
-                backgroundLayerColor = getGradientColor(startColor: backgroundLayerColor, endColor: .white, percent: 0.5)
+                backgroundLayerColor = startGradienttColor.getGradientColor(at: 0.5, with: endGradientColor)
+                backgroundLayerColor = backgroundLayerColor.getGradientColor(at: 0.5, with: .white)
                 backgroundLayer?.strokeColor = backgroundLayerColor.cgColor
             } else {
                 backgroundLayerColor = .lightGray

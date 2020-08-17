@@ -1,11 +1,13 @@
 import UIKit
 
+//MARK: - Switch states
 enum NMSwitchState {
     case on
     case off
 }
 
 class NMSwitch: UIView {
+    //MARK: - Variables
     typealias SwitcFhunction = () -> Void
     
     private var switchEnabled: SwitcFhunction?
@@ -35,8 +37,8 @@ class NMSwitch: UIView {
     public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
             self.backgroundColor = .clear
-            dimmedbgColors = ColorSet(light: getGradientColor(startColor: bgColors.light, endColor: .black, percent: 0.1),
-                              dark: getGradientColor(startColor: bgColors.dark, endColor: .white, percent: 0.1))
+            dimmedbgColors = ColorSet(light: bgColors.light.getGradientColor(at: 0.1, with: .black),
+                                      dark: bgColors.dark.getGradientColor(at: 0.1, with: .white))
             backgroundView?.bgColors = bgColors
             foregroundView?.bgColors = isActive ? accentColors : dimmedbgColors
             pickerCapView?.bgColors = bgColors
@@ -68,9 +70,31 @@ class NMSwitch: UIView {
         }
     }
     
+    //MARK: - Initializers & Overrides
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupViews()
         
+        if isActive {
+            pickerTrailingConstraint?.isActive = true
+        } else {
+            pickerLeadingConstraint?.isActive = true
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if cornerRadius != min(self.bounds.width, self.bounds.height) / 2 {
+            cornerRadius = min(self.bounds.width, self.bounds.height) / 2
+        }
+    }
+    
+    //MARK: - Layout
+    private func setupViews() {
         backgroundView = NMView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.cornerRadius = cornerRadius
@@ -130,25 +154,9 @@ class NMSwitch: UIView {
             tapGRView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
         ])
-        
-        if isActive {
-            pickerTrailingConstraint?.isActive = true
-        } else {
-            pickerLeadingConstraint?.isActive = true
-        }
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if cornerRadius != min(self.bounds.width, self.bounds.height) / 2 {
-            cornerRadius = min(self.bounds.width, self.bounds.height) / 2
-        }
-    }
-    
+    //MARK: - Action bindings
     public func addAction(for state: NMSwitchState, action: @escaping () -> Void) {
         switch state {
         case .off:
@@ -158,16 +166,8 @@ class NMSwitch: UIView {
         }
     }
     
-    private func getGradientColor(startColor: UIColor, endColor: UIColor, percent: CGFloat) -> UIColor{
-        let red = startColor.rgba.red + percent * (endColor.rgba.red - startColor.rgba.red)
-        let green = startColor.rgba.green + percent * (endColor.rgba.green - startColor.rgba.green)
-        let blue = startColor.rgba.blue + percent * (endColor.rgba.blue - startColor.rgba.blue)
-        let alpha = startColor.rgba.alpha + percent * (endColor.rgba.alpha - startColor.rgba.alpha)
-        
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
-    }
-    
-    @objc func handleTap(_ sender: UIGestureRecognizer) {
+    //MARK: - TapGestureRecognizer Actions
+    @objc private func handleTap(_ sender: UIGestureRecognizer) {
         self.isActive = !isActive
         if isActive {
             switchEnabled?()

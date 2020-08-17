@@ -10,4 +10,13 @@ extension UIColor {
 
         return (red, green, blue, alpha)
     }
+    
+    func getGradientColor(at percent: CGFloat, with color: UIColor) -> UIColor {
+        let red = self.rgba.red + percent * (color.rgba.red - self.rgba.red)
+        let green = self.rgba.green + percent * (color.rgba.green - self.rgba.green)
+        let blue = self.rgba.blue + percent * (color.rgba.blue - self.rgba.blue)
+        let alpha = self.rgba.alpha + percent * (color.rgba.alpha - self.rgba.alpha)
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
 }
