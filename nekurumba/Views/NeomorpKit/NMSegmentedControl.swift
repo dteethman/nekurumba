@@ -1,5 +1,12 @@
 import UIKit
 
+struct SegmentItem {
+    typealias SegmentFunction = () -> Void
+    
+    var displayTitle: String
+    var action: SegmentFunction?
+}
+
 class NMSegmentedControl: UIView {
     var itemTapped: ((_ segment: Int) -> Void)?
     private var activeItem: Int = 0
