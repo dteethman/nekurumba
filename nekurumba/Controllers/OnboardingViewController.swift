@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     //MARK: - Variables

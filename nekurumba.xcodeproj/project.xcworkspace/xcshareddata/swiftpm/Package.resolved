@@ -18,6 +18,15 @@
           "revision": "7ac4a05e83d279bac305a472af9128c2a0eca3d7",
           "version": "3.5.0"
         }
+      },
+      {
+        "package": "DT Bunch of Extensions",
+        "repositoryURL": "https://github.com/dteethman/DTBunchOfExt.git",
+        "state": {
+          "branch": null,
+          "revision": "d6551a4667c76b11b50f3458db793ea1d38a8726",
+          "version": "1.0.2"
+        }
       }
     ]
   },

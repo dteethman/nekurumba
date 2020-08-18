@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 //MARK: - SliderItem Struct
 struct SliderItem {

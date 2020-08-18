@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 class NightModeChangerViewController: UIViewController {
     //MARK: - Variables

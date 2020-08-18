@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 //MARK: - Switch states
 enum NMSwitchState {

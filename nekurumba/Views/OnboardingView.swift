@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 class OnboardingView: UIView {
     private var titleTextView: UITextView!

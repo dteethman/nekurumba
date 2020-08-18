@@ -1,5 +1,6 @@
 import UIKit
 import AEConicalGradient
+import DTBunchOfExt
 
 class ProgressBarView: UIView {
     //MARK: - Variables
