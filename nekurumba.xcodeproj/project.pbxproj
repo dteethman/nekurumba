@@ -45,7 +45,6 @@
 		42FA7D8E24C2054B00D74068 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */; };
 		42FA7D9124C2093E00D74068 /* AEConicalGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 42FA7D9024C2093E00D74068 /* AEConicalGradient */; };
 		42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */; };
-		42FA7D9524C2141700D74068 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9424C2141700D74068 /* Box.swift */; };
 		42FA7D9924C2398D00D74068 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D9824C2398D00D74068 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		42FA7D8B24C2054B00D74068 /* NMProgressViewWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMProgressViewWithButton.swift; sourceTree = "<group>"; };
 		42FA7D8C24C2054B00D74068 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLoadableTimer.swift; sourceTree = "<group>"; };
-		42FA7D9424C2141700D74068 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		42FA7D9824C2398D00D74068 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,7 +192,6 @@
 				42FA7D9824C2398D00D74068 /* CoreDataManager.swift */,
 				42560BBE24C32AF600A17AD9 /* StatsProvider.swift */,
 				42B885B024C4DDC3007924A6 /* HighlightsProvider.swift */,
-				42FA7D9424C2141700D74068 /* Box.swift */,
 				42FA7D9224C2141100D74068 /* UDLoadableTimer.swift */,
 				42FA7D7D24C1CC7D00D74068 /* TabItem.swift */,
 				42A6536224CB104A00681D8F /* StatData.swift */,
@@ -334,7 +331,6 @@
 				42FA7D8624C1CD6000D74068 /* StatsViewController.swift in Sources */,
 				42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */,
 				42579F9424E08259005A51A3 /* NMSwitch.swift in Sources */,
-				42FA7D9524C2141700D74068 /* Box.swift in Sources */,
 				42A6536C24CB1A8800681D8F /* StatsTableViewDataSource.swift in Sources */,
 				42FA7D8524C1CD6000D74068 /* HomeViewController.swift in Sources */,
 				42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */,
