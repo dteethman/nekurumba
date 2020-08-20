@@ -24,10 +24,18 @@ class HomeViewController: UIViewController {
     private var isCountdown: Bool = true
     private var isNightMode: Bool = false {
         didSet {
-            titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
-            setupHighslightCollectionView()
+            DispatchQueue.main.async { [self] in
+                titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
+                setupHighslightCollectionView()
+                
+                nightModeHintlWasShown = loadNightModeHint()
+                if !nightModeHintlWasShown && isNightMode {
+                    setupHintPopup()
+                }
+            }
         }
     }
+    private var nightModeHintlWasShown: Bool = false
     
     //MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -207,6 +215,82 @@ class HomeViewController: UIViewController {
         ])
     }
     
+    private func setupHintPopup() {
+        let safeArea = view.safeAreaLayoutGuide
+        let hour = defaults.integer(forKey: nightModeHoursKey)
+        var hourWord = ""
+        
+        switch hour {
+        case 1:
+            hourWord = "1 часа ночи"
+        case 2, 3:
+            hourWord = "\(hour) часов ночи"
+        case 4, 5:
+            hourWord = "\(hour) часов утра"
+        default:
+              break
+        }
+        
+        let text = """
+        Когда полумесяц появляется над кнопкой, это значит, что включился ночной режим. Когда он активен, перекуры будут учитываться в прошедший календарный день.\nСейчас он активен с полуночи до \(hourWord). Установите его в настройках вплоть до 5 утра или отключите, установив 0 часов
+        """
+        
+        let backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.backgroundColor = UIColor.black
+        backgroundView.alpha = 0.4
+        backgroundView.isHidden = true
+        self.view.addSubview(backgroundView)
+        
+        let popUpView = NMPopUpView(titleText: "Ночной режим 🌙", messageText: text)
+        popUpView.translatesAutoresizingMaskIntoConstraints = false
+        let popUpShownConstraint = popUpView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -100)
+        let popUpHiddenConstraint = popUpView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 400)
+        popUpView.cornerRadius = 20
+        popUpView.bgColors = bgColors
+        popUpView.dismissButton.titleLabel.text = "Хорошо"
+        popUpView.dismissButton.titleLabel.textColor = activeColor
+        popUpView.dismissButton.addAction(for: .touchUpInside) { [self] in
+            popUpShownConstraint.isActive = false
+            popUpHiddenConstraint.isActive = true
+            backgroundView.isHidden = true
+            
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseIn], animations: { [self] in
+                view.layoutIfNeeded()
+            }, completion: { (completed) in
+                backgroundView.removeFromSuperview()
+                popUpView.removeFromSuperview()
+                defaults.setValue(true, forKey: isNightModeHintKey)
+            })
+        }
+        
+        let height = popUpView.messageTextViewHeight + 124
+        
+        self.view.addSubview(popUpView)
+        
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            popUpHiddenConstraint,
+            popUpView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            popUpView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            popUpView.heightAnchor.constraint(equalToConstant: height),
+        ])
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
+            popUpShownConstraint.isActive = true
+            popUpHiddenConstraint.isActive = false
+            backgroundView.isHidden = false
+            
+            UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn], animations: { [self] in
+                view.layoutIfNeeded()
+            }, completion: nil)
+        }
+    }
+    
     //MARK: - HighlightsCollectionView Setup
     private func setupHighslightCollectionView() {
         let provider = HighlightsProvider()
@@ -261,6 +345,10 @@ class HomeViewController: UIViewController {
         return h > 0 && h > Calendar.current.component(.hour, from: Date())
     }
     
+    private func loadNightModeHint() -> Bool {
+        return defaults.bool(forKey: isNightModeHintKey)
+    }
+    
     //MARK: - NotificationCenter actions
     @objc private func viewWillResignActive() {
         app?.smokeTimer?.saveToDefaults()
@@ -276,7 +364,7 @@ class HomeViewController: UIViewController {
     
     @objc private func dayChanged() {
         isNightMode = loadIsNightMode()
-        titleLabel?.text = isNightMode ? "Некурёмба 🌙" : "Некурёмба"
+
         
     }
     

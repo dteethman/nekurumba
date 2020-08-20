@@ -6,7 +6,7 @@ let hourKey = "hour"
 let minuteKey = "minute"
 
 //UserDefaults
-let isNightModeKey = "isNightMode"
+let isNightModeHintKey = "isNightModeHint"
 let isCountdownKey = "isCountdown"
 let userDidOnboardingKey = "userDidOnboarding"
 let intervalHoursKey = "intervalHours"
