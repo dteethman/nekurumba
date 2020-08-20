@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4213AA7124EBFF7B008B2330 /* DTBunchOfExt in Frameworks */ = {isa = PBXBuildFile; productRef = 4213AA7024EBFF7B008B2330 /* DTBunchOfExt */; };
+		4213AA7324ED99C2008B2330 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4213AA7224ED99C2008B2330 /* Settings.bundle */; };
+		4213AA7524EE9A79008B2330 /* NMPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213AA7424EE9A79008B2330 /* NMPopUpView.swift */; };
 		423DD1BC24DD84C2005BFEB1 /* IntervalChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */; };
 		423DD1C024DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */; };
 		42560BBF24C32AF600A17AD9 /* StatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560BBE24C32AF600A17AD9 /* StatsProvider.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4213AA7224ED99C2008B2330 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		4213AA7424EE9A79008B2330 /* NMPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMPopUpView.swift; sourceTree = "<group>"; };
 		423DD1BB24DD84C2005BFEB1 /* IntervalChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalChangerViewController.swift; sourceTree = "<group>"; };
 		423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMMultiLevelCircularSlider.swift; sourceTree = "<group>"; };
 		42560BBE24C32AF600A17AD9 /* StatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsProvider.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		42C5E72D24C171100010F5FC = {
 			isa = PBXGroup;
 			children = (
+				4213AA7224ED99C2008B2330 /* Settings.bundle */,
 				42C5E73824C171110010F5FC /* nekurumba */,
 				42C5E73724C171100010F5FC /* Products */,
 			);
@@ -179,6 +184,7 @@
 				42FA7D8724C1CDE500D74068 /* NMView.swift */,
 				42E8B9A124DECE4400E953F4 /* NMButton.swift */,
 				42579F9324E08259005A51A3 /* NMSwitch.swift */,
+				4213AA7424EE9A79008B2330 /* NMPopUpView.swift */,
 				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
 				42A6536724CB19B900681D8F /* NMLineChartView.swift */,
 				423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */,
@@ -295,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C5E74924C171110010F5FC /* LaunchScreen.storyboard in Resources */,
+				4213AA7324ED99C2008B2330 /* Settings.bundle in Resources */,
 				42C5E74624C171110010F5FC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +322,7 @@
 				42C5E74424C171110010F5FC /* nekurumba.xcdatamodeld in Sources */,
 				42FA7D8824C1CDE500D74068 /* NMView.swift in Sources */,
 				42E8B9A224DECE4400E953F4 /* NMButton.swift in Sources */,
+				4213AA7524EE9A79008B2330 /* NMPopUpView.swift in Sources */,
 				42FA7D9324C2141100D74068 /* UDLoadableTimer.swift in Sources */,
 				42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */,
 				42F99FB524E97569004955C9 /* NightModeChangerViewController.swift in Sources */,
@@ -415,6 +423,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -469,6 +478,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
