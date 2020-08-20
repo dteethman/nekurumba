@@ -102,7 +102,7 @@ class NMLineChartView: UIView {
             
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
             
             chartView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 7),
