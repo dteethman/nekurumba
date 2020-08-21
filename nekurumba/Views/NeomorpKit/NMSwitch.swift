@@ -175,5 +175,6 @@ class NMSwitch: UIView {
         } else {
             switchDisabled?()
         }
+        TapticProvider.entry.provide(.seletionChanged)
     }
 }

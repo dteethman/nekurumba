@@ -250,8 +250,16 @@ class NMMultiLevelCircularSlider: UIView {
                     if sliderPosition >= minSliderValue && sliderPosition <= maxSliderValue {
                         sliderItems[activeItem].sliderValue.value = sliderPosition
                     }
+                    
+                    let previousSegment = (Int(prevPosition! * 100) *  numberOfDivisions) / 100
+                    let currentSegment = (Int(sliderPosition * 100) *  numberOfDivisions) / 100
+
+                    if previousSegment != currentSegment {
+                        TapticProvider.entry.provide(.seletionChanged)
+                    }
+                    
                     progressBar.progress = sliderPosition
-                    prevPosition = sliderPosition
+                    prevPosition = sliderPosition 
                 }
             }
         }

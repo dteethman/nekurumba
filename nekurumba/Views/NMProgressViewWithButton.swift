@@ -248,6 +248,7 @@ class NMProgressViewWithButton: UIView {
     @objc private func touchDownAction(_ sender: UIButton!) {
         buttonTouchDown?()
         buttonBackgroundView.isConvex = false
+        TapticProvider.entry.provide(.touchLight)
     }
     
     @objc private func touchDownRepeatAction(_ sender: UIButton!) {
@@ -267,16 +268,19 @@ class NMProgressViewWithButton: UIView {
     @objc private func touchDragEnterAction(_ sender: UIButton!) {
         buttonTouchDragEnter?()
         buttonBackgroundView.isConvex = false
+        TapticProvider.entry.provide(.touchLight)
     }
     
     @objc private func touchDragExitAction(_ sender: UIButton!) {
         buttonTouchDragExit?()
         buttonBackgroundView.isConvex = true
+        TapticProvider.entry.provide(.touchMedium)
     }
     
     @objc private func touchUpInsideAction(_ sender: UIButton!) {
         buttonTouchUpInside?()
         buttonBackgroundView.isConvex = true
+        TapticProvider.entry.provide(.touchMedium)
     }
     
     @objc private func touchUpOutsideAction(_ sender: UIButton!) {

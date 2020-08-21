@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 //MARK: - Button states
 enum NMButtonState {
@@ -42,6 +43,8 @@ class NMButton: UIView {
             backgroundView?.cornerRadius = cornerRadius
         }
     }
+    
+    public var hasTapticFeedback = false
     
     public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
@@ -138,6 +141,7 @@ class NMButton: UIView {
         if isEnabled {
             buttonTouchDown?()
             backgroundView.isConvex = false
+            if hasTapticFeedback { TapticProvider.entry.provide(.touchLight) }
         }
     }
     
@@ -165,6 +169,7 @@ class NMButton: UIView {
         if isEnabled {
             buttonTouchDragEnter?()
             backgroundView.isConvex = false
+            if hasTapticFeedback { TapticProvider.entry.provide(.touchLight) }
         }
     }
     
@@ -172,6 +177,7 @@ class NMButton: UIView {
         if isEnabled {
             buttonTouchDragExit?()
             backgroundView.isConvex = true
+            if hasTapticFeedback { TapticProvider.entry.provide(.touchMedium) }
         }
     }
     
@@ -179,6 +185,7 @@ class NMButton: UIView {
         if isEnabled {
             buttonTouchUpInside?()
             backgroundView.isConvex = true
+            if hasTapticFeedback { TapticProvider.entry.provide(.touchMedium) }
         }
     }
     

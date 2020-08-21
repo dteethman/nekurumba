@@ -1,4 +1,5 @@
 import UIKit
+import DTBunchOfExt
 
 //MARK: - SegmentItem Struct
 struct SegmentItem {
@@ -142,6 +143,7 @@ class NMSegmentedControl: UIView {
         if from != to {
             self.deactivateSegment(segment: from)
             self.activateSegment(segment: to)
+            TapticProvider.entry.provide(.seletionChanged)
         }
     }
     
