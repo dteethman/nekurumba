@@ -31,3 +31,4 @@ enum TabItem: String, CaseIterable {
         return self.rawValue.capitalized(with: nil)
     }
 }
+

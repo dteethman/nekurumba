@@ -5,7 +5,7 @@ class StatsProvider {
     var dataManager: CoreDataManager!
     var statsData: [SmokeTracker]?
     
-   private func loadStats() {
+    private func loadStats() {
         statsData = dataManager?.loadAllData()
     }
     
@@ -24,8 +24,7 @@ class StatsProvider {
                         smokedCount.append(0)
                     }
                     smokedCount[24] += 1
-                }
-
+                }  
             }
             
             for i in 0 ..< smokedCount.count {
@@ -69,7 +68,6 @@ class StatsProvider {
                 if interval > 100 {
                     isMoreThanHundred = true
                 }
-            
             }
             
             if isMoreThanHundred {
@@ -91,7 +89,7 @@ class StatsProvider {
             dateComponents.timeZone = Calendar.current.timeZone
             dateComponents.hour = 03
             dateComponents.minute = 01
-
+            
             let userCalendar = Calendar.current
             let fromDate = userCalendar.date(from: dateComponents)
             
@@ -155,7 +153,7 @@ class StatsProvider {
             dateComponents.timeZone = Calendar.current.timeZone
             dateComponents.hour = 03
             dateComponents.minute = 01
-
+            
             let userCalendar = Calendar.current
             let fromDate = userCalendar.date(from: dateComponents)
             
@@ -241,7 +239,7 @@ class StatsProvider {
             dateComponents.timeZone = Calendar.current.timeZone
             dateComponents.hour = 03
             dateComponents.minute = 01
-
+            
             let userCalendar = Calendar.current
             let fromDate = userCalendar.date(from: dateComponents)
             
@@ -286,7 +284,7 @@ class StatsProvider {
             dateComponents.timeZone = Calendar.current.timeZone
             dateComponents.hour = 03
             dateComponents.minute = 01
-
+            
             let userCalendar = Calendar.current
             let fromDate = userCalendar.date(from: dateComponents)
             
@@ -324,8 +322,6 @@ class StatsProvider {
                         let month = userCalendar.component(.month, from: date)
                         let monthStr = month / 10 == 0 ? "0\(month)" : "\(month)"
                         labels.append("\(dayStr).\(monthStr)")
-
-                        
                         
                         curDate = date.addingTimeInterval(24 * 60 * 60)
                     } else {

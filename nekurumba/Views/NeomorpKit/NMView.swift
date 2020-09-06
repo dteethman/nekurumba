@@ -54,7 +54,7 @@ class NMView: UIView {
     //MARK: - Draw
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else {
-          return
+            return
         }
         
         backgroundViewMask = UIView()
@@ -67,7 +67,7 @@ class NMView: UIView {
         backgroundView.frame = rect
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundViewMask.addSubview(backgroundView)
-    
+        
         topShadowLayer = CAShapeLayer()
         bottomShadowLayer = CAShapeLayer()
         addShadowPaths(rect: rect)
@@ -126,43 +126,43 @@ class NMView: UIView {
                                   endAngle: -angles.d45,
                                   clockwise: true)
         topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
-                                                        radius: cornerRadius - 6,
-                                                        angle: -angles.d45))
+                                               radius: cornerRadius - 6,
+                                               angle: -angles.d45))
         topShadowLayerPath.addArc(withCenter: cornerCenters.topRight,
                                   radius: cornerRadius - 6,
                                   startAngle: -angles.d45,
                                   endAngle: -angles.d90,
                                   clockwise: false)
         topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topLeft,
-                                                        radius: cornerRadius - 6,
-                                                        angle: -angles.d90))
+                                               radius: cornerRadius - 6,
+                                               angle: -angles.d90))
         topShadowLayerPath.addArc(withCenter: cornerCenters.topLeft,
                                   radius: cornerRadius - 6,
                                   startAngle: -angles.d90,
                                   endAngle: -angles.d180,
                                   clockwise: false)
         topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
-                                                        radius: cornerRadius - 6,
-                                                        angle: -angles.d180))
+                                               radius: cornerRadius - 6,
+                                               angle: -angles.d180))
         topShadowLayerPath.addArc(withCenter: cornerCenters.bottomLeft,
                                   radius: cornerRadius - 6,
                                   startAngle: angles.d180,
                                   endAngle: angles.d135,
                                   clockwise: false)
         topShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
-                                                        radius: cornerRadius,
-                                                        angle: angles.d135))
-
+                                               radius: cornerRadius,
+                                               angle: angles.d135))
+        
         
         topShadowLayer?.path = topShadowLayerPath.cgPath
         topShadowLayer?.shadowPath = topShadowLayerPath.cgPath
         
         let bottomShadowLayerPath = UIBezierPath()
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.topRight,
-                                  radius: cornerRadius,
-                                  startAngle: -angles.d45,
-                                  endAngle: angles.d0,
-                                  clockwise: true)
+                                     radius: cornerRadius,
+                                     startAngle: -angles.d45,
+                                     endAngle: angles.d0,
+                                     clockwise: true)
         bottomShadowLayerPath.addLine(to: CGPoint(x: rect.width, y: rect.height - cornerRadius))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.bottomRight,
                                      radius: cornerRadius,
@@ -176,32 +176,32 @@ class NMView: UIView {
                                      endAngle: angles.d135,
                                      clockwise: true)
         bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomLeft,
-                                                        radius: cornerRadius - 6,
-                                                        angle: angles.d135))
+                                                  radius: cornerRadius - 6,
+                                                  angle: angles.d135))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.bottomLeft,
                                      radius: cornerRadius - 6,
                                      startAngle: angles.d135,
                                      endAngle: angles.d90,
                                      clockwise: false)
         bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.bottomRight,
-                                                        radius: cornerRadius - 6,
-                                                        angle: angles.d90))
+                                                  radius: cornerRadius - 6,
+                                                  angle: angles.d90))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.bottomRight,
                                      radius: cornerRadius - 6,
                                      startAngle: angles.d90,
                                      endAngle: angles.d0,
                                      clockwise: false)
         bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
-                                                        radius: cornerRadius - 6,
-                                                        angle: angles.d0))
+                                                  radius: cornerRadius - 6,
+                                                  angle: angles.d0))
         bottomShadowLayerPath.addArc(withCenter: cornerCenters.topRight,
-                                  radius: cornerRadius - 6,
-                                  startAngle: angles.d0,
-                                  endAngle: -angles.d45,
-                                  clockwise: false)
+                                     radius: cornerRadius - 6,
+                                     startAngle: angles.d0,
+                                     endAngle: -angles.d45,
+                                     clockwise: false)
         bottomShadowLayerPath.addLine(to: CGPoint(center: cornerCenters.topRight,
-                                                        radius: cornerRadius,
-                                                        angle: -angles.d45))
+                                                  radius: cornerRadius,
+                                                  angle: -angles.d45))
         
         bottomShadowLayer?.path = bottomShadowLayerPath.cgPath
         bottomShadowLayer?.shadowPath = bottomShadowLayerPath.cgPath
@@ -217,7 +217,7 @@ class NMView: UIView {
         topShadowLayer?.shadowOffset = topShadowOffset.convex
         topShadowLayer?.shadowRadius = shadowRadius
         topShadowLayer?.shadowOpacity = isDarkMode ? 0.1 : 0.8
-
+        
         bottomShadowLayer?.fillColor = UIColor.clear.cgColor
         bottomShadowLayer?.shadowColor = bottomShadowColor.convex
         bottomShadowLayer?.shadowOffset = bottomShadowOffset.convex
@@ -248,5 +248,5 @@ class NMView: UIView {
         backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
         foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
     }
- 
+    
 }

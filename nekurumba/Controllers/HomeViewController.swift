@@ -364,8 +364,6 @@ class HomeViewController: UIViewController {
     
     @objc private func dayChanged() {
         isNightMode = loadIsNightMode()
-
-        
     }
     
 }

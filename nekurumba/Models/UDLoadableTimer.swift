@@ -56,7 +56,6 @@ class UDLoadableTimer {
         defaults.set(resignDate, forKey: "resignTime_\(defaultsKey)")
         defaults.set(currentTime.value, forKey: "resignValue_\(defaultsKey)")
         defaults.set(isActive, forKey: "isActive_\(defaultsKey)")
-
     }
     
     func loadFromDefaults() {

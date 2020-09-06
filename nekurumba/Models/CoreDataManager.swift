@@ -62,7 +62,7 @@ class CoreDataManager {
         let day = Int32(calendar.component(.day, from: date))
         let hour = Int32(calendar.component(.hour, from: date))
         let minute = Int32(calendar.component(.minute, from: date))
-            
+        
         let tracker = NSManagedObject(entity: entity, insertInto: context)
         tracker.setValue(year, forKey: yearKey)
         tracker.setValue(month, forKey: monthKey)
@@ -82,7 +82,7 @@ class CoreDataManager {
         let d = Int32(day)
         let h = Int32(hour)
         let min = Int32(minute)
-            
+        
         let tracker = NSManagedObject(entity: entity, insertInto: context)
         tracker.setValue(y, forKey: yearKey)
         tracker.setValue(mo, forKey: monthKey)
