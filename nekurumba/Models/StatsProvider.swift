@@ -179,7 +179,7 @@ class StatsProvider {
                                 let interval = Int(((tracks[i + 1].hour) * 60 + (tracks[i + 1].minute)) - ((tracks[i].hour) * 60 + (tracks[i].minute)))
                                 avgInterval += interval
                             }
-                            avgInterval /= tracks.count
+                            avgInterval /= tracks.count - 1
                             
                             if avgInterval > 100 {
                                 isMoreThanHundred = true
@@ -308,7 +308,7 @@ class StatsProvider {
                                 let interval = Int(((tracks[i + 1].hour) * 60 + (tracks[i + 1].minute)) - ((tracks[i].hour) * 60 + (tracks[i].minute)))
                                 avgInterval += interval
                             }
-                            avgInterval /= tracks.count
+                            avgInterval /= tracks.count - 1
                             
                             if avgInterval > 100 {
                                 isMoreThanHundred = true
