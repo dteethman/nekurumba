@@ -6,8 +6,8 @@ class NMView: UIView {
     private var topShadowLayer: CAShapeLayer!
     private var bottomShadowLayer: CAShapeLayer!
     private var backgroundViewMask: UIView!
-    private var backgroundView: UIView!
-    private var foregroundView: UIView!
+    private var backgroundView: NMGradient!
+    private var foregroundView: NMGradient!
     
     private var topShadowOffset = (convex: CGSize(width: -6, height: -6), concave: CGSize(width: 0, height: 0))
     private var bottomShadowOffset = (convex: CGSize(width: 6, height: 6), concave: CGSize(width: 0, height: 0))
@@ -63,18 +63,21 @@ class NMView: UIView {
         backgroundViewMask.backgroundColor = .clear
         self.addSubview(backgroundViewMask)
         
-        backgroundView = UIView()
+        backgroundView = NMGradient()
+        backgroundView.bgColors = bgColors
         backgroundView.frame = rect
         backgroundView.layer.cornerRadius = cornerRadius
+        backgroundView.layer.masksToBounds = true
         backgroundViewMask.addSubview(backgroundView)
         
         topShadowLayer = CAShapeLayer()
         bottomShadowLayer = CAShapeLayer()
         addShadowPaths(rect: rect)
-        backgroundView.layer.addSublayer(topShadowLayer)
-        backgroundView.layer.addSublayer(bottomShadowLayer)
+        backgroundViewMask.layer.addSublayer(topShadowLayer)
+        backgroundViewMask.layer.addSublayer(bottomShadowLayer)
         
-        foregroundView = UIView()
+        foregroundView = NMGradient()
+        foregroundView.bgColors = bgColors
         foregroundView.frame = rect
         foregroundView.layer.cornerRadius = cornerRadius
         foregroundView.layer.masksToBounds = true

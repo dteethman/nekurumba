@@ -3,6 +3,7 @@ import DTBunchOfExt
 
 class StatsViewController: UIViewController {
     //MARK: - Variables
+    private var backgroundView = NMGradient()
     private var segmentedControl: NMSegmentedControl!
     private var titleLabel: UILabel!
     private var statsTableView: UITableView!
@@ -48,6 +49,11 @@ class StatsViewController: UIViewController {
     
     //MARK: - Layout
     private func setupViews() {
+        backgroundView = NMGradient()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.bgColors = bgColors
+        self.view.addSubview(backgroundView)
+        
         let safeGuide = view.safeAreaLayoutGuide
         
         titleLabel = UILabel()
@@ -80,6 +86,12 @@ class StatsViewController: UIViewController {
         updateData()
         
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: 20),

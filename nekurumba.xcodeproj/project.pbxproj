@@ -35,6 +35,7 @@
 		42F3128224E4D46200050D0E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3128124E4D46200050D0E /* OnboardingView.swift */; };
 		42F99FB524E97569004955C9 /* NightModeChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB424E97569004955C9 /* NightModeChangerViewController.swift */; };
 		42F99FB724E99E28004955C9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F99FB624E99E28004955C9 /* Keys.swift */; };
+		42FA1A622504EA1E00EEBF3F /* NMGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA1A612504EA1E00EEBF3F /* NMGradient.swift */; };
 		42FA7D7A24C1CC6300D74068 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7924C1CC6300D74068 /* TabBarController.swift */; };
 		42FA7D7C24C1CC6B00D74068 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */; };
 		42FA7D7E24C1CC7D00D74068 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA7D7D24C1CC7D00D74068 /* TabItem.swift */; };
@@ -79,6 +80,7 @@
 		42F3128124E4D46200050D0E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		42F99FB424E97569004955C9 /* NightModeChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightModeChangerViewController.swift; sourceTree = "<group>"; };
 		42F99FB624E99E28004955C9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		42FA1A612504EA1E00EEBF3F /* NMGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMGradient.swift; sourceTree = "<group>"; };
 		42FA7D7924C1CC6300D74068 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42FA7D7B24C1CC6B00D74068 /* TabNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
 		42FA7D7D24C1CC7D00D74068 /* TabItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				425C274A24C6788300AE8C7B /* NMSegmentedControl.swift */,
 				42A6536724CB19B900681D8F /* NMLineChartView.swift */,
 				423DD1BF24DD8561005BFEB1 /* NMMultiLevelCircularSlider.swift */,
+				42FA1A612504EA1E00EEBF3F /* NMGradient.swift */,
 			);
 			path = NeomorpKit;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FA1A622504EA1E00EEBF3F /* NMGradient.swift in Sources */,
 				42A6536324CB104A00681D8F /* StatData.swift in Sources */,
 				42A6536A24CB1A6C00681D8F /* StatsTableViewDelegate.swift in Sources */,
 				42FA7D9924C2398D00D74068 /* CoreDataManager.swift in Sources */,

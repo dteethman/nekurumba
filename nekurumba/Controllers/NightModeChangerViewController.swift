@@ -3,6 +3,7 @@ import DTBunchOfExt
 
 class NightModeChangerViewController: UIViewController {
     //MARK: - Variables
+    private var backgroundView = NMGradient()
     private var sliderView: NMMultiLevelCircularSlider!
     private var sliderLabel: UILabel!
     private var backButton: NMButton!
@@ -48,7 +49,11 @@ class NightModeChangerViewController: UIViewController {
 
     //MARK: - Layout
     private func setupViews() {
-        view.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        backgroundView = NMGradient()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.bgColors = bgColors
+        self.view.addSubview(backgroundView)
+        
         let safeGuide = view.safeAreaLayoutGuide
 
         backButton = NMButton()
@@ -81,6 +86,11 @@ class NightModeChangerViewController: UIViewController {
         self.view.addSubview(sliderLabel)
 
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
             backButton.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 14),
             backButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
             backButton.widthAnchor.constraint(equalToConstant: 40),

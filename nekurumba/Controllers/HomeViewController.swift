@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     private var highlightCollectionViewDelegate = HighlightCollectionViewDelegate()
     private var highlightCollectionViewDataSource = HighlightCollectionViewDataSource()
     
+    private var backgroundView = NMGradient()
     private var timerView: NMProgressViewWithButton!
     private var titleLabel: UILabel!
     private var highlightsLabel: UILabel!
@@ -144,6 +145,11 @@ class HomeViewController: UIViewController {
         
         let safeGuide = view.safeAreaLayoutGuide
         
+        backgroundView = NMGradient()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.bgColors = bgColors
+        self.view.addSubview(backgroundView)
+        
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Некурёмба"
@@ -192,6 +198,11 @@ class HomeViewController: UIViewController {
         self.view.addSubview(highlightCollectionView)
          
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),

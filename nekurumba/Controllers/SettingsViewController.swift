@@ -5,6 +5,8 @@ class SettingsViewController: UIViewController {
     // MARK: - Variables
     private var titleLabel: UILabel!
     
+    private var backgroundView = NMGradient()
+    
     private var intervalBackgroundView: NMView!
     private var intervalBackgroundViewMask: UIView!
     private var intervalLabel: UILabel!
@@ -96,6 +98,10 @@ class SettingsViewController: UIViewController {
         let descriptionTextViewWidth = UIScreen.main.bounds.width - 64
         let descriptionTextViewFont = UIFont.systemFont(ofSize: 13, weight: .regular)
         
+        backgroundView = NMGradient()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.bgColors = bgColors
+        self.view.addSubview(backgroundView)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -105,6 +111,11 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
             titleLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -20),

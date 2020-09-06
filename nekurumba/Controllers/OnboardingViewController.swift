@@ -8,6 +8,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     private var scrollView: UIScrollView!
     private var pageControl: UIPageControl!
     private var intervalButton: NMButton!
+    private var backgroundView = NMGradient()
     
     private let onboardingDataArray: [(titleText: String, emoji: String, shortDesc: String, fullDesc: String)] = [
         (
@@ -86,6 +87,11 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK: - Layout
     func setupViews() {
+        backgroundView = NMGradient()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.bgColors = bgColors
+        self.view.addSubview(backgroundView)
+        
         let safeGuide = view.safeAreaLayoutGuide
         
         scrollView = UIScrollView()
@@ -106,6 +112,11 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(pageControl)
         
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
             pageControl.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: -19),
             pageControl.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor),
