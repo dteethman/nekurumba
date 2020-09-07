@@ -227,8 +227,8 @@ class NMView: UIView {
         bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode ? 0.5 : 0.2
         
-        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        backgroundView?.bgColors = bgColors
+        foregroundView?.bgColors = bgColors
     }
     
     private func layoutForConcave() {
@@ -248,8 +248,8 @@ class NMView: UIView {
         bottomShadowLayer?.shadowRadius = shadowRadius
         bottomShadowLayer?.shadowOpacity = isDarkMode ? 0.1 : 0.8
         
-        backgroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
-        foregroundView?.backgroundColor = colorForMode(bgColors, isDarkMode: isDarkMode)
+        backgroundView?.bgColors = bgColors
+        foregroundView?.bgColors = bgColors
     }
     
 }

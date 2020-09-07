@@ -21,11 +21,7 @@ class NMGradient: UIView {
     
     fileprivate func setupGradient(_ rect: CGRect) {
         gradientLayer = CAGradientLayer()
-        if isDarkMode {
-            gradientLayer.colors = [bgColors.dark.getGradientColor(at: 0.08, with: bgColors.light).cgColor ,bgColors.dark.cgColor]
-        } else {
-            gradientLayer.colors = [bgColors.light.cgColor, bgColors.light.getGradientColor(at: 0.08, with: bgColors.dark).cgColor]
-        }
+        gradientLayer.colors = getGradienColors(isDarkMode: isDarkMode)
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientLayer.type = .axial
@@ -33,14 +29,17 @@ class NMGradient: UIView {
         layer.addSublayer(gradientLayer)
     }
     
+    private func getGradienColors(isDarkMode: Bool) -> [CGColor] {
+        if isDarkMode {
+            return [bgColors.dark.getGradientColor(at: 0.08, with: bgColors.light).cgColor ,bgColors.dark.cgColor]
+        } else {
+            return [bgColors.light.cgColor, bgColors.light.getGradientColor(at: 0.08, with: bgColors.dark).cgColor]
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        if let layers = self.layer.sublayers {
-            for layer in layers {
-                    layer.removeFromSuperlayer()
-             }
-        }
+        gradientLayer?.colors = getGradienColors(isDarkMode: isDarkMode)
         
-        setupGradient(self.bounds)
     }
 }
