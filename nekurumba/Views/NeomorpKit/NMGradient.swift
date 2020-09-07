@@ -3,6 +3,7 @@ import UIKit
 class NMGradient: UIView {
     //MARK: - Variables
     private var gradientLayer: CAGradientLayer!
+    public var instantColorChange = true
     
     public var bgColors: ColorSet = ColorSet(light: UIColor.white, dark: UIColor.black) {
         didSet {
@@ -39,7 +40,15 @@ class NMGradient: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer?.colors = getGradienColors(isDarkMode: isDarkMode)
+        
+        if !instantColorChange {
+            gradientLayer?.colors = getGradienColors(isDarkMode: isDarkMode)
+        } else {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            gradientLayer?.colors = getGradienColors(isDarkMode: isDarkMode)
+            CATransaction.commit()
+        }
         
     }
 }

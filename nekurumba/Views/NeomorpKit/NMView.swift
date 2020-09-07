@@ -51,6 +51,13 @@ class NMView: UIView {
         }
     }
     
+    public var instantColorChange = true {
+        didSet {
+            backgroundView?.instantColorChange = instantColorChange
+            foregroundView?.instantColorChange = instantColorChange
+        }
+    }
+    
     //MARK: - Draw
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else {
@@ -68,6 +75,7 @@ class NMView: UIView {
         backgroundView.frame = rect
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.layer.masksToBounds = true
+        backgroundView.instantColorChange = instantColorChange
         backgroundViewMask.addSubview(backgroundView)
         
         topShadowLayer = CAShapeLayer()
@@ -81,6 +89,7 @@ class NMView: UIView {
         foregroundView.frame = rect
         foregroundView.layer.cornerRadius = cornerRadius
         foregroundView.layer.masksToBounds = true
+        foregroundView.instantColorChange = instantColorChange
         
         self.addSubview(foregroundView)
         

@@ -55,7 +55,6 @@ class NMSwitch: UIView {
     
     public var isActive: Bool = true {
         didSet {
-            
             if isActive {
                 pickerLeadingConstraint?.isActive = false
                 pickerTrailingConstraint?.isActive = true
@@ -97,6 +96,7 @@ class NMSwitch: UIView {
         foregroundView = NMView()
         foregroundView.translatesAutoresizingMaskIntoConstraints = false
         foregroundView.bgColors = isActive ? accentColors : bgColors
+        foregroundView.instantColorChange = false
         foregroundView.cornerRadius = cornerRadius - 5
         foregroundView.isConvex = false
         self.addSubview(foregroundView)
